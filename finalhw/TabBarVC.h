@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  TabBarVC.h
 //  finalhw
 //
 //  Created by hungyam on 2021/11/11.
@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface TabBarVC : UITabBarController
 
 
 @end

@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		302A35D1274BF2D2003BAED3 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 302A35D0274BF2D2003BAED3 /* LoginVC.m */; };
+		302A35D3274BF2E4003BAED3 /* SignUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 302A35D2274BF2E4003BAED3 /* SignUpVC.m */; };
 		3037CB16273D137C0013EEBB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3037CB15273D137C0013EEBB /* AppDelegate.m */; };
 		3037CB19273D137C0013EEBB /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3037CB18273D137C0013EEBB /* SceneDelegate.m */; };
-		3037CB1C273D137C0013EEBB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3037CB1B273D137C0013EEBB /* ViewController.m */; };
-		3037CB1F273D137C0013EEBB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3037CB1D273D137C0013EEBB /* Main.storyboard */; };
+		3037CB1C273D137C0013EEBB /* TabBarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3037CB1B273D137C0013EEBB /* TabBarVC.m */; };
 		3037CB21273D13840013EEBB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3037CB20273D13840013EEBB /* Assets.xcassets */; };
 		3037CB24273D13840013EEBB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3037CB22273D13840013EEBB /* LaunchScreen.storyboard */; };
 		3037CB27273D13840013EEBB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3037CB26273D13840013EEBB /* main.m */; };
@@ -37,14 +38,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		302A35CE274BF2A1003BAED3 /* LoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
+		302A35CF274BF2C0003BAED3 /* SignUpVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpVC.h; sourceTree = "<group>"; };
+		302A35D0274BF2D2003BAED3 /* LoginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
+		302A35D2274BF2E4003BAED3 /* SignUpVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpVC.m; sourceTree = "<group>"; };
 		3037CB11273D137C0013EEBB /* finalhw.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = finalhw.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3037CB14273D137C0013EEBB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3037CB15273D137C0013EEBB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3037CB17273D137C0013EEBB /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		3037CB18273D137C0013EEBB /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		3037CB1A273D137C0013EEBB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		3037CB1B273D137C0013EEBB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		3037CB1E273D137C0013EEBB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3037CB1A273D137C0013EEBB /* TabBarVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarVC.h; sourceTree = "<group>"; };
+		3037CB1B273D137C0013EEBB /* TabBarVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarVC.m; sourceTree = "<group>"; };
 		3037CB20273D13840013EEBB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3037CB23273D13840013EEBB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3037CB25273D13840013EEBB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -81,6 +85,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		302A35D4274BF719003BAED3 /* DetailPage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DetailPage;
+			sourceTree = "<group>";
+		};
+		302A35D5274BF73E003BAED3 /* StartPage */ = {
+			isa = PBXGroup;
+			children = (
+				302A35CE274BF2A1003BAED3 /* LoginVC.h */,
+				302A35CF274BF2C0003BAED3 /* SignUpVC.h */,
+				302A35D0274BF2D2003BAED3 /* LoginVC.m */,
+				302A35D2274BF2E4003BAED3 /* SignUpVC.m */,
+			);
+			path = StartPage;
+			sourceTree = "<group>";
+		};
+		302A35D6274BF772003BAED3 /* ChartPage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ChartPage;
+			sourceTree = "<group>";
+		};
+		302A35D7274BF7B4003BAED3 /* ExtendedPage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ExtendedPage;
+			sourceTree = "<group>";
+		};
+		302A35D8274BF81C003BAED3 /* PersonalPage */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PersonalPage;
+			sourceTree = "<group>";
+		};
+		302A35D9274BF885003BAED3 /* NewEntry */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NewEntry;
+			sourceTree = "<group>";
+		};
 		3037CB08273D137C0013EEBB = {
 			isa = PBXGroup;
 			children = (
@@ -104,17 +154,22 @@
 		3037CB13273D137C0013EEBB /* finalhw */ = {
 			isa = PBXGroup;
 			children = (
+				302A35D5274BF73E003BAED3 /* StartPage */,
+				302A35D4274BF719003BAED3 /* DetailPage */,
+				302A35D6274BF772003BAED3 /* ChartPage */,
+				302A35D9274BF885003BAED3 /* NewEntry */,
+				302A35D7274BF7B4003BAED3 /* ExtendedPage */,
+				302A35D8274BF81C003BAED3 /* PersonalPage */,
 				3037CB14273D137C0013EEBB /* AppDelegate.h */,
-				3037CB15273D137C0013EEBB /* AppDelegate.m */,
 				3037CB17273D137C0013EEBB /* SceneDelegate.h */,
+				3037CB1A273D137C0013EEBB /* TabBarVC.h */,
+				3037CB15273D137C0013EEBB /* AppDelegate.m */,
+				3037CB26273D13840013EEBB /* main.m */,
 				3037CB18273D137C0013EEBB /* SceneDelegate.m */,
-				3037CB1A273D137C0013EEBB /* ViewController.h */,
-				3037CB1B273D137C0013EEBB /* ViewController.m */,
-				3037CB1D273D137C0013EEBB /* Main.storyboard */,
+				3037CB1B273D137C0013EEBB /* TabBarVC.m */,
+				3037CB25273D13840013EEBB /* Info.plist */,
 				3037CB20273D13840013EEBB /* Assets.xcassets */,
 				3037CB22273D13840013EEBB /* LaunchScreen.storyboard */,
-				3037CB25273D13840013EEBB /* Info.plist */,
-				3037CB26273D13840013EEBB /* main.m */,
 			);
 			path = finalhw;
 			sourceTree = "<group>";
@@ -241,7 +296,6 @@
 			files = (
 				3037CB24273D13840013EEBB /* LaunchScreen.storyboard in Resources */,
 				3037CB21273D13840013EEBB /* Assets.xcassets in Resources */,
-				3037CB1F273D137C0013EEBB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,8 +320,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3037CB1C273D137C0013EEBB /* ViewController.m in Sources */,
+				302A35D3274BF2E4003BAED3 /* SignUpVC.m in Sources */,
+				3037CB1C273D137C0013EEBB /* TabBarVC.m in Sources */,
 				3037CB16273D137C0013EEBB /* AppDelegate.m in Sources */,
+				302A35D1274BF2D2003BAED3 /* LoginVC.m in Sources */,
 				3037CB27273D13840013EEBB /* main.m in Sources */,
 				3037CB19273D137C0013EEBB /* SceneDelegate.m in Sources */,
 			);
@@ -306,14 +362,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		3037CB1D273D137C0013EEBB /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3037CB1E273D137C0013EEBB /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		3037CB22273D13840013EEBB /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -449,7 +497,6 @@
 				INFOPLIST_FILE = finalhw/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -476,7 +523,6 @@
 				INFOPLIST_FILE = finalhw/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
