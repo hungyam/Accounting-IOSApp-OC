@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TabBarVC.h"
+#import "StartNaviVC.h"
 
 @interface SceneDelegate : UIResponder <UIWindowSceneDelegate>
 
