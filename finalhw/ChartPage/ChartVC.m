@@ -235,11 +235,12 @@
             label.text=[NSString stringWithFormat:@"%ld",i+1];
         }
         
-        label.textAlignment = UITextAlignmentCenter;
+        label.textAlignment = NSTextAlignmentCenter;
         [picView addSubview:label];
     }
     return  picView;
 }
+
 -(int)getdaysin:(NSInteger)year and:(NSInteger)month{
     if(month==1||month==3||month==5||month==7||month==8||month==10||month==12){
         return 31;
@@ -252,6 +253,8 @@
     }
     return 30;
 }
+
+
 -(void)drawline:(UIView*)picView{
     UIBezierPath * path = [[UIBezierPath alloc]init];
     path.lineWidth = 1.0;
@@ -271,10 +274,18 @@
         pointview.backgroundColor=[UIColor whiteColor];
         pointview.layer.borderColor=[[UIColor blackColor]CGColor];
         pointview.layer.borderWidth=1;
+        
+        UIView*taparea=[[UIView alloc] initWithFrame:CGRectMake(point.x-6,point.y-6, 12, 12)];
+        taparea.layer.masksToBounds=YES;
+        taparea.layer.cornerRadius=6;
+        taparea.backgroundColor=[UIColor clearColor];
+        taparea.layer.borderWidth=0;
+
         UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapevent:)];
-        [pointview addGestureRecognizer:tapGesture];
+        [taparea addGestureRecognizer:tapGesture];
         
         [picView addSubview:pointview];
+        [picView addSubview:taparea];
         tapGesture.view.tag=i;
     }
    
@@ -288,16 +299,19 @@
 }
 
 - (void)tapevent:(UITapGestureRecognizer *)gesture {
+    NSInteger pos=gesture.view.tag;
     if(self.labelinUse!=nil){
+        if(pos==self.labelinUse.tag){
+            return;
+        }
         [self.labelinUse removeFromSuperview];
     }
     if(self.labelline!=nil){
         [self.labelline removeFromSuperlayer];
     }
-    if(gesture.view.tag==-1){
+    if(pos==-1){
         return;
     }
-    NSInteger pos=gesture.view.tag;
     CGPoint startPoint = CGPointMake(self.lineoffset+self.xSpace*pos+20, self.ySpace*2);
     CGPoint endPoint = CGPointMake(self.lineoffset+self.xSpace*pos+20,8*self.ySpace);
     
@@ -323,7 +337,7 @@
     pathAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
     pathAnimation.toValue = [NSNumber numberWithFloat:1.0f];
     // 设置动画代理，动画结束时添加一个标签，显示折线终点的信息
-    pathAnimation.delegate = self;
+    pathAnimation.delegate = (id)self;
     [labelLineLayer addAnimation:pathAnimation forKey:@"strokeEnd"];
     
     
@@ -336,8 +350,9 @@
     label.layer.masksToBounds = YES;
     label.font=[UIFont systemFontOfSize:12];
     label.textColor=[UIColor whiteColor];
+    label.tag=pos;
     self.labelinUse=label;
-    label.textAlignment = UITextAlignmentCenter;
+    label.textAlignment = NSTextAlignmentCenter;
     [self.picViewinUse addSubview:label];
  }
 -(void)beginDraw:(NSInteger)mode
@@ -360,7 +375,7 @@
     pathAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
     pathAnimation.toValue = [NSNumber numberWithFloat:1.0f];
     // 设置动画代理，动画结束时添加一个标签，显示折线终点的信息
-    pathAnimation.delegate = self;
+    pathAnimation.delegate = (id)self;
     [self.lineChartLayer addAnimation:pathAnimation forKey:@"strokeEnd"];
 }
 @end
