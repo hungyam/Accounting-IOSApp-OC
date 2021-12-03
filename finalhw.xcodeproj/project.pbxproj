@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3017956A27589AF300EB0002 /* StartNaviVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3017956927589AF300EB0002 /* StartNaviVC.m */; };
+		30179573275A36AC00EB0002 /* userTest.png in Resources */ = {isa = PBXBuildFile; fileRef = 30179572275A36AC00EB0002 /* userTest.png */; };
 		302A35D1274BF2D2003BAED3 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 302A35D0274BF2D2003BAED3 /* LoginVC.m */; };
 		302A35D3274BF2E4003BAED3 /* SignUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 302A35D2274BF2E4003BAED3 /* SignUpVC.m */; };
 		3036FC28274C8D5E00ECDF89 /* DetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3036FC27274C8D5E00ECDF89 /* DetailVC.m */; };
@@ -47,6 +48,7 @@
 		3017956927589AF300EB0002 /* StartNaviVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StartNaviVC.m; sourceTree = "<group>"; };
 		3017956B27589B0900EB0002 /* StartNaviVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StartNaviVC.h; sourceTree = "<group>"; };
 		3017956C2758C1D400EB0002 /* keepMethod.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = keepMethod.m; sourceTree = "<group>"; };
+		30179572275A36AC00EB0002 /* userTest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userTest.png; sourceTree = "<group>"; };
 		302A35CE274BF2A1003BAED3 /* LoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		302A35CF274BF2C0003BAED3 /* SignUpVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpVC.h; sourceTree = "<group>"; };
 		302A35D0274BF2D2003BAED3 /* LoginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
@@ -104,6 +106,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		30179570275A348800EB0002 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				30179572275A36AC00EB0002 /* userTest.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		302A35D4274BF719003BAED3 /* DetailPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +195,7 @@
 		3037CB13273D137C0013EEBB /* finalhw */ = {
 			isa = PBXGroup;
 			children = (
+				30179570275A348800EB0002 /* Resources */,
 				302A35D5274BF73E003BAED3 /* StartPage */,
 				302A35D4274BF719003BAED3 /* DetailPage */,
 				302A35D6274BF772003BAED3 /* ChartPage */,
@@ -326,6 +337,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30179573275A36AC00EB0002 /* userTest.png in Resources */,
 				3037CB24273D13840013EEBB /* LaunchScreen.storyboard in Resources */,
 				3037CB21273D13840013EEBB /* Assets.xcassets in Resources */,
 			);

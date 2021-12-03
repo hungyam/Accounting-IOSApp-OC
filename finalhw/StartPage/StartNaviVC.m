@@ -6,6 +6,7 @@
 //
 
 #import "StartNaviVC.h"
+#define MainColor [UIColor colorWithRed:244/255.0 green:92/255.0 blue:99/255.0 alpha:1]
 
 @interface StartNaviVC ()
 
@@ -22,6 +23,7 @@
     // Do any additional setup after loading the view.
     [self pushViewController:self.tabBarVC animated:NO];
     [self pushViewController:self.loginVC animated:NO];
+    [self pushViewController:self.signUpVC animated:NO];
 }
 
 - (LoginVC *)loginVC {
@@ -36,7 +38,14 @@
     if (_signUpVC == nil) {
         _signUpVC = [[SignUpVC alloc]init];
         _signUpVC.view.backgroundColor = [UIColor whiteColor];
-        [_signUpVC.navigationItem.backBarButtonItem setTitle:@"返回登录"];
+        UIButton *btn = [[UIButton alloc]init];
+        [btn setImage:[UIImage systemImageNamed:@"chevron.backward"] forState:UIControlStateNormal];
+        [btn setTitle:@"返回" forState:UIControlStateNormal];
+        [btn setTintColor:MainColor];
+        [btn setTitleColor:MainColor forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(backToLoginVC) forControlEvents:UIControlEventTouchDown];
+        UIBarButtonItem *btnItem = [[UIBarButtonItem alloc]initWithCustomView:btn];
+        _signUpVC.navigationItem.leftBarButtonItems = @[btnItem];
     }
     return _signUpVC;
 }
