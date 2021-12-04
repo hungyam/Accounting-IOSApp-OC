@@ -60,7 +60,7 @@
 - (UIImageView *)userImg {
     if (_userImg == nil) {
         _userImg = [[UIImageView alloc] initWithFrame:CGRectMake(7 Wper, 20 Hper, 28 Wper, 28 Wper)];
-        _userImg.image = [UIImage imageNamed:@"userTest.png"];
+        _userImg.image = [UIImage imageNamed:@"userImg.png"];
         _userImg.layer.cornerRadius = 60;
         _userImg.layer.masksToBounds = YES;
         _userImg.backgroundColor = [UIColor orangeColor];

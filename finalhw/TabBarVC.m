@@ -6,6 +6,7 @@
 //
 
 #import "TabBarVC.h"
+#define MainColor [UIColor colorWithRed:244/255.0 green:105/255.0 blue:123/255.0 alpha:1]
 
 @interface TabBarVC ()
 
@@ -19,6 +20,9 @@
 @property (nonatomic, strong) ExtendedVC* extendedVC;
 //PersonalPage RootVC
 @property (nonatomic, strong) PersonalVC* personalVC;
+
+@property(nonatomic,strong)UIButton *centerButton;
+@property(nonatomic,strong)UILabel *centerLabel;
 
 @end
 
@@ -34,6 +38,9 @@
         self.extendedVC,
         self.personalVC
     ];
+    self.tabBar.backgroundColor = [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1];
+    self.tabBar.tintColor = MainColor;
+    self.selectedIndex = 4;
 }
 
 - (DetailVC *)detailVC {

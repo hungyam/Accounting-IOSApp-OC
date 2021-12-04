@@ -19,11 +19,11 @@
 @property (nonatomic, strong) UIButton *goToLogin;
 @property (nonatomic, strong) UIButton *goToSignUp;
 @property (nonatomic, strong) UIView *loginArea;
-@property (nonatomic, strong) UILabel *usernameLable;
-@property (nonatomic, strong) UILabel *passwordLable;
-@property (nonatomic, strong) UITextView *usernameInput;
-@property (nonatomic, strong) UITextView *passwordInput;
-@property (nonatomic, strong) UIButton *submitButton;
+    @property (nonatomic, strong) UILabel *usernameLable;
+    @property (nonatomic, strong) UILabel *passwordLable;
+    @property (nonatomic, strong) UITextView *usernameInput;
+    @property (nonatomic, strong) UITextView *passwordInput;
+    @property (nonatomic, strong) UIButton *submitButton;
 
 @end
 
@@ -40,16 +40,15 @@
     //Set backgroundColor
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
     gradientLayer.frame = self.view.bounds;
-    [self.view.layer addSublayer:gradientLayer];
+    gradientLayer.startPoint = CGPointMake(0, 1);
+    gradientLayer.endPoint = CGPointMake(1, 0);
+    gradientLayer.zPosition = -1;
     gradientLayer.colors = @[
         (__bridge id)[UIColor colorWithRed:255/255.0 green:54/255.0 blue:117/255.0 alpha:1].CGColor,
         (__bridge id)[UIColor colorWithRed:255/255.0 green:106/255.0 blue:93/255.0 alpha:1].CGColor
     ];
-    gradientLayer.startPoint = CGPointMake(0, 1);
-    gradientLayer.endPoint = CGPointMake(1, 0);
-    gradientLayer.zPosition = -1;
-    NSLog(@"%lf %lf", 100 Wper, 100 Hper);
-    NSLog(@"%lf %lf", 100 SubWper, 100 SubHper);
+    [self.view.layer addSublayer:gradientLayer];
+    
 }
 
 - (UILabel *)welcomeTips {
