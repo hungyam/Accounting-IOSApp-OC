@@ -23,7 +23,6 @@
     // Do any additional setup after loading the view.
     [self pushViewController:self.tabBarVC animated:NO];
     [self pushViewController:self.loginVC animated:NO];
-    [self pushViewController:self.signUpVC animated:NO];
 }
 
 - (LoginVC *)loginVC {
@@ -40,9 +39,7 @@
         _signUpVC.view.backgroundColor = [UIColor whiteColor];
         UIButton *btn = [[UIButton alloc]init];
         [btn setImage:[UIImage systemImageNamed:@"chevron.backward"] forState:UIControlStateNormal];
-        [btn setTitle:@"返回" forState:UIControlStateNormal];
         [btn setTintColor:MainColor];
-        [btn setTitleColor:MainColor forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(backToLoginVC) forControlEvents:UIControlEventTouchDown];
         UIBarButtonItem *btnItem = [[UIBarButtonItem alloc]initWithCustomView:btn];
         _signUpVC.navigationItem.leftBarButtonItems = @[btnItem];
