@@ -108,6 +108,7 @@
 -(float)getoffset{
     CGRect rectNav = self.navigationController.navigationBar.frame;
     CGRect rectStatus = [[UIApplication sharedApplication] statusBarFrame];
+    NSLog(@"%f %f",rectStatus.size.height,rectNav.size.height);
     return rectStatus.size.height+rectNav.size.height;
 }
 - (UIScrollView *)chartView {
@@ -217,6 +218,7 @@
 
 -(void)setbuttonline{
     float offset=[self getoffset];
+    NSLog(@"%f",offset);
     UIButton*b1=[[UIButton alloc] initWithFrame:CGRectMake(0, offset,100 Wper/3, self.ySpace-3)];
     UIButton*b2=[[UIButton alloc] initWithFrame:CGRectMake(100 Wper/3, offset, 100 Wper/3, self.ySpace-3)];
     UIButton*b3=[[UIButton alloc] initWithFrame:CGRectMake(100 Wper*2/3, offset, 100 Wper/3, self.ySpace-3)];
@@ -532,7 +534,7 @@
         end = [[self.databytime objectAtIndex:i]floatValue]* M_PI * 2 / self.total + start;
                 //图层
         
-        UIColor*color;//=[[UIColor alloc]initWithRed:(arc4random_uniform(255) + 1)/255 green:(arc4random_uniform(255) + 1)/255 blue:(arc4random_uniform(255) + 1)/255 alpha:1];
+        UIColor*color;
         if(i<self.colorofpie.count){
             color=[self.colorofpie objectAtIndex:i];
         }
@@ -556,7 +558,6 @@
         pie.lineWidth=0;
         pie.zPosition   = 2;
         pie.path        = partPath.CGPath;
-        NSLog(@"%f",end-start);
         
         [picView.layer addSublayer:pie];
                 //计算下一个start位置 = 当前end位置
