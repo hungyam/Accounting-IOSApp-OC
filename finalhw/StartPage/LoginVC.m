@@ -19,11 +19,11 @@
 @property (nonatomic, strong) UIButton *goToLogin;
 @property (nonatomic, strong) UIButton *goToSignUp;
 @property (nonatomic, strong) UIView *loginArea;
-@property (nonatomic, strong) UILabel *usernameLable;
-@property (nonatomic, strong) UILabel *passwordLable;
-@property (nonatomic, strong) UITextView *usernameInput;
-@property (nonatomic, strong) UITextView *passwordInput;
-@property (nonatomic, strong) UIButton *submitButton;
+    @property (nonatomic, strong) UILabel *usernameLable;
+    @property (nonatomic, strong) UILabel *passwordLable;
+    @property (nonatomic, strong) UITextView *usernameInput;
+    @property (nonatomic, strong) UITextView *passwordInput;
+    @property (nonatomic, strong) UIButton *submitButton;
 
 @end
 
@@ -40,19 +40,20 @@
     //Set backgroundColor
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
     gradientLayer.frame = self.view.bounds;
-    [self.view.layer addSublayer:gradientLayer];
+    gradientLayer.startPoint = CGPointMake(0, 1);
+    gradientLayer.endPoint = CGPointMake(1, 0);
+    gradientLayer.zPosition = -1;
     gradientLayer.colors = @[
         (__bridge id)[UIColor colorWithRed:255/255.0 green:54/255.0 blue:117/255.0 alpha:1].CGColor,
         (__bridge id)[UIColor colorWithRed:255/255.0 green:106/255.0 blue:93/255.0 alpha:1].CGColor
     ];
-    gradientLayer.startPoint = CGPointMake(0, 1);
-    gradientLayer.endPoint = CGPointMake(1, 0);
-    gradientLayer.zPosition = -1;
+    [self.view.layer addSublayer:gradientLayer];
+    
 }
 
 - (UILabel *)welcomeTips {
     if (_welcomeTips == nil) {
-        _welcomeTips = [[UILabel alloc] initWithFrame:CGRectMake(50 Wper - 150, 16 Hper - 30, 300, 60)];
+        _welcomeTips = [[UILabel alloc] initWithFrame:CGRectMake(15 Wper, 16 Hper - 30, 70 Wper, 6.5 Hper)];
         _welcomeTips.text = @"欢迎回来";
         _welcomeTips.alpha = 0;
         _welcomeTips.textAlignment = NSTextAlignmentCenter;
@@ -64,7 +65,7 @@
 
 - (UIButton *)goToLogin {
     if (_goToLogin == nil) {
-        _goToLogin = [[UIButton alloc] initWithFrame:CGRectMake(50 Wper - 190, 82 Hper - 28, 380, 56)];
+        _goToLogin = [[UIButton alloc] initWithFrame:CGRectMake(5.6 Wper, 79 Hper, 88.8 Wper, 6 Hper)];
         _goToLogin.backgroundColor = [UIColor whiteColor];
         _goToLogin.layer.cornerRadius = 6;
         [_goToLogin setTitleColor:MainColor forState:UIControlStateNormal];
@@ -96,7 +97,7 @@
 
 - (UIButton *)goToSignUp {
     if (_goToSignUp == nil) {
-        _goToSignUp = [[UIButton alloc] initWithFrame:CGRectMake(50 Wper - 190, 90 Hper - 28, 380, 56)];
+        _goToSignUp = [[UIButton alloc] initWithFrame:CGRectMake(5.6 Wper, 87 Hper, 88.8 Wper, 6 Hper)];
         _goToSignUp.backgroundColor = [UIColor clearColor];
         _goToSignUp.layer.borderWidth = 1.5;
         _goToSignUp.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -107,12 +108,12 @@
     return _goToSignUp;
 }
 - (void)goToSignUpAction {
-    [(StartNaviVC *)self.parentViewController goToSignUpVC];
+    [(StartNaviVC *)self.parentViewController loginToSignUpVC];
 }
 
 - (UIView *)loginArea {
     if (_loginArea == nil) {
-        _loginArea = [[UIView alloc]initWithFrame:CGRectMake(50 Wper - 190, 55 Hper - 200, 380, 300)];
+        _loginArea = [[UIView alloc]initWithFrame:CGRectMake(5.6 Wper, 32 Hper, 88.8 Wper, 32.4 Hper)];
         _loginArea.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.4];
         _loginArea.layer.cornerRadius = 20;
         [_loginArea addSubview:self.usernameLable];
@@ -129,7 +130,7 @@
 
 -(UILabel *)usernameLable {
     if (_usernameLable == nil) {
-        _usernameLable = [[UILabel alloc]initWithFrame:CGRectMake(25 SubWper - 50, 12 SubHper - 30, 100, 60)];
+        _usernameLable = [[UILabel alloc]initWithFrame:CGRectMake(11.85 SubWper, 2 SubHper, 26.3 SubWper, 20 SubHper)];
         _usernameLable.text = @"用户名";
         [_usernameLable setFont:[UIFont systemFontOfSize:16]];
         [_usernameLable setTextColor:[UIColor whiteColor]];
@@ -153,7 +154,7 @@
 
 - (UILabel *)passwordLable {
     if (_passwordLable == nil) {
-        _passwordLable = [[UILabel alloc]initWithFrame:CGRectMake(25 SubWper - 50, 45 SubHper - 30, 100, 60)];
+        _passwordLable = [[UILabel alloc]initWithFrame:CGRectMake(11.85 SubWper , 45 SubHper - 30, 26.3 SubWper, 60)];
         _passwordLable.text = @"密码";
         [_passwordLable setFont:[UIFont systemFontOfSize:16]];
         [_passwordLable setTextColor:[UIColor whiteColor]];
@@ -177,7 +178,7 @@
 
 - (UIButton *)submitButton {
     if (_submitButton == nil) {
-        _submitButton = [[UIButton alloc]initWithFrame:CGRectMake(50 SubWper - 150, 100 SubHper - 30, 300, 60)];
+        _submitButton = [[UIButton alloc]initWithFrame:CGRectMake(50 SubWper - 150, 100 SubHper - 48, 300, 60)];
         _submitButton.backgroundColor = [UIColor whiteColor];
         _submitButton.layer.cornerRadius = 30;
         _submitButton.layer.shadowColor = [UIColor grayColor].CGColor;

@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SettingVC.h"
 
 @interface PersonalVC : UIViewController
 

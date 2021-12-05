@@ -12,9 +12,10 @@
 
 @interface StartNaviVC : UINavigationController
 
-- (void)goToSignUpVC;
-- (void)backToLoginVC;
+- (void)loginToSignUpVC;
+- (void)signUpToLoginVC;
 - (void)goToMianVC;
+- (void)mainToLoginVC;
 
 @end
 
