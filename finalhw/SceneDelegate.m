@@ -6,6 +6,7 @@
 //
 
 #import "SceneDelegate.h"
+#define MainColor [UIColor colorWithRed:255/255.0 green:118/255.0 blue:102/255.0 alpha:1]
 
 @interface SceneDelegate ()
 
@@ -22,7 +23,7 @@
 //    TabBarVC* control = [[TabBarVC alloc]init];
     StartNaviVC* control = [[StartNaviVC alloc]init];
     self.window.rootViewController = control;
-    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.backgroundColor = MainColor;
     [self.window makeKeyAndVisible];
 }
 

@@ -108,7 +108,7 @@
     return _goToSignUp;
 }
 - (void)goToSignUpAction {
-    [(StartNaviVC *)self.parentViewController goToSignUpVC];
+    [(StartNaviVC *)self.parentViewController loginToSignUpVC];
 }
 
 - (UIView *)loginArea {

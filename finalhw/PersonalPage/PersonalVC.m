@@ -6,6 +6,7 @@
 //
 
 #import "PersonalVC.h"
+#import "StartNaviVC.h"
 #define Wper *self.view.bounds.size.width/100
 #define Hper *self.view.bounds.size.height/100
 #define SubWper *_userArea.bounds.size.width/100
@@ -27,6 +28,7 @@
     @property (nonatomic, strong) UILabel *pointsText;
 @property (nonatomic, strong) UIView *dashBoard;
 @property (nonatomic, strong) UITableView *funcList;
+@property (nonatomic, strong) SettingVC *settingVC;
 
 @end
 
@@ -157,7 +159,7 @@
 
 - (UITableView *)funcList {
     if (_funcList == nil) {
-        _funcList = [[UITableView alloc]initWithFrame:CGRectMake(5 Wper, 67 Hper, 90 Wper, 21 Hper)];
+        _funcList = [[UITableView alloc]initWithFrame:CGRectMake(5 Wper, 65 Hper, 90 Wper, 21 Hper)];
         _funcList.backgroundColor = [UIColor whiteColor];
         _funcList.layer.cornerRadius = 10;
         _funcList.layer.shadowColor = [UIColor grayColor].CGColor;
@@ -172,7 +174,7 @@
     return _funcList;
 }
 
-#pragma mark UITableViewDataSource
+#pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
@@ -216,15 +218,23 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {
         case 0:
-            NSLog(@"ziliao");
+            
             break;
         case 1:
-            NSLog(@"shezhi");
+            [self presentViewController:self.settingVC animated:YES completion:nil];
             break;
         default:
-            NSLog(@"tuichu");
+            [(StartNaviVC *)self.parentViewController.parentViewController mainToLoginVC];
     }
 }
 
+#pragma mark end -
 
+- (SettingVC *)settingVC {
+    if (_settingVC == nil) {
+        _settingVC = [[SettingVC alloc]init];
+        _settingVC.view.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.97];
+    }
+    return _settingVC;
+}
 @end

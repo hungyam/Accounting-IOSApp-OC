@@ -22,7 +22,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self pushViewController:self.tabBarVC animated:NO];
-    [self pushViewController:self.loginVC animated:NO];
+//    [self pushViewController:self.loginVC animated:NO];
 }
 
 - (LoginVC *)loginVC {
@@ -40,7 +40,7 @@
         UIButton *btn = [[UIButton alloc]init];
         [btn setImage:[UIImage systemImageNamed:@"chevron.backward"] forState:UIControlStateNormal];
         [btn setTintColor:MainColor];
-        [btn addTarget:self action:@selector(backToLoginVC) forControlEvents:UIControlEventTouchDown];
+        [btn addTarget:self action:@selector(signUpToLoginVC) forControlEvents:UIControlEventTouchDown];
         UIBarButtonItem *btnItem = [[UIBarButtonItem alloc]initWithCustomView:btn];
         _signUpVC.navigationItem.leftBarButtonItems = @[btnItem];
     }
@@ -54,16 +54,20 @@
     return _tabBarVC;
 }
 
-- (void)goToSignUpVC {
+- (void)loginToSignUpVC {
     [self pushViewController:self.signUpVC animated:YES];
 }
 
-- (void)backToLoginVC {
+- (void)signUpToLoginVC {
     [self popViewControllerAnimated:YES];
 }
 
 - (void)goToMianVC {
     [self popToRootViewControllerAnimated:YES];
+}
+
+- (void)mainToLoginVC {
+    [self pushViewController:self.loginVC animated:YES];
 }
 
 @end
