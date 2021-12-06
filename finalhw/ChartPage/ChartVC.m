@@ -37,8 +37,9 @@
 
 @property (nonatomic,strong)UIButton*buttoninUse;
 
+@property (nonatomic, strong)UIView* dateChooseArea;
 
-@property (nonatomic, strong) UIView*classifyArea;
+@property (nonatomic, strong) UIView*classifyPie;
 @property (nonatomic,strong)NSMutableArray *colorofpie;
 @property (nonatomic,assign)NSInteger pieNum;
 @property (nonatomic, strong)UIView*colorexp;
@@ -48,6 +49,11 @@
 @property (nonatomic,assign) float total;
 @property (nonatomic,assign) float radius;
 @property (nonatomic,assign) CGPoint midpoint;
+@property (nonatomic,assign) bool drawdelay;
+
+@property (nonatomic, strong) UIView*classifylist;
+
+@property (nonatomic, strong)UISegmentedControl*segment;
 
 @end
 
@@ -55,11 +61,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor=[UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1];
     [self.view addSubview: self.chartView];
-    self.lineoffset=30;
-    self.ySpace=(self.chartView.frame.size.height)/10;
+    [self.view addSubview:self.dateChooseArea];
+    [self.view addSubview:self.classifylist];
+    [self.view addSubview:self.segment];
     [self setbuttonline];
-    [self.view addSubview:self.classifyArea];
 }
 -(NSMutableArray*)databytime{
     if(_databytime==nil){
@@ -98,39 +105,83 @@
     }
     return _databytime;
 }
--(int)setyNumwithmax:(float)max{
-    int tmp=(int)max/6;
-    if(tmp*6<max){
-        return tmp+1;
-    }
-    return tmp;
-}
 -(float)getoffset{
     CGRect rectNav = self.navigationController.navigationBar.frame;
     CGRect rectStatus = [[UIApplication sharedApplication] statusBarFrame];
-    NSLog(@"%f %f",rectStatus.size.height,rectNav.size.height);
-    return rectStatus.size.height+rectNav.size.height;
+    float offset=rectStatus.size.height+rectNav.size.height;
+    return  offset;
 }
+
+#pragma mark - main part
 - (UIScrollView *)chartView {
     if (_chartView == nil) {
         float offset=[self getoffset];
-        _chartView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, offset, 100 Wper, 40 Hper-offset)];
+        _chartView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, offset, 100 Wper, 45 Hper-offset)];
         _chartView.backgroundColor=[UIColor clearColor];
         _chartView.bounces=NO;
         _chartView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         [_chartView setShowsHorizontalScrollIndicator:NO];
+        self.lineoffset=30;
+        self.ySpace=(self.chartView.frame.size.height)/10;
     }
     return _chartView;
 }
--(UIView*)classifyArea{
-    if(_classifyArea==nil){
-        _classifyArea=[[UIView alloc]initWithFrame:CGRectMake(0, 45 Hper, 100 Wper, 55 Hper-83)];
-        self.midpoint=CGPointMake(_classifyArea.frame.size.width/2, _classifyArea.frame.size.height/2);
-        self.radius = self.midpoint.y<self.midpoint.x?self.midpoint.y/3*2:self.midpoint.x/3*2;
-        _classifyArea.backgroundColor=[UIColor clearColor];
+-(UIView*)dateChooseArea{
+    if(_dateChooseArea==nil){
+        
+        _dateChooseArea = [[UIView alloc]initWithFrame:CGRectMake(0, 45 Hper, 100 Wper, 5 Hper)];
+        _dateChooseArea.backgroundColor=[UIColor blackColor];
     }
-    return _classifyArea;
+    return _dateChooseArea;
 }
+-(UIView*)classifylist{
+    if(_classifylist==nil){
+        _classifylist=[[UIView alloc]initWithFrame:CGRectMake(0, 50 Hper, 100 Wper, 50 Hper-83)];
+        _classifylist.backgroundColor=[UIColor purpleColor];
+    }
+    return  _classifylist;
+}
+-(UIView*)classifyPie{
+    if(_classifyPie==nil){
+        _classifyPie=[[UIView alloc]initWithFrame:CGRectMake(0, 50 Hper, 100 Wper, 50 Hper-83)];
+        self.midpoint=CGPointMake(_classifyPie.frame.size.width/2, _classifyPie.frame.size.height/2);
+        self.radius = self.midpoint.y<self.midpoint.x?self.midpoint.y/3*2:self.midpoint.x/3*2;
+        _classifyPie.backgroundColor=[UIColor clearColor];
+    }
+    return _classifyPie;
+}
+
+-(UISegmentedControl*)segment{
+    if(_segment==nil){
+        _segment = [[UISegmentedControl alloc]initWithItems:@[@"排行榜",@"扇形图"]];
+        _segment.frame =CGRectMake(100 Wper-120,50 Hper,120, 30);
+        _segment.selectedSegmentIndex = 1;
+        _segment.tintColor = [UIColor whiteColor];
+        _segment.apportionsSegmentWidthsByContent = YES;
+        [_segment addTarget:self action:@selector(segmentSelected:) forControlEvents:UIControlEventValueChanged];
+        _segment.selectedSegmentIndex=0;
+    }
+    return _segment;
+}
+-(void)segmentSelected:(id)sender{
+    UISegmentedControl* control = (UISegmentedControl*)sender;
+    if(control.selectedSegmentIndex==0){
+        [self.classifyPie removeFromSuperview];
+        [self.view addSubview:self.classifylist];
+        [self.view sendSubviewToBack:self.classifylist];
+    }
+    else{
+        [self.classifylist removeFromSuperview];
+        if(self.drawdelay==1){
+            self.drawdelay=0;
+            [self beginDrawpie];
+        }
+        [self.view addSubview:self.classifyPie];
+        [self.view sendSubviewToBack:self.classifyPie];
+    }
+}
+#pragma mark - part of pie
+
 -(NSMutableArray*)colorofpie{
     if(_colorofpie==nil){
         _colorofpie=[[NSMutableArray alloc]init];
@@ -165,7 +216,7 @@
 -(UIView*)colorexp{
     if(_colorexp==nil){
         CGFloat radius = self.radius;
-        _colorexp=[[UIView alloc]initWithFrame:CGRectMake(self.classifyArea.frame.size.width/2-radius/2 , self.classifyArea.frame.size.height/6-radius/3 , self.classifyArea.frame.size.height/6-radius/3 , self.classifyArea.frame.size.height/6-radius/3)];
+        _colorexp=[[UIView alloc]initWithFrame:CGRectMake(self.classifyPie.frame.size.width/2-radius/2 , self.classifyPie.frame.size.height/6-radius/3 , self.classifyPie.frame.size.height/6-radius/3 , self.classifyPie.frame.size.height/6-radius/3)];
         _colorexp.layer.borderColor=[UIColor blackColor].CGColor;
         _colorexp.layer.borderWidth=1;
     }
@@ -174,7 +225,7 @@
 -(UILabel*)toppielabel{
     if(_toppielabel==nil){
         CGFloat radius = self.radius;
-        _toppielabel=[[UILabel alloc]initWithFrame:CGRectMake(self.classifyArea.frame.size.width/2-radius/2+self.classifyArea.frame.size.height/3-radius/3*2 , self.classifyArea.frame.size.height/6-radius/3, radius, self.classifyArea.frame.size.height/6-radius/3)];
+        _toppielabel=[[UILabel alloc]initWithFrame:CGRectMake(self.classifyPie.frame.size.width/2-radius/2+self.classifyPie.frame.size.height/3-radius/3*2 , self.classifyPie.frame.size.height/6-radius/3, radius, self.classifyPie.frame.size.height/6-radius/3)];
         _toppielabel.text=@"某个类名";
         _toppielabel.backgroundColor=[UIColor clearColor];
         
@@ -186,7 +237,7 @@
 
 -(UILabel*)bottompielabel{
     if(_bottompielabel==nil){
-        _bottompielabel=[[UILabel alloc]initWithFrame:CGRectMake(self.classifyArea.frame.size.width/2-self.radius/2,self.classifyArea.frame.size.height*5/8+self.radius*3/4,self.radius,self.classifyArea.frame.size.height/4-self.radius/2)];
+        _bottompielabel=[[UILabel alloc]initWithFrame:CGRectMake(self.classifyPie.frame.size.width/2-self.radius/2,self.classifyPie.frame.size.height*5/8+self.radius*3/4,self.radius,self.classifyPie.frame.size.height/4-self.radius/2)];
         _bottompielabel.backgroundColor=[UIColor clearColor];
         _bottompielabel.font=[UIFont systemFontOfSize:25];
         _bottompielabel.textColor=[UIColor blackColor];
@@ -197,7 +248,7 @@
 
 -(CAShapeLayer*)pieMaskLayer{
     if(_pieMaskLayer==nil){
-        CGPoint midpoint=CGPointMake(self.classifyArea.frame.size.width/2, self.classifyArea.frame.size.height/2);
+        CGPoint midpoint=CGPointMake(self.classifyPie.frame.size.width/2, self.classifyPie.frame.size.height/2);
         CGFloat bgRadius = midpoint.y<midpoint.x?midpoint.y*2/3:midpoint.x*2/3;
         UIBezierPath *bgPath = [UIBezierPath bezierPathWithArcCenter:midpoint
                                                               radius:bgRadius/2
@@ -213,8 +264,10 @@
         self.pieMaskLayer.lineWidth   = bgRadius;
         self.pieMaskLayer.path        = bgPath.CGPath;
     }
-    return _pieMaskLayer;;
+    return _pieMaskLayer;
 }
+
+#pragma mark - setting button of week,month,year
 
 -(void)setbuttonline{
     float offset=[self getoffset];
@@ -263,18 +316,17 @@
     self.buttoninUse=btn;
     self.buttoninUse.backgroundColor=[UIColor blackColor];
     self.mode=btn.tag;
-    [self refreshlinedata];
+    [self refreshdataoftime];
+    [self refreshdataoftype];
     [self beginDrawline];
-    [self refreshpiedata];
-    [self beginDrawpie];
-}
-
-
--(void)refreshlinedata{
-    self.yNum=[self setyNumwithmax:633.00];
-}
--(void)refreshpiedata{
-    self.pieNum=15;
+    [self setlist];
+    if(self.segment.selectedSegmentIndex==0){
+        self.drawdelay=1;
+    }
+    else{
+        [self beginDrawpie];
+    }
+    
 }
 
 -(int)getdaysin:(NSInteger)year and:(NSInteger)month{
@@ -289,6 +341,24 @@
     }
     return 30;
 }
+
+-(int)setyNumwithmax:(float)max{
+    int tmp=(int)max/6;
+    if(tmp*6<max){
+        return tmp+1;
+    }
+    return tmp;
+}
+#pragma mark - base data of pic and list
+
+-(void)refreshdataoftime{
+    self.yNum=[self setyNumwithmax:633.00];
+}
+-(void)refreshdataoftype{
+    self.pieNum=15;
+}
+
+#pragma mark - linepic
 
 -(UIView*)drawbaseline{
     UIView*picView;
@@ -502,13 +572,16 @@
     [self.lineChartLayer addAnimation:pathAnimation forKey:@"strokeEnd"];
 }
 
+
+#pragma mark - piepic
+
 -(void)beginDrawpie
 {
     UIView*picView=[self drawpie];
     if(self.pieViewinUse!=nil){
         [self.pieViewinUse removeFromSuperview];
     }
-    [self.classifyArea addSubview:picView];
+    [self.classifyPie addSubview:picView];
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
     animation.duration  = 2;
     animation.fromValue = @0.0f;
@@ -520,7 +593,7 @@
     self.pieViewinUse=picView;
 }
 -(UIView*)drawpie{
-    UIView*picView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.classifyArea.frame.size.width, self.classifyArea.frame.size.height)];
+    UIView*picView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.classifyPie.frame.size.width, self.classifyPie.frame.size.height)];
     picView.backgroundColor=[UIColor clearColor];
     self.total=0;
     for(int i=0;i<self.pieNum;i++){
@@ -609,24 +682,25 @@
         
         float ratio=[[self.databytime objectAtIndex:num] floatValue]/self.total*100;
         self.midpielabel.text=[NSString stringWithFormat:@"%0.1f%%",ratio];
-        [self.classifyArea addSubview:self.midpielabel];
+        [self.classifyPie addSubview:self.midpielabel];
         self.colorexp.backgroundColor=[self.colorofpie objectAtIndex:num];
-        [self.classifyArea addSubview:self.colorexp];
-        [self.classifyArea addSubview:self.toppielabel];
+        [self.classifyPie addSubview:self.colorexp];
+        [self.classifyPie addSubview:self.toppielabel];
         self.bottompielabel.text=[NSString stringWithFormat:@"%0.2f元",[[self.databytime objectAtIndex:num] floatValue] ];
-        [self.classifyArea addSubview:self.bottompielabel];
+        [self.classifyPie addSubview:self.bottompielabel];
         
     }
 }
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    
     [super touchesEnded:touches withEvent:event];
     [self.midpielabel removeFromSuperview];
     [self.colorexp removeFromSuperview];
     [self.toppielabel removeFromSuperview];
     [self.bottompielabel removeFromSuperview];
+}
+#pragma mark -  set the list,add in classfylist
+-(void)setlist{
     
 }
-
 @end
