@@ -8,6 +8,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ChartVC : UIViewController
-
+-(void)refresh;
 
 @end
