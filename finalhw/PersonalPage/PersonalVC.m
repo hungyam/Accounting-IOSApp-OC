@@ -232,11 +232,8 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认退出" preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *conform = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             [(StartNaviVC *)self.parentViewController.parentViewController mainToLoginVC];
-            NSLog(@"点击了确认按钮");
         }];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            NSLog(@"点击了取消按钮");
-        }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:conform];
     [alert addAction:cancel];
     [self presentViewController:alert animated:YES completion:nil];

@@ -53,7 +53,9 @@
 
 @property (nonatomic, strong) UIView*classifylist;
 
-@property (nonatomic, strong)UISegmentedControl*segment;
+@property (nonatomic, strong) UISegmentedControl*segment;
+
+@property (nonatomic, strong) UIButton *testBtn;
 
 @end
 
@@ -67,7 +69,22 @@
     [self.view addSubview:self.classifylist];
     [self.view addSubview:self.segment];
     [self setbuttonline];
+    [self.view addSubview:self.testBtn];
+    [self.navigationController.navigationBar removeFromSuperview];
 }
+
+- (UIButton *)testBtn {
+    _testBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 47, 100 Wper, self.navigationController.navigationBar.frame.size.height)];
+    [_testBtn setTitle:@"test" forState:UIControlStateNormal];
+    _testBtn.backgroundColor = [UIColor orangeColor];
+    [_testBtn addTarget:self action:@selector(test1) forControlEvents:UIControlEventTouchDown];
+    [_testBtn.layer setZPosition:100];
+    return _testBtn;
+}
+- (void)test1{
+    NSLog(@"test done!");
+}
+
 -(void)refresh{
     if(self.labelinUse!=nil){
         [self.labelinUse removeFromSuperview];
