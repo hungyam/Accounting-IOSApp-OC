@@ -21,9 +21,6 @@
 //PersonalPage RootVC
 @property (nonatomic, strong) PersonalVC* personalVC;
 
-@property(nonatomic,strong)UIButton *centerButton;
-@property(nonatomic,strong)UILabel *centerLabel;
-
 @end
 
 @implementation TabBarVC
@@ -57,7 +54,6 @@
         _chartVC = [[ChartVC alloc] init];
         _chartVC.title = @"图表";
         _chartVC.tabBarItem.image = [UIImage systemImageNamed:@"chart.line.uptrend.xyaxis"];
-
     }
     return _chartVC;
 }

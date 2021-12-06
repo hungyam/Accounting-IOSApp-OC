@@ -106,7 +106,7 @@
     if (_nicknameLabel == nil) {
         _nicknameLabel = [[UILabel alloc]initWithFrame:CGRectMake(40 SubWper, 17 SubHper, 50 SubWper, 16 SubHper)];
         _nicknameLabel.text = nickname;
-        _nicknameLabel.font = [UIFont systemFontOfSize:35];
+        _nicknameLabel.font = [UIFont systemFontOfSize:30];
     }
     return _nicknameLabel;
 }
@@ -185,7 +185,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell * cell = [[UITableViewCell alloc]initWithFrame:CGRectMake(0, 0, 90 Wper, 7 Hper)];
     cell.backgroundColor = [UIColor clearColor];
-    UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 7 Hper, 7 Hper)];
+    UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(2 Wper, 0, 7 Hper, 7 Hper)];
     img.contentMode = UIViewContentModeScaleAspectFill;
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(cell.bounds.size.width/100 * 25, 0, cell.bounds.size.width/100 * 60, 7 Hper)];
     [cell addSubview:img];
@@ -195,16 +195,16 @@
         case 0:
             img.image = [UIImage imageNamed:@"detailIcon.png"];
             label.text = @"个人资料";
-            cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+            cell.separatorInset = UIEdgeInsetsMake(0, 2 Wper + 7 Hper, 0, 0);
             break;
         case 1:
             img.image = [UIImage imageNamed:@"settingIcon.png"];
             label.text = @"设置";
-            cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+            cell.separatorInset = UIEdgeInsetsMake(0, 2 Wper + 7 Hper, 0, 0);
             break;
         default:
             label.text = @"退出登录";
-            cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 5000);
+            cell.separatorInset = UIEdgeInsetsMake(0, 45 Wper, 0, 45 Wper);
     }
     return cell;
 }
@@ -224,8 +224,22 @@
             [self presentViewController:self.settingVC animated:YES completion:nil];
             break;
         default:
-            [(StartNaviVC *)self.parentViewController.parentViewController mainToLoginVC];
+            [self signOut];
     }
+}
+
+- (void)signOut {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认退出" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *conform = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            [(StartNaviVC *)self.parentViewController.parentViewController mainToLoginVC];
+            NSLog(@"点击了确认按钮");
+        }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            NSLog(@"点击了取消按钮");
+        }];
+    [alert addAction:conform];
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark end -

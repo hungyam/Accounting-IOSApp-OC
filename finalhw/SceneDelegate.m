@@ -23,7 +23,7 @@
 //    TabBarVC* control = [[TabBarVC alloc]init];
     StartNaviVC* control = [[StartNaviVC alloc]init];
     self.window.rootViewController = control;
-    self.window.backgroundColor = MainColor;
+    self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
 }
 

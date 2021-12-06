@@ -11,6 +11,7 @@
 @interface SettingVC ()
 
 @property (nonatomic, strong) SettingRootVC *rootVC;
+@property (nonatomic, strong) ModifyMes *modifyVC;
 
 @end
 
@@ -35,8 +36,21 @@
     }
     return _rootVC;
 }
+
+- (ModifyMes *)modifyVC {
+    if (_modifyVC == nil) {
+        _modifyVC = [[ModifyMes alloc]init];
+        _modifyVC.title = @"账号设置";
+    }
+    return _modifyVC;
+}
+
 - (void)dismissPresentView {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)pushModifyMes {
+    [self pushViewController:self.modifyVC animated:YES];
 }
 
 

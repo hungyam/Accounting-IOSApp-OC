@@ -7,8 +7,10 @@
 
 #import <UIKit/UIKit.h>
 #import "SettingRootVC.h"
+#import "ModifyMes.h"
 
 @interface SettingVC : UINavigationController
 
+- (void)pushModifyMes;
 
 @end

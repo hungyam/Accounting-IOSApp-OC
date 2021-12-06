@@ -11,6 +11,7 @@
 		30179573275A36AC00EB0002 /* userTest.png in Resources */ = {isa = PBXBuildFile; fileRef = 30179572275A36AC00EB0002 /* userTest.png */; };
 		302A35D1274BF2D2003BAED3 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 302A35D0274BF2D2003BAED3 /* LoginVC.m */; };
 		302A35D3274BF2E4003BAED3 /* SignUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 302A35D2274BF2E4003BAED3 /* SignUpVC.m */; };
+		302B5895275DE8B70097B7C3 /* ModifyMes.m in Sources */ = {isa = PBXBuildFile; fileRef = 302B5894275DE8B70097B7C3 /* ModifyMes.m */; };
 		302B8837275C6D5600DB2EED /* SettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 302B8836275C6D5600DB2EED /* SettingVC.m */; };
 		302B883B275C858000DB2EED /* SettingRootVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 302B8839275C858000DB2EED /* SettingRootVC.m */; };
 		302B883F275D11D900DB2EED /* userImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 302B883C275D11D900DB2EED /* userImg.png */; };
@@ -58,6 +59,8 @@
 		302A35CF274BF2C0003BAED3 /* SignUpVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpVC.h; sourceTree = "<group>"; };
 		302A35D0274BF2D2003BAED3 /* LoginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		302A35D2274BF2E4003BAED3 /* SignUpVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SignUpVC.m; sourceTree = "<group>"; };
+		302B5893275DE8AC0097B7C3 /* ModifyMes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyMes.h; sourceTree = "<group>"; };
+		302B5894275DE8B70097B7C3 /* ModifyMes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyMes.m; sourceTree = "<group>"; };
 		302B8835275C6D4800DB2EED /* SettingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingVC.h; sourceTree = "<group>"; };
 		302B8836275C6D5600DB2EED /* SettingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingVC.m; sourceTree = "<group>"; };
 		302B8839275C858000DB2EED /* SettingRootVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingRootVC.m; sourceTree = "<group>"; };
@@ -193,6 +196,8 @@
 			children = (
 				302B883A275C858000DB2EED /* SettingRootVC.h */,
 				302B8839275C858000DB2EED /* SettingRootVC.m */,
+				302B5893275DE8AC0097B7C3 /* ModifyMes.h */,
+				302B5894275DE8B70097B7C3 /* ModifyMes.m */,
 			);
 			path = SetingSrc;
 			sourceTree = "<group>";
@@ -394,6 +399,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				302B5895275DE8B70097B7C3 /* ModifyMes.m in Sources */,
 				3036FC31274C8E6C00ECDF89 /* PersonalVC.m in Sources */,
 				302B8837275C6D5600DB2EED /* SettingVC.m in Sources */,
 				302A35D3274BF2E4003BAED3 /* SignUpVC.m in Sources */,
