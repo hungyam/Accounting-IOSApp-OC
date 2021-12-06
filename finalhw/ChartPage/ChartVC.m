@@ -68,6 +68,26 @@
     [self.view addSubview:self.segment];
     [self setbuttonline];
 }
+-(void)refresh{
+    if(self.labelinUse!=nil){
+        [self.labelinUse removeFromSuperview];
+        self.labelinUse=nil;
+    }
+    if(self.labelline!=nil){
+        [self.labelline removeFromSuperlayer];
+        self.labelline=nil;
+    }
+    [self refreshdataoftime];
+    [self refreshdataoftype];
+    [self beginDrawline];
+    [self setlist];
+    if(self.segment.selectedSegmentIndex==0){
+        self.drawdelay=1;
+    }
+    else{
+        [self beginDrawpie];
+    }
+}
 -(NSMutableArray*)databytime{
     if(_databytime==nil){
         _databytime=[[NSMutableArray alloc]init];
@@ -154,7 +174,7 @@
 -(UISegmentedControl*)segment{
     if(_segment==nil){
         _segment = [[UISegmentedControl alloc]initWithItems:@[@"排行榜",@"扇形图"]];
-        _segment.frame =CGRectMake(100 Wper-120,50 Hper,120, 30);
+        _segment.frame =CGRectMake(100 Wper-120,50 Hper+15,120, 30);
         _segment.selectedSegmentIndex = 1;
         _segment.tintColor = [UIColor whiteColor];
         _segment.apportionsSegmentWidthsByContent = YES;
@@ -272,9 +292,9 @@
 -(void)setbuttonline{
     float offset=[self getoffset];
     NSLog(@"%f",offset);
-    UIButton*b1=[[UIButton alloc] initWithFrame:CGRectMake(0, offset,100 Wper/3, self.ySpace-3)];
-    UIButton*b2=[[UIButton alloc] initWithFrame:CGRectMake(100 Wper/3, offset, 100 Wper/3, self.ySpace-3)];
-    UIButton*b3=[[UIButton alloc] initWithFrame:CGRectMake(100 Wper*2/3, offset, 100 Wper/3, self.ySpace-3)];
+    UIButton*b1=[[UIButton alloc] initWithFrame:CGRectMake(0, offset,100 Wper/3, 2*self.ySpace-25)];
+    UIButton*b2=[[UIButton alloc] initWithFrame:CGRectMake(100 Wper/3, offset, 100 Wper/3, 2*self.ySpace-25)];
+    UIButton*b3=[[UIButton alloc] initWithFrame:CGRectMake(100 Wper*2/3, offset, 100 Wper/3, 2*self.ySpace-25)];
     b1.backgroundColor=[UIColor grayColor];
     b1.layer.borderColor=[[UIColor blackColor] CGColor];
     b1.layer.borderWidth=1;
@@ -293,22 +313,14 @@
     [self.view addSubview:b1];
     [self.view addSubview:b2];
     [self.view addSubview:b3];
-    [b1 addTarget: self action: @selector(buttonfunction:) forControlEvents: UIControlEventTouchDown] ;
-    [b2 addTarget: self action: @selector(buttonfunction:) forControlEvents: UIControlEventTouchDown] ;
-    [b3 addTarget: self action: @selector(buttonfunction:) forControlEvents: UIControlEventTouchDown] ;
-    [self buttonfunction:b1];
+    [b1 addTarget: self action: @selector(timebuttonfunction:) forControlEvents: UIControlEventTouchDown] ;
+    [b2 addTarget: self action: @selector(timebuttonfunction:) forControlEvents: UIControlEventTouchDown] ;
+    [b3 addTarget: self action: @selector(timebuttonfunction:) forControlEvents: UIControlEventTouchDown] ;
+    [self timebuttonfunction:b1];
 }
--(void)buttonfunction:(UIButton*)btn{
+-(void)timebuttonfunction:(UIButton*)btn{
     if(btn==self.buttoninUse){
         return;
-    }
-    if(self.labelinUse!=nil){
-        [self.labelinUse removeFromSuperview];
-        self.labelinUse=nil;
-    }
-    if(self.labelline!=nil){
-        [self.labelline removeFromSuperlayer];
-        self.labelline=nil;
     }
     if(self.buttoninUse!=nil){
         self.buttoninUse.backgroundColor=[UIColor grayColor];
@@ -316,16 +328,7 @@
     self.buttoninUse=btn;
     self.buttoninUse.backgroundColor=[UIColor blackColor];
     self.mode=btn.tag;
-    [self refreshdataoftime];
-    [self refreshdataoftype];
-    [self beginDrawline];
-    [self setlist];
-    if(self.segment.selectedSegmentIndex==0){
-        self.drawdelay=1;
-    }
-    else{
-        [self beginDrawpie];
-    }
+    [self refresh];
     
 }
 
@@ -536,7 +539,7 @@
     
     float num=[[self.databytime objectAtIndex:gesture.view.tag]floatValue];
     NSString* str=[NSString stringWithFormat:@"%0.2f",num];
-    UILabel*label=[[UILabel alloc] initWithFrame:CGRectMake(startPoint.x-str.length*4,startPoint.y-self.ySpace-2, str.length*8, self.ySpace)];
+    UILabel*label=[[UILabel alloc] initWithFrame:CGRectMake(startPoint.x-str.length*4,startPoint.y-22, str.length*8, 18)];
     label.text=str;
     label.backgroundColor=[UIColor grayColor];
     label.layer.cornerRadius=5;
