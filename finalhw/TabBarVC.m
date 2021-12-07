@@ -37,8 +37,6 @@
     ];
     self.tabBar.backgroundColor = [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1];
     self.tabBar.tintColor = MainColor;
-    UIView *test = [[UIView alloc]initWithFrame:CGRectMake(40 * self.tabBar.bounds.size.width, 0, 20 * self.tabBar.bounds.size.width,  self.tabBar.bounds.size.height)];
-    test.backgroundColor = [UIColor purpleColor];
 }
 
 - (DetailVC *)detailVC {
