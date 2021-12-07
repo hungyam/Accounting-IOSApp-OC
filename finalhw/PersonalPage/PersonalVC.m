@@ -46,11 +46,12 @@
 }
 
 - (void)loadUserMes {
+    PersonalMes *mes = [DataManage getPersonalMes];
     //Test
-    nickname = @"Hungyam";
-    userImg = [UIImage imageNamed:@"userImg.png"];
-    username = @"hungyam530";
-    points = 233;
+    nickname = mes.nickname;
+    userImg = mes.userImg;
+    username = mes.username;
+    points = mes.points;
 }
 
 - (CAGradientLayer *)backLayer {

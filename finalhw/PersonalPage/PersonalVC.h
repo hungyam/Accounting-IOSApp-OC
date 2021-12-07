@@ -7,6 +7,8 @@
 
 #import <UIKit/UIKit.h>
 #import "SettingVC.h"
+#import "DataManage.h"
+
 
 @interface PersonalVC : UIViewController
 

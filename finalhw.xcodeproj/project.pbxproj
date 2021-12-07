@@ -31,6 +31,7 @@
 		3037CB31273D13840013EEBB /* finalhwTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3037CB30273D13840013EEBB /* finalhwTests.m */; };
 		3037CB3B273D13850013EEBB /* finalhwUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3037CB3A273D13850013EEBB /* finalhwUITests.m */; };
 		3037CB3D273D13850013EEBB /* finalhwUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3037CB3C273D13850013EEBB /* finalhwUITestsLaunchTests.m */; };
+		30FA7D80275F00990075BEC6 /* DataManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 30FA7D7F275F00990075BEC6 /* DataManage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,8 @@
 		3037CB36273D13850013EEBB /* finalhwUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = finalhwUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3037CB3A273D13850013EEBB /* finalhwUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = finalhwUITests.m; sourceTree = "<group>"; };
 		3037CB3C273D13850013EEBB /* finalhwUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = finalhwUITestsLaunchTests.m; sourceTree = "<group>"; };
+		30FA7D7E275F00870075BEC6 /* DataManage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataManage.h; sourceTree = "<group>"; };
+		30FA7D7F275F00990075BEC6 /* DataManage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataManage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +228,7 @@
 		3037CB13273D137C0013EEBB /* finalhw */ = {
 			isa = PBXGroup;
 			children = (
+				30FA7D7D275F00280075BEC6 /* DataManage */,
 				30179570275A348800EB0002 /* Resources */,
 				302A35D5274BF73E003BAED3 /* StartPage */,
 				302A35D4274BF719003BAED3 /* DetailPage */,
@@ -264,6 +268,15 @@
 				3037CB3C273D13850013EEBB /* finalhwUITestsLaunchTests.m */,
 			);
 			path = finalhwUITests;
+			sourceTree = "<group>";
+		};
+		30FA7D7D275F00280075BEC6 /* DataManage */ = {
+			isa = PBXGroup;
+			children = (
+				30FA7D7E275F00870075BEC6 /* DataManage.h */,
+				30FA7D7F275F00990075BEC6 /* DataManage.m */,
+			);
+			path = DataManage;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -409,6 +422,7 @@
 				3036FC34274C903600ECDF89 /* NewEntryVC.m in Sources */,
 				302A35D1274BF2D2003BAED3 /* LoginVC.m in Sources */,
 				3037CB27273D13840013EEBB /* main.m in Sources */,
+				30FA7D80275F00990075BEC6 /* DataManage.m in Sources */,
 				302B883B275C858000DB2EED /* SettingRootVC.m in Sources */,
 				3036FC2D274C8E3000ECDF89 /* ExtendedVC.m in Sources */,
 				3017956A27589AF300EB0002 /* StartNaviVC.m in Sources */,
