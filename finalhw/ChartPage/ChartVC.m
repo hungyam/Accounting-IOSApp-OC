@@ -107,6 +107,7 @@
         _pickerViewOfYear.dataSource = self;
         _pickerViewOfYear.backgroundColor=[UIColor clearColor];
         _pickerViewOfYear.tag=3;
+        
     }
     return _pickerViewOfYear;
 }
