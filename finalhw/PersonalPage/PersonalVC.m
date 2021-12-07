@@ -47,7 +47,6 @@
 
 - (void)loadUserMes {
     PersonalMes *mes = [DataManage getPersonalMes];
-    //Test
     nickname = mes.nickname;
     userImg = mes.userImg;
     username = mes.username;
@@ -58,12 +57,12 @@
     if (_backLayer == nil) {
         _backLayer = [CAGradientLayer layer];
         _backLayer.frame = CGRectMake(0, 0, 100 Wper, 27 Hper);
-        _backLayer.startPoint = CGPointMake(0, 1);
-        _backLayer.endPoint = CGPointMake(1, 0);
+        _backLayer.startPoint = CGPointMake(0, 0);
+        _backLayer.endPoint = CGPointMake(1, 1);
         _backLayer.zPosition = -1;
         _backLayer.colors = @[
-            (__bridge id)[UIColor colorWithRed:255/255.0 green:97/255.0 blue:167/255.0 alpha:1].CGColor,
-            (__bridge id)[UIColor colorWithRed:255/255.0 green:137/255.0 blue:99/255.0 alpha:1].CGColor
+            (__bridge id)[UIColor colorWithRed:255/255.0 green:199/255.0 blue:153/255.0 alpha:1].CGColor,
+            (__bridge id)[UIColor colorWithRed:255/255.0 green:93/255.0 blue:95/255.0 alpha:1].CGColor
         ];
     }
     return _backLayer;

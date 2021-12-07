@@ -39,8 +39,6 @@
     self.tabBar.tintColor = MainColor;
     UIView *test = [[UIView alloc]initWithFrame:CGRectMake(40 * self.tabBar.bounds.size.width, 0, 20 * self.tabBar.bounds.size.width,  self.tabBar.bounds.size.height)];
     test.backgroundColor = [UIColor purpleColor];
-    self.tabBar add
-    self.selectedIndex = 4;
 }
 
 - (DetailVC *)detailVC {

@@ -11,54 +11,55 @@
 
 @interface ChartVC ()
 
-@property (nonatomic, strong) UIScrollView*chartView;
-
-@property (nonatomic,strong)NSMutableArray *databytime;
-@property (nonatomic,strong)NSMutableArray *databytype;
-
+@property (nonatomic, strong) UIScrollView *chartView; //图表主视图
+@property (nonatomic, strong) NSMutableArray *databytime;
+@property (nonatomic, strong) NSMutableArray *databytype;
 @property (nonatomic, strong) CAShapeLayer *lineChartLayer;
 @property (nonatomic, strong) CAShapeLayer *pieMaskLayer;
 
-@property (nonatomic,assign)int lineoffset;//横线偏移量
-@property (nonatomic,assign)float ySpace;//y轴间隔
-@property (nonatomic,assign)int yNum;//y轴一个间隔的数值
-@property (nonatomic,assign)int xCount;//x轴的点数
-@property (nonatomic,assign)float xSpace;//x轴间隔
+@property (nonatomic, assign) int lineoffset;//横线偏移量
+@property (nonatomic, assign) float ySpace;//y轴间隔
+@property (nonatomic, assign) int yNum;//y轴一个间隔的数值
+@property (nonatomic, assign) int xCount;//x轴的点数
+@property (nonatomic, assign) float xSpace;//x轴间隔
 
 
-@property (nonatomic,assign)NSInteger mode;
-@property (nonatomic,assign)NSInteger inOrOut;
+@property (nonatomic, assign) NSInteger mode;
+@property (nonatomic, assign) NSInteger inOrOut;
 
-@property (nonatomic, strong) UIView*lineViewinUse;
-@property (nonatomic, strong) UIView*pieViewinUse;
+@property (nonatomic, strong) UIView *lineViewinUse;
+@property (nonatomic, strong) UIView *pieViewinUse;
 
-@property (nonatomic,strong)UILabel*labelinUse;
+@property (nonatomic, strong) UILabel *labelinUse;
 @property (nonatomic, strong) CAShapeLayer *labelline;
 
-@property (nonatomic,strong)UIButton*buttoninUse;
+@property (nonatomic, strong) UIButton*buttoninUse;
 
-@property (nonatomic, strong)UIView* dateChooseArea;
+@property (nonatomic, strong) UIView* dateChooseArea;
 
-@property (nonatomic, strong) UIView*classifyPie;
-@property (nonatomic,strong)NSMutableArray *colorofpie;
-@property (nonatomic,assign)NSInteger pieNum;
-@property (nonatomic, strong)UIView*colorexp;
-@property (nonatomic, strong)UILabel*midpielabel;
-@property (nonatomic, strong)UILabel*toppielabel;
-@property (nonatomic, strong)UILabel*bottompielabel;
-@property (nonatomic,assign) float total;
-@property (nonatomic,assign) float radius;
-@property (nonatomic,assign) CGPoint midpoint;
-@property (nonatomic,assign) bool drawdelay;
+@property (nonatomic, strong) UIView *classifyPie;
+@property (nonatomic, strong) NSMutableArray *colorofpie;
+@property (nonatomic, assign) NSInteger pieNum;
+@property (nonatomic, strong) UIView *colorexp;
+@property (nonatomic, strong) UILabel *midpielabel;
+@property (nonatomic, strong) UILabel *toppielabel;
+@property (nonatomic, strong) UILabel *bottompielabel;
+@property (nonatomic, assign) float total;
+@property (nonatomic, assign) float radius;
+@property (nonatomic, assign) CGPoint midpoint;
+@property (nonatomic, assign) bool drawdelay;
 
-@property (nonatomic, strong) UIView*classifylist;
+@property (nonatomic, strong) UIView *classifyList;
 
-@property (nonatomic, strong) UISegmentedControl*segment;
-@property (nonatomic, strong) UISegmentedControl*topsegment;
+@property (nonatomic, strong) UISegmentedControl *segment;
+//@property (nonatomic, strong) UISegmentedControl *topSegment;
+@property (nonatomic, strong) UIButton *topSegmentLeft;
+@property (nonatomic, strong) UIButton *topSegmentRight;
 
-@property(nonatomic,strong)UIPickerView *pickerViewOfWeek;
-@property(nonatomic,strong)UIPickerView *pickerViewOfMonth;
-@property(nonatomic,strong)UIPickerView *pickerViewOfYear;
+
+@property (nonatomic, strong) UIPickerView *pickerViewOfWeek;
+@property (nonatomic, strong) UIPickerView *pickerViewOfMonth;
+@property (nonatomic, strong) UIPickerView *pickerViewOfYear;
 
 
 @end
@@ -67,14 +68,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.backgroundColor=[UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1];
-    [self.view addSubview: self.chartView];
-    [self.view addSubview:self.classifylist];
-    [self.view addSubview:self.segment];
-    [self.view addSubview: self.topsegment];
-    [self setbuttonline];
     [self.navigationController.navigationBar removeFromSuperview];
+    [self.view addSubview:self.chartView];
+    [self.view addSubview:self.classifyList];
+    [self.view addSubview:self.segment];
+    [self.view addSubview:self.topSegmentLeft];
+    [self.view addSubview:self.topSegmentRight];
+    [self setButtonLine];
 }
 
 -(void)refresh{
@@ -97,6 +98,8 @@
         [self beginDrawpie];
     }
 }
+
+#pragma mark - Set DatePicker
 
 -(UIPickerView*)pickerViewOfYear{
     if(_pickerViewOfYear==nil){
@@ -168,6 +171,8 @@
     [self refresh];
 }
 
+#pragma mark end -
+
 -(NSMutableArray*)databytime{
     if(_databytime==nil){
         _databytime=[[NSMutableArray alloc]init];
@@ -205,48 +210,49 @@
     }
     return _databytime;
 }
+
+/// Return the height of StatusBar and NavigationBar
 -(float)getoffset{
-    CGRect rectNav = self.navigationController.navigationBar.frame;
-    CGRect rectStatus = [[UIApplication sharedApplication] statusBarFrame];
-    float offset=rectStatus.size.height+rectNav.size.height;
-    return  offset;
+    return 10 Hper;
 }
 
 #pragma mark - main part
 - (UIScrollView *)chartView {
     if (_chartView == nil) {
-        float offset=[self getoffset];
+        float offset = [self getoffset];
         _chartView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, offset, 100 Wper, 45 Hper-offset)];
-        _chartView.backgroundColor=[UIColor clearColor];
-        _chartView.bounces=NO;
+        _chartView.backgroundColor = [UIColor clearColor];
+        _chartView.bounces = NO;
         _chartView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         [_chartView setShowsHorizontalScrollIndicator:NO];
-        self.lineoffset=30;
-        self.ySpace=(self.chartView.frame.size.height)/10;
+        self.lineoffset = 30;
+        self.ySpace = (self.chartView.frame.size.height)/10;
     }
     return _chartView;
 }
+
 -(UIView*)dateChooseArea{
-    if(_dateChooseArea==nil){
-        
+    if(_dateChooseArea == nil){
         _dateChooseArea = [[UIView alloc]initWithFrame:CGRectMake(0, 45 Hper, 100 Wper, 5 Hper)];
-        _dateChooseArea.backgroundColor=[UIColor blackColor];
+        _dateChooseArea.backgroundColor = [UIColor blackColor];
     }
     return _dateChooseArea;
 }
--(UIView*)classifylist{
-    if(_classifylist==nil){
-        _classifylist=[[UIView alloc]initWithFrame:CGRectMake(0, 50 Hper, 100 Wper, 50 Hper-83)];
-        _classifylist.backgroundColor=[UIColor purpleColor];
+
+-(UIView*)classifyList{
+    if(_classifyList == nil){
+        _classifyList = [[UIView alloc]initWithFrame:CGRectMake(0, 50 Hper, 100 Wper, 50 Hper-83)];
+        _classifyList.backgroundColor = [UIColor purpleColor];
     }
-    return  _classifylist;
+    return _classifyList;
 }
+
 -(UIView*)classifyPie{
-    if(_classifyPie==nil){
-        _classifyPie=[[UIView alloc]initWithFrame:CGRectMake(0, 50 Hper, 100 Wper, 50 Hper-83)];
-        self.midpoint=CGPointMake(_classifyPie.frame.size.width/2, _classifyPie.frame.size.height/2);
-        self.radius = self.midpoint.y<self.midpoint.x?self.midpoint.y/3*2:self.midpoint.x/3*2;
-        _classifyPie.backgroundColor=[UIColor clearColor];
+    if(_classifyPie == nil){
+        _classifyPie = [[UIView alloc]initWithFrame:CGRectMake(0, 50 Hper, 100 Wper, 50 Hper-83)];
+        self.midpoint = CGPointMake(_classifyPie.frame.size.width/2, _classifyPie.frame.size.height/2);
+        self.radius = self.midpoint.y < self.midpoint.x ? self.midpoint.y/3*2 : self.midpoint.x/3*2;
+        _classifyPie.backgroundColor = [UIColor clearColor];
     }
     return _classifyPie;
 }
@@ -267,11 +273,11 @@
     UISegmentedControl* control = (UISegmentedControl*)sender;
     if(control.selectedSegmentIndex==0){
         [self.classifyPie removeFromSuperview];
-        [self.view addSubview:self.classifylist];
-        [self.view sendSubviewToBack:self.classifylist];
+        [self.view addSubview:self.classifyList];
+        [self.view sendSubviewToBack:self.classifyList];
     }
     else{
-        [self.classifylist removeFromSuperview];
+        [self.classifyList removeFromSuperview];
         if(self.drawdelay==1){
             self.drawdelay=0;
             [self beginDrawpie];
@@ -281,27 +287,95 @@
     }
 }
 
--(UISegmentedControl*)topsegment{
-    if(_topsegment==nil){
-        _topsegment = [[UISegmentedControl alloc]initWithItems:@[@"支出",@"收入"]];
-        _topsegment.frame =CGRectMake(0,[self getoffset]-self.navigationController.navigationBar.frame.size.height,100 Wper, self.navigationController.navigationBar.frame.size.height);
-        _topsegment.selectedSegmentIndex = 1;
-        _topsegment.tintColor = [UIColor whiteColor];
-        _topsegment.apportionsSegmentWidthsByContent = YES;
-        [_topsegment addTarget:self action:@selector(topsegmentSelected:) forControlEvents:UIControlEventValueChanged];
-        _topsegment.selectedSegmentIndex=0;
+- (UIButton *)topSegmentLeft {
+    if (_topSegmentLeft == nil) {
+        _topSegmentLeft = [[UIButton alloc]initWithFrame:CGRectMake(10 Wper, 6 Hper, 35 Wper, 5 Hper)];
+        _topSegmentLeft.tag = 1;
+        _topSegmentLeft.backgroundColor = [UIColor colorWithRed:255/255.0 green:107/255.0 blue:114/255.0 alpha:1];
+        _topSegmentLeft.layer.cornerRadius = 20;
+        _topSegmentLeft.layer.shadowColor = [UIColor colorWithRed:255/255.0 green:107/255.0 blue:114/255.0 alpha:1].CGColor;
+        _topSegmentLeft.layer.shadowOffset = CGSizeMake(0, 0);
+        _topSegmentLeft.layer.shadowRadius = 10;
+        _topSegmentLeft.layer.shadowOpacity = 0.7;
+        [_topSegmentLeft setTitle:@"收入" forState:UIControlStateNormal];
+        [_topSegmentLeft setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_topSegmentLeft addTarget:self action:@selector(topSegmentSelected:) forControlEvents:UIControlEventTouchDown];
     }
-    return _topsegment;
+    return _topSegmentLeft;
 }
--(void)topsegmentSelected:(id)sender{
-    UISegmentedControl* control = (UISegmentedControl*)sender;
-    if(control.selectedSegmentIndex==0){
-        self.inOrOut=0;
+
+- (UIButton *)topSegmentRight {
+    if (_topSegmentRight == nil) {
+        _topSegmentRight = [[UIButton alloc]initWithFrame:CGRectMake(55 Wper, 6 Hper, 35 Wper, 5 Hper)];
+        _topSegmentRight.tag = 2;
+        _topSegmentRight.backgroundColor = [UIColor whiteColor];
+        _topSegmentRight.layer.cornerRadius = 20;
+        _topSegmentRight.layer.shadowColor = [UIColor grayColor].CGColor;
+        _topSegmentRight.layer.shadowOffset = CGSizeMake(0, 0);
+        _topSegmentRight.layer.shadowRadius = 10;
+        _topSegmentRight.layer.shadowOpacity = 0.1;
+        [_topSegmentRight setTitle:@"支出" forState:UIControlStateNormal];
+        [_topSegmentRight setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [_topSegmentRight addTarget:self action:@selector(topSegmentSelected:) forControlEvents:UIControlEventTouchDown];
+    }
+    return _topSegmentRight;
+}
+
+-(void)topSegmentSelected:(id)sender{
+    UIButton *control = (UIButton *)sender;
+    if(control.tag == 1){
+        if (self.inOrOut == 1) {
+            self.inOrOut = 0;
+            [UIView animateWithDuration:0.3
+                                  delay:0
+                                options:UIViewAnimationOptionBeginFromCurrentState
+                             animations:^{
+                self.topSegmentLeft.backgroundColor = [UIColor colorWithRed:255/255.0 green:107/255.0 blue:114/255.0 alpha:1];
+                self.topSegmentLeft.layer.shadowColor = [UIColor colorWithRed:255/255.0 green:107/255.0 blue:114/255.0 alpha:1].CGColor;
+                self.topSegmentLeft.layer.shadowOffset = CGSizeMake(0, 0);
+                self.topSegmentLeft.layer.shadowRadius = 10;
+                self.topSegmentLeft.layer.shadowOpacity = 0.7;
+                [self.topSegmentLeft setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                
+                self.topSegmentRight.backgroundColor = [UIColor whiteColor];
+                self.topSegmentRight.layer.cornerRadius = 20;
+                self.topSegmentRight.layer.shadowColor = [UIColor grayColor].CGColor;
+                self.topSegmentRight.layer.shadowOffset = CGSizeMake(0, 0);
+                self.topSegmentRight.layer.shadowRadius = 10;
+                self.topSegmentRight.layer.shadowOpacity = 0.1;
+                [self.topSegmentRight setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            }
+                             completion:nil];
+            [self refresh];
+        }
     }
     else{
-        self.inOrOut=1;
+        if (self.inOrOut == 0) {
+            self.inOrOut = 1;
+            [UIView animateWithDuration:0.3
+                                  delay:0
+                                options:UIViewAnimationOptionBeginFromCurrentState
+                             animations:^{
+                self.topSegmentRight.backgroundColor = [UIColor colorWithRed:255/255.0 green:107/255.0 blue:114/255.0 alpha:1];
+                self.topSegmentRight.layer.shadowColor = [UIColor colorWithRed:255/255.0 green:107/255.0 blue:114/255.0 alpha:1].CGColor;
+                self.topSegmentRight.layer.shadowOffset = CGSizeMake(0, 0);
+                self.topSegmentRight.layer.shadowRadius = 10;
+                self.topSegmentRight.layer.shadowOpacity = 0.7;
+                [self.topSegmentRight setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                
+                self.topSegmentLeft.backgroundColor = [UIColor whiteColor];
+                self.topSegmentLeft.layer.cornerRadius = 20;
+                self.topSegmentLeft.layer.shadowColor = [UIColor grayColor].CGColor;
+                self.topSegmentLeft.layer.shadowOffset = CGSizeMake(0, 0);
+                self.topSegmentLeft.layer.shadowRadius = 10;
+                self.topSegmentLeft.layer.shadowOpacity = 0.1;
+                [self.topSegmentLeft setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+            }
+                             completion:nil];
+            [self refresh];
+        }
     }
-    [self refresh];
+    
 }
 #pragma mark - part of pie
 
@@ -368,9 +442,9 @@
 }
 
 -(CAShapeLayer*)pieMaskLayer{
-    if(_pieMaskLayer==nil){
-        CGPoint midpoint=CGPointMake(self.classifyPie.frame.size.width/2, self.classifyPie.frame.size.height/2);
-        CGFloat bgRadius = midpoint.y<midpoint.x?midpoint.y*2/3:midpoint.x*2/3;
+    if(_pieMaskLayer == nil){
+        CGPoint midpoint = CGPointMake(self.classifyPie.frame.size.width/2, self.classifyPie.frame.size.height/2);
+        CGFloat bgRadius = midpoint.y < midpoint.x ? midpoint.y*2/3 : midpoint.x*2/3;
         UIBezierPath *bgPath = [UIBezierPath bezierPathWithArcCenter:midpoint
                                                               radius:bgRadius/2
                                                           startAngle:-M_PI_2
@@ -390,12 +464,12 @@
 
 #pragma mark - setting button of week,month,year
 
--(void)setbuttonline{
+-(void)setButtonLine{
     float offset=[self getoffset];
     NSLog(@"%f",offset);
-    UIButton*b1=[[UIButton alloc] initWithFrame:CGRectMake(0, offset,100 Wper/3, 2*self.ySpace-25)];
-    UIButton*b2=[[UIButton alloc] initWithFrame:CGRectMake(100 Wper/3, offset, 100 Wper/3, 2*self.ySpace-25)];
-    UIButton*b3=[[UIButton alloc] initWithFrame:CGRectMake(100 Wper*2/3, offset, 100 Wper/3, 2*self.ySpace-25)];
+    UIButton*b1=[[UIButton alloc] initWithFrame:CGRectMake(0, 30 Hper,100 Wper/3, 2*self.ySpace-25)];
+    UIButton*b2=[[UIButton alloc] initWithFrame:CGRectMake(100 Wper/3, 30 Hper, 100 Wper/3, 2*self.ySpace-25)];
+    UIButton*b3=[[UIButton alloc] initWithFrame:CGRectMake(100 Wper*2/3, 30 Hper, 100 Wper/3, 2*self.ySpace-25)];
     b1.backgroundColor=[UIColor grayColor];
     b1.layer.borderColor=[[UIColor blackColor] CGColor];
     b1.layer.borderWidth=1;
