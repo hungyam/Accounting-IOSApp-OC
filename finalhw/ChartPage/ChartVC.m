@@ -54,8 +54,12 @@
 @property (nonatomic, strong) UIView*classifylist;
 
 @property (nonatomic, strong) UISegmentedControl*segment;
+@property (nonatomic, strong) UISegmentedControl*topsegment;
 
-@property (nonatomic, strong) UIButton *testBtn;
+@property(nonatomic,strong)UIPickerView *pickerViewOfWeek;
+@property(nonatomic,strong)UIPickerView *pickerViewOfMonth;
+@property(nonatomic,strong)UIPickerView *pickerViewOfYear;
+
 
 @end
 
@@ -63,26 +67,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.view.backgroundColor=[UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1];
     [self.view addSubview: self.chartView];
-    [self.view addSubview:self.dateChooseArea];
     [self.view addSubview:self.classifylist];
     [self.view addSubview:self.segment];
+    [self.view addSubview: self.topsegment];
     [self setbuttonline];
-    [self.view addSubview:self.testBtn];
     [self.navigationController.navigationBar removeFromSuperview];
-}
-
-- (UIButton *)testBtn {
-    _testBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 47, 100 Wper, self.navigationController.navigationBar.frame.size.height)];
-    [_testBtn setTitle:@"test" forState:UIControlStateNormal];
-    _testBtn.backgroundColor = [UIColor orangeColor];
-    [_testBtn addTarget:self action:@selector(test1) forControlEvents:UIControlEventTouchDown];
-    [_testBtn.layer setZPosition:100];
-    return _testBtn;
-}
-- (void)test1{
-    NSLog(@"test done!");
 }
 
 -(void)refresh{
@@ -105,6 +97,76 @@
         [self beginDrawpie];
     }
 }
+
+-(UIPickerView*)pickerViewOfYear{
+    if(_pickerViewOfYear==nil){
+        _pickerViewOfYear= [[UIPickerView alloc]initWithFrame:CGRectMake(0, 45 Hper, 100 Wper, 5 Hper)];
+        _pickerViewOfYear.layer.masksToBounds = YES;
+        _pickerViewOfYear.layer.borderWidth = 1;
+        _pickerViewOfYear.delegate = self;
+        _pickerViewOfYear.dataSource = self;
+        _pickerViewOfYear.backgroundColor=[UIColor clearColor];
+        _pickerViewOfYear.tag=3;
+    }
+    return _pickerViewOfYear;
+}
+
+-(UIPickerView*)pickerViewOfMonth{
+    if(_pickerViewOfMonth==nil){
+        _pickerViewOfMonth= [[UIPickerView alloc]initWithFrame:CGRectMake(0, 45 Hper, 100 Wper, 5 Hper)];
+        _pickerViewOfMonth.layer.masksToBounds = YES;
+        _pickerViewOfMonth.layer.borderWidth = 1;
+        _pickerViewOfMonth.delegate = self;
+        _pickerViewOfMonth.dataSource = self;
+        _pickerViewOfMonth.backgroundColor=[UIColor clearColor];
+        _pickerViewOfMonth.tag=2;
+    }
+    return _pickerViewOfMonth;
+}
+
+-(UIPickerView*)pickerViewOfWeek{
+    if(_pickerViewOfWeek==nil){
+        _pickerViewOfWeek= [[UIPickerView alloc]initWithFrame:CGRectMake(0, 45 Hper, 100 Wper, 5 Hper)];
+        _pickerViewOfWeek.layer.masksToBounds = YES;
+        _pickerViewOfWeek.layer.borderWidth = 1;
+        _pickerViewOfWeek.delegate = self;
+        _pickerViewOfWeek.dataSource = self;
+        _pickerViewOfWeek.backgroundColor=[UIColor clearColor];
+        _pickerViewOfWeek.tag=1;
+    }
+    return _pickerViewOfWeek;
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    if(pickerView.tag==3){
+        return  1;
+    }
+    return 2;
+}
+
+//设置指定列包含的项数
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    if (component == 0) {
+        return 12;
+    }
+    return 12;
+}
+
+//设置每个选项显示的内容
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    if (component == 0) {
+        return @"2012";
+    }
+    return @"aaa";
+}
+
+//用户进行选择
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    if (component == 0) {
+    }
+    [self refresh];
+}
+
 -(NSMutableArray*)databytime{
     if(_databytime==nil){
         _databytime=[[NSMutableArray alloc]init];
@@ -217,6 +279,29 @@
         [self.view sendSubviewToBack:self.classifyPie];
     }
 }
+
+-(UISegmentedControl*)topsegment{
+    if(_topsegment==nil){
+        _topsegment = [[UISegmentedControl alloc]initWithItems:@[@"支出",@"收入"]];
+        _topsegment.frame =CGRectMake(0,[self getoffset]-self.navigationController.navigationBar.frame.size.height,100 Wper, self.navigationController.navigationBar.frame.size.height);
+        _topsegment.selectedSegmentIndex = 1;
+        _topsegment.tintColor = [UIColor whiteColor];
+        _topsegment.apportionsSegmentWidthsByContent = YES;
+        [_topsegment addTarget:self action:@selector(topsegmentSelected:) forControlEvents:UIControlEventValueChanged];
+        _topsegment.selectedSegmentIndex=0;
+    }
+    return _topsegment;
+}
+-(void)topsegmentSelected:(id)sender{
+    UISegmentedControl* control = (UISegmentedControl*)sender;
+    if(control.selectedSegmentIndex==0){
+        self.inOrOut=0;
+    }
+    else{
+        self.inOrOut=1;
+    }
+    [self refresh];
+}
 #pragma mark - part of pie
 
 -(NSMutableArray*)colorofpie{
@@ -240,8 +325,6 @@
         CGFloat radius =self.radius/2;
         _midpielabel=[[UILabel alloc]initWithFrame:CGRectMake(self.midpoint.x-0.86*radius, self.midpoint.y-0.5*radius,1.72*radius,radius)];
         _midpielabel.backgroundColor=[UIColor clearColor];
-        _midpielabel.text=@"99.9%";
-        
         _midpielabel.font=[UIFont systemFontOfSize:35];
         _midpielabel.textColor=[UIColor blackColor];
         _midpielabel.textAlignment = NSTextAlignmentCenter;
@@ -345,6 +428,18 @@
     self.buttoninUse=btn;
     self.buttoninUse.backgroundColor=[UIColor blackColor];
     self.mode=btn.tag;
+    [self.pickerViewOfWeek removeFromSuperview];
+    [self.pickerViewOfMonth removeFromSuperview];
+    [self.pickerViewOfYear removeFromSuperview];
+    if(btn.tag==1){
+        [self.view addSubview:self.pickerViewOfWeek];
+    }
+    else if(btn.tag==2){
+        [self.view addSubview:self.pickerViewOfMonth];
+    }
+    else{
+        [self.view addSubview:self.pickerViewOfYear];
+    }
     [self refresh];
     
 }
