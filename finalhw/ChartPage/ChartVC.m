@@ -6,9 +6,26 @@
 //
 
 #import "ChartVC.h"
+#import <UIKit/UIGestureRecognizerSubclass.h>
 
 #define Wper *self.view.bounds.size.width/100
 #define Hper *self.view.bounds.size.height/100
+@interface ges:UIGestureRecognizer
+
+@end
+
+@implementation ges
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesBegan:touches withEvent:event];
+    NSLog(@"bbb");
+}
+-(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [super touchesEnded:touches withEvent:event];
+    NSLog(@"ccc");
+}
+
+@end
 
 @interface ChartVC ()
 
@@ -146,6 +163,8 @@
         [_mainView addSubview:self.segment];
         [_mainView addSubview:self.datePickerLabel];
         _mainView.contentSize = CGSizeMake(100 Wper, 120 Hper);
+        ges *tapGesture = [[ges alloc] initWithTarget:self action:@selector(tapoflinechart:)];
+        [_mainView addGestureRecognizer:tapGesture];
     }
     return _mainView;
 }
@@ -898,6 +917,7 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event {
+
     [[self nextResponder]touchesBegan:touches withEvent:event];
     [super touchesBegan:touches withEvent:event];
 
