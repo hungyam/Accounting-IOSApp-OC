@@ -13,7 +13,7 @@
 //DetailPage RootVC
 @property (nonatomic, strong) DetailVC* detailVC;
 //ChartPage RootVC
-@property (nonatomic, strong) ChartVC* chartVC;
+@property (nonatomic, strong) ChartNaviVC* chartNaviVC;
 //NewEntry RootVC
 @property (nonatomic, strong) NewEntryVC* addEntryVC;
 //ExtendedPage RootVC
@@ -30,13 +30,14 @@
     // Do any additional setup after loading the view.
     self.viewControllers = @[
         self.detailVC,
-        self.chartVC,
+        self.chartNaviVC,
         self.addEntryVC,
         self.extendedVC,
         self.personalVC
     ];
     self.tabBar.backgroundColor = [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1];
     self.tabBar.tintColor = MainColor;
+    [self.navigationController.navigationBar setHidden:YES];
 }
 
 - (DetailVC *)detailVC {
@@ -48,13 +49,13 @@
     return _detailVC;
 }
 
-- (ChartVC *)chartVC {
-    if (_chartVC == nil) {
-        _chartVC = [[ChartVC alloc] init];
-        _chartVC.title = @"图表";
-        _chartVC.tabBarItem.image = [UIImage systemImageNamed:@"chart.line.uptrend.xyaxis"];
+- (ChartNaviVC *)chartNaviVC {
+    if (_chartNaviVC == nil) {
+        _chartNaviVC = [[ChartNaviVC alloc] init];
+        _chartNaviVC.title = @"图表";
+        _chartNaviVC.tabBarItem.image = [UIImage systemImageNamed:@"chart.line.uptrend.xyaxis"];
     }
-    return _chartVC;
+    return _chartNaviVC;
 }
 
 - (NewEntryVC *)addEntryVC {

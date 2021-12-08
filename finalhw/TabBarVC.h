@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DetailVC.h"
-#import "ChartVC.h"
+#import "ChartNaviVC.h"
 #import "NewEntryVC.h"
 #import "ExtendedVC.h"
 #import "PersonalVC.h"

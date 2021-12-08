@@ -31,6 +31,7 @@
 		3037CB31273D13840013EEBB /* finalhwTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3037CB30273D13840013EEBB /* finalhwTests.m */; };
 		3037CB3B273D13850013EEBB /* finalhwUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3037CB3A273D13850013EEBB /* finalhwUITests.m */; };
 		3037CB3D273D13850013EEBB /* finalhwUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3037CB3C273D13850013EEBB /* finalhwUITestsLaunchTests.m */; };
+		309C33E827605869004D627C /* ChartNaviVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 309C33E727605869004D627C /* ChartNaviVC.m */; };
 		30FA7D80275F00990075BEC6 /* DataManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 30FA7D7F275F00990075BEC6 /* DataManage.m */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +96,8 @@
 		3037CB36273D13850013EEBB /* finalhwUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = finalhwUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3037CB3A273D13850013EEBB /* finalhwUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = finalhwUITests.m; sourceTree = "<group>"; };
 		3037CB3C273D13850013EEBB /* finalhwUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = finalhwUITestsLaunchTests.m; sourceTree = "<group>"; };
+		309C33E62760584B004D627C /* ChartNaviVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartNaviVC.h; sourceTree = "<group>"; };
+		309C33E727605869004D627C /* ChartNaviVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartNaviVC.m; sourceTree = "<group>"; };
 		30FA7D7E275F00870075BEC6 /* DataManage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataManage.h; sourceTree = "<group>"; };
 		30FA7D7F275F00990075BEC6 /* DataManage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataManage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -160,6 +163,8 @@
 			children = (
 				3036FC29274C8D7100ECDF89 /* ChartVC.h */,
 				3036FC2A274C8D8000ECDF89 /* ChartVC.m */,
+				309C33E62760584B004D627C /* ChartNaviVC.h */,
+				309C33E727605869004D627C /* ChartNaviVC.m */,
 			);
 			path = ChartPage;
 			sourceTree = "<group>";
@@ -426,6 +431,7 @@
 				302B883B275C858000DB2EED /* SettingRootVC.m in Sources */,
 				3036FC2D274C8E3000ECDF89 /* ExtendedVC.m in Sources */,
 				3017956A27589AF300EB0002 /* StartNaviVC.m in Sources */,
+				309C33E827605869004D627C /* ChartNaviVC.m in Sources */,
 				3037CB19273D137C0013EEBB /* SceneDelegate.m in Sources */,
 				3036FC2B274C8D8000ECDF89 /* ChartVC.m in Sources */,
 			);
