@@ -6,8 +6,11 @@
 //
 
 #import "NewEntryVC.h"
+#import "DataManage.h"
 
 @interface NewEntryVC ()
+
+@property (nonatomic, strong) NSMutableArray *listArr;
 
 @end
 
@@ -16,7 +19,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self listArr];
 }
 
+- (NSMutableArray *)listArr {
+    if (_listArr == nil) {
+        _listArr = [DataManage getIconArray];
+        NSLog(@"%@",((IconType *)_listArr[10]).label);
+    }
+    return _listArr;
+}
 
 @end

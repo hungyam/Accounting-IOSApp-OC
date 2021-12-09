@@ -16,8 +16,18 @@
 
 @end
 
+@interface IconType : NSObject
+
+@property UIImage *icon;
+@property NSString *label;
+
+- (instancetype)initWithImg:(UIImage *)img label:(NSString *)label;
+
+@end
+
 @interface DataManage : NSObject
 
 + (PersonalMes *)getPersonalMes;
++ (NSMutableArray *)getIconArray;
 
 @end

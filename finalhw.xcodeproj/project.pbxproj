@@ -138,6 +138,13 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		301A45F0276238B600F6810C /* icon */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = icon;
+			sourceTree = "<group>";
+		};
 		302A35D4274BF719003BAED3 /* DetailPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +240,7 @@
 		3037CB13273D137C0013EEBB /* finalhw */ = {
 			isa = PBXGroup;
 			children = (
+				301A45F0276238B600F6810C /* icon */,
 				30FA7D7D275F00280075BEC6 /* DataManage */,
 				30179570275A348800EB0002 /* Resources */,
 				302A35D5274BF73E003BAED3 /* StartPage */,
