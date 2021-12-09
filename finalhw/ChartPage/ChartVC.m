@@ -392,7 +392,7 @@
 
 - (UIPickerView *)pickerViewOfYear {
     if (_pickerViewOfYear == nil) {
-        _pickerViewOfYear = [[UIPickerView alloc] initWithFrame:CGRectMake(30 Wper, 32 Hper, 65 Wper, 6.5 Hper)];
+        _pickerViewOfYear = [[UIPickerView alloc] initWithFrame:CGRectMake(20 Wper, 32 Hper, 75 Wper, 7 Hper)];
         _pickerViewOfYear.delegate = (id) self;
         _pickerViewOfYear.dataSource = (id) self;
         _pickerViewOfYear.backgroundColor = [UIColor clearColor];
@@ -403,7 +403,7 @@
 
 - (UIPickerView *)pickerViewOfMonth {
     if (_pickerViewOfMonth == nil) {
-        _pickerViewOfMonth = [[UIPickerView alloc] initWithFrame:CGRectMake(30 Wper, 32 Hper, 65 Wper, 6.5 Hper)];
+        _pickerViewOfMonth = [[UIPickerView alloc] initWithFrame:CGRectMake(20 Wper, 32 Hper, 75 Wper, 7 Hper)];
         _pickerViewOfMonth.delegate = (id) self;
         _pickerViewOfMonth.dataSource = (id) self;
         _pickerViewOfMonth.backgroundColor = [UIColor clearColor];
@@ -414,7 +414,7 @@
 
 - (UIPickerView *)pickerViewOfWeek {
     if (_pickerViewOfWeek == nil) {
-        _pickerViewOfWeek = [[UIPickerView alloc] initWithFrame:CGRectMake(30 Wper, 32 Hper, 65 Wper, 6.5 Hper)];
+        _pickerViewOfWeek = [[UIPickerView alloc] initWithFrame:CGRectMake(20 Wper, 32 Hper, 75 Wper, 7 Hper)];
         _pickerViewOfWeek.delegate = (id) self;
         _pickerViewOfWeek.dataSource = (id) self;
         _pickerViewOfWeek.backgroundColor = [UIColor clearColor];
