@@ -6,26 +6,8 @@
 //
 
 #import "ChartVC.h"
-#import <UIKit/UIGestureRecognizerSubclass.h>
-
 #define Wper *self.view.bounds.size.width/100
 #define Hper *self.view.bounds.size.height/100
-@interface ges:UIGestureRecognizer
-
-@end
-
-@implementation ges
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [super touchesBegan:touches withEvent:event];
-    NSLog(@"bbb");
-}
--(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [super touchesEnded:touches withEvent:event];
-    NSLog(@"ccc");
-}
-
-@end
 
 @interface ChartVC ()
 
@@ -80,7 +62,9 @@
 @property(nonatomic, strong) UIPickerView *pickerViewOfWeek;
 @property(nonatomic, strong) UIPickerView *pickerViewOfMonth;
 @property(nonatomic, strong) UIPickerView *pickerViewOfYear;
-
+@property(nonatomic, assign) NSInteger firstYear;
+@property(nonatomic, assign) NSInteger lastYear;
+@property(nonatomic, assign) NSInteger chooseYear;
 
 @end
 
@@ -88,6 +72,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.firstYear=2017;
+    self.lastYear=2021;
+    self.chooseYear=2017;
     self.view.backgroundColor = [UIColor colorWithRed:248 / 255.0 green:248 / 255.0 blue:248 / 255.0 alpha:1];
     [self.view addSubview:self.mainView];
     [self setButtonLine];
@@ -163,8 +151,6 @@
         [_mainView addSubview:self.segment];
         [_mainView addSubview:self.datePickerLabel];
         _mainView.contentSize = CGSizeMake(100 Wper, 120 Hper);
-        ges *tapGesture = [[ges alloc] initWithTarget:self action:@selector(tapoflinechart:)];
-        [_mainView addGestureRecognizer:tapGesture];
     }
     return _mainView;
 }
@@ -344,12 +330,18 @@
     self.buttoninUse = btn;
     [self refresh];
 }
+-(bool)isRun:(NSInteger)year{
+    if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+        return true;
+    }
+    return false;
+}
 
 - (int)getdaysin:(NSInteger)year and:(NSInteger)month {
     if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
         return 31;
     } else if (month == 2) {
-        if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+        if ([self isRun:year]) {
             return 29;
         }
         return 28;
@@ -365,6 +357,15 @@
     return tmp;
 }
 
+-(NSInteger)weekdatein:(NSInteger)y and:(NSInteger)m and:(NSInteger)d{
+    if (m == 1 || m == 2)
+    {
+        m += 12;
+        y--;
+    }
+    int week=(d+2*m+3*(m+1)/5+y+y/4-y/100+y/400)%7;
+    return week+1;
+}
 #pragma mark - main part
 
 - (UIScrollView *)chartView {
@@ -432,22 +433,40 @@
 //设置指定列包含的项数
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     if (component == 0) {
-        return 12;
+        return self.lastYear-self.firstYear+1;
+    }
+    if(pickerView.tag==1){
+        NSInteger weekdate=[self weekdatein:self.chooseYear and:1 and:1];
+        if([self isRun:self.chooseYear]&&(weekdate==7||weekdate==6)){
+            return  53;
+        
+        }
+        else if(weekdate==7){
+            return  53;
+        }
+        return 52;
     }
     return 12;
 }
 
+
+
 //设置每个选项显示的内容
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     if (component == 0) {
-        return @"2012";
+        return [NSString stringWithFormat:@"%ld",self.firstYear+row];
     }
-    return @"aaa";
+    if(pickerView.tag==1){
+        
+    }
+    return [NSString stringWithFormat:@"%ld",row+1];
 }
 
 //用户进行选择
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    if (component == 0) {
+    if (component == 0&&pickerView.tag==1) {
+        self.chooseYear=[pickerView selectedRowInComponent:0]+self.firstYear;
+        [pickerView reloadAllComponents];
     }
     [self refresh];
 }
@@ -918,9 +937,7 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event {
 
-    [[self nextResponder]touchesBegan:touches withEvent:event];
     [super touchesBegan:touches withEvent:event];
-
     //获取触摸点的集合
     NSSet *allTouches = [event allTouches];
     //获取触摸对象
@@ -944,7 +961,6 @@
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [[self.view nextResponder]touchesEnded:touches withEvent:event];
     [super touchesEnded:touches withEvent:event];
     [self.midpielabel removeFromSuperview];
     [self.colorexp removeFromSuperview];
