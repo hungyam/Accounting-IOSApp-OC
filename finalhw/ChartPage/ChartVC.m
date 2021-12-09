@@ -457,11 +457,35 @@
         return [NSString stringWithFormat:@"%ld",self.firstYear+row];
     }
     if(pickerView.tag==1){
-        
+        return [self gettheNo:row weekin:self.chooseYear];
     }
     return [NSString stringWithFormat:@"%ld",row+1];
 }
-
+-(NSString*)gettheNo:(NSInteger)num weekin:(NSInteger)year{
+    NSInteger basedate=[self begindayin:year];
+    NSInteger beginday=basedate+7*num,endday=beginday+6;
+    NSString*begin=[self dateof:beginday daysinyear:year];
+    NSString*end=[self dateof:endday daysinyear:year];
+    return [NSString stringWithFormat:@"%@-%@",begin,end];
+}
+-(NSString*)dateof:(NSInteger)day daysinyear:(NSInteger)year{
+    NSInteger daysinmonth[13]={31,28,31,30,31,30,31,31,30,31,20,31,666};
+    NSInteger month=1;
+    if([self isRun:year]){
+        daysinmonth[1]++;
+    }
+    while (day>daysinmonth[month-1]){
+        if(month==13){
+            month-=12;
+        }
+        day-=daysinmonth[month-1];
+        month++;
+    }
+    return [NSString stringWithFormat:@"%ld.%ld",month,day];
+}
+-(NSInteger)begindayin:(NSInteger)year{
+    return 8-[self weekdatein:year and:1 and:1];
+}
 //用户进行选择
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     if (component == 0&&pickerView.tag==1) {
