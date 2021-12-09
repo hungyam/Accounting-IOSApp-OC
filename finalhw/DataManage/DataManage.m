@@ -31,7 +31,6 @@ static NSMutableArray *iconArray;
 @implementation DataManage
 
 
-
 + (PersonalMes *)getPersonalMes {
     PersonalMes *re = [[PersonalMes alloc]init];
     re.username = @"HungyamHui0530";
