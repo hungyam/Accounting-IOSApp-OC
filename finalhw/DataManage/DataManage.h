@@ -7,15 +7,19 @@
 
 #import <UIKit/UIKit.h>
 
+/// Structure of user‘s personal information
 @interface PersonalMes : NSObject
 
 @property NSString *nickname;
 @property UIImage *userImg;
 @property NSString *username;
 @property NSInteger points;
+@property NSString *password;
+@property NSString *phone;
 
 @end
 
+/// Structure of category selection button content
 @interface IconType : NSObject
 
 @property UIImage *icon;
@@ -25,9 +29,44 @@
 
 @end
 
+/// Structure of account
+@interface AccountType : NSObject
+
+@property NSString *type;
+@property NSString *tips;
+@property CGFloat amount;
+@property NSInteger dateYear;
+@property NSInteger dateMonth;
+@property NSInteger dateDay;
+@property NSInteger dateHour;
+@property NSInteger dateMinute;
+
+- (instancetype)initWithType:(NSString *)type
+                        tips:(NSString *)tips
+                      amount:(CGFloat)amount
+                    dateYear:(NSInteger)dateYear
+                   dateMonth:(NSInteger)dateMonth
+                     dateDay:(NSInteger)dateDay
+                    dateHour:(NSInteger)dateHour
+                  dateMinute:(NSInteger)dateMinute ;
+
+@end
+
+
 @interface DataManage : NSObject
 
++ (void)loadRequestData;
+
++ (BOOL)loginUser:(NSString *)username password:(NSString *)password;
++ (BOOL)signUpUser:(PersonalMes *)newUser;
+
++ (BOOL)addNewAccount:(AccountType *)newAccount addPoints:(NSUInteger)point;
++ (BOOL)loadAllAccounts;
++ (NSMutableArray *)getAllAccounts;
+
++ (BOOL)modifyPersonalMes:(PersonalMes *)newObject;
 + (PersonalMes *)getPersonalMes;
+
 + (NSMutableArray *)getIconArray;
 
 @end

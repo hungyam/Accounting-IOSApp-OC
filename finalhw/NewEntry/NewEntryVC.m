@@ -25,7 +25,6 @@
 - (NSMutableArray *)listArr {
     if (_listArr == nil) {
         _listArr = [DataManage getIconArray];
-        NSLog(@"%@",((IconType *)_listArr[10]).label);
     }
     return _listArr;
 }

@@ -6,6 +6,7 @@
 //
 
 #import "SceneDelegate.h"
+#import "DataManage.h"
 #define MainColor [UIColor colorWithRed:255/255.0 green:118/255.0 blue:102/255.0 alpha:1]
 
 @interface SceneDelegate ()
@@ -25,6 +26,8 @@
     self.window.rootViewController = control;
     self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
+    
+    [DataManage loadRequestData];
 }
 
 
