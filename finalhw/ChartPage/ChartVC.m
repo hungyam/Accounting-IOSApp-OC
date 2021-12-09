@@ -469,17 +469,17 @@
     return [NSString stringWithFormat:@"%@-%@",begin,end];
 }
 -(NSString*)dateof:(NSInteger)day daysinyear:(NSInteger)year{
-    NSInteger daysinmonth[13]={31,28,31,30,31,30,31,31,30,31,20,31,666};
+    NSInteger daysinmonth[13]={31,28,31,30,31,30,31,31,30,31,30,31,666};
     NSInteger month=1;
     if([self isRun:year]){
         daysinmonth[1]++;
     }
     while (day>daysinmonth[month-1]){
+        day-=daysinmonth[month-1];
+        month++;
         if(month==13){
             month-=12;
         }
-        day-=daysinmonth[month-1];
-        month++;
     }
     return [NSString stringWithFormat:@"%ld.%ld",month,day];
 }
