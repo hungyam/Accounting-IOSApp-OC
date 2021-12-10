@@ -71,12 +71,12 @@
 @end
 
 @implementation ChartVC
--(void)initdata{
+-(void)renewdata{
     
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initdata];
+    [self renewdata];
     self.view.backgroundColor = [UIColor colorWithRed:248 / 255.0 green:248 / 255.0 blue:248 / 255.0 alpha:1];
     [self.view addSubview:self.mainView];
     [self setButtonLine];

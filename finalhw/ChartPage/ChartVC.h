@@ -9,5 +9,5 @@
 
 @interface ChartVC : UIViewController
 -(void)refresh;
-
+-(void)renewdata;
 @end
