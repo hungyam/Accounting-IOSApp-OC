@@ -11,6 +11,34 @@
 
 @end
 
+@implementation Entry
+
+- (instancetype)initWithIcon:(UIImage *)icon
+                    iconName:(NSString *)iconName
+                 description:(NSString *)description
+                        cost:(CGFloat)cost
+                    moreText:(NSString *)moreText
+                  morePhotos:(NSMutableArray *)morePhotos
+                    dateYear:(NSInteger)dateYear
+                   dateMonth:(NSInteger)dateMonth
+                     dateDay:(NSInteger)dateDay
+                    dateHour:(NSInteger)dateHour
+                  dateMinute:(NSInteger)dateMinute {
+    self.icon = icon;
+    self.iconName = iconName;
+    self.description = description;
+    self.moreText = moreText;
+    self.morePhotos = morePhotos;
+    self.dateYear = dateYear;
+    self.dateMonth = dateMonth;
+    self.dateDay = dateDay;
+    self.dateHour = dateHour;
+    self.dateMonth = dateMinute;
+    return self;
+}
+
+@end
+
 @implementation IconType
 
 - (instancetype)initWithImg:(UIImage *)img label:(NSString *)label {

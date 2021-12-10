@@ -19,6 +19,23 @@
 
 @end
 
+/// Structure of user's record entry
+@interface Entry : NSObject
+
+@property UIImage *icon;
+@property NSString *iconName;
+@property NSString *description;
+@property CGFloat cost;
+@property NSString *moreText;
+@property NSMutableArray *morePhotos;
+
+@property NSInteger dateYear;
+@property NSInteger dateMonth;
+@property NSInteger dateDay;
+@property NSInteger dateHour;
+@property NSInteger dateMinute;
+@end
+
 /// Structure of category selection button content
 @interface IconType : NSObject
 
