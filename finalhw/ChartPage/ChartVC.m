@@ -10,12 +10,14 @@
 #define Hper *self.view.bounds.size.height/100
 
 @interface ChartVC ()
+@property(nonatomic, strong) NSMutableArray *maindata;
+@property(nonatomic, strong) NSMutableArray *databytime;
+@property(nonatomic, strong) NSMutableArray *databytype;
+@property(nonatomic, strong) NSMutableArray *nameoftype;
 
 @property(nonatomic, strong) UIScrollView *mainView;
 @property(nonatomic, strong) UILabel *datePickerLabel;
 @property(nonatomic, strong) UIScrollView *chartView; //图表主视图
-@property(nonatomic, strong) NSMutableArray *databytime;
-@property(nonatomic, strong) NSMutableArray *databytype;
 @property(nonatomic, strong) CAShapeLayer *lineChartLayer;
 @property(nonatomic, strong) CAShapeLayer *pieMaskLayer;
 
@@ -69,13 +71,12 @@
 @end
 
 @implementation ChartVC
-
+-(void)initdata{
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.firstYear=2017;
-    self.lastYear=2021;
-    self.chooseYear=2017;
+    [self initdata];
     self.view.backgroundColor = [UIColor colorWithRed:248 / 255.0 green:248 / 255.0 blue:248 / 255.0 alpha:1];
     [self.view addSubview:self.mainView];
     [self setButtonLine];
@@ -93,8 +94,7 @@
         [self.labelline removeFromSuperlayer];
         self.labelline = nil;
     }
-    [self refreshdataoftime];
-    [self refreshdataoftype];
+    [self refreshdata];
     [self beginDrawline];
     [self setlist];
     if (self.segment.selectedSegmentIndex == 0) {
@@ -140,6 +140,27 @@
         [_databytime addObject:[NSNumber numberWithFloat:313.00]];
     }
     return _databytime;
+}
+
+-(NSMutableArray*)databytype{
+    if(_databytype==nil){
+        _databytype=[[NSMutableArray alloc]init];
+    }
+    return  _databytype;
+}
+
+-(NSMutableArray*)maindata{
+    if(_maindata==nil){
+        _maindata=[[NSMutableArray alloc] init];
+    }
+    return  _maindata;
+}
+
+-(NSMutableArray*)nameoftype{
+    if(_nameoftype==nil){
+        _nameoftype=[[NSMutableArray alloc] init];
+    }
+    return  _nameoftype;
 }
 
 - (UIScrollView *)mainView {
@@ -295,6 +316,7 @@
         return;
     }
     self.mode = btn.tag;
+    [self refresh];
     [self.pickerViewOfWeek removeFromSuperview];
     [self.pickerViewOfMonth removeFromSuperview];
     [self.pickerViewOfYear removeFromSuperview];
@@ -328,7 +350,6 @@
                      }
                      completion:nil];
     self.buttoninUse = btn;
-    [self refresh];
 }
 -(bool)isRun:(NSInteger)year{
     if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
@@ -392,33 +413,36 @@
 
 - (UIPickerView *)pickerViewOfYear {
     if (_pickerViewOfYear == nil) {
-        _pickerViewOfYear = [[UIPickerView alloc] initWithFrame:CGRectMake(20 Wper, 32 Hper, 75 Wper, 7 Hper)];
+        _pickerViewOfYear = [[UIPickerView alloc] initWithFrame:CGRectMake(15 Wper, 32 Hper, 80 Wper, 7 Hper)];
         _pickerViewOfYear.delegate = (id) self;
         _pickerViewOfYear.dataSource = (id) self;
         _pickerViewOfYear.backgroundColor = [UIColor clearColor];
         _pickerViewOfYear.tag = 3;
+        [_pickerViewOfYear selectRow:self.chooseYear-self.firstYear inComponent:0 animated:false];
     }
     return _pickerViewOfYear;
 }
 
 - (UIPickerView *)pickerViewOfMonth {
     if (_pickerViewOfMonth == nil) {
-        _pickerViewOfMonth = [[UIPickerView alloc] initWithFrame:CGRectMake(20 Wper, 32 Hper, 75 Wper, 7 Hper)];
+        _pickerViewOfMonth = [[UIPickerView alloc] initWithFrame:CGRectMake(15 Wper, 32 Hper, 80 Wper, 7 Hper)];
         _pickerViewOfMonth.delegate = (id) self;
         _pickerViewOfMonth.dataSource = (id) self;
         _pickerViewOfMonth.backgroundColor = [UIColor clearColor];
         _pickerViewOfMonth.tag = 2;
+        [_pickerViewOfMonth selectRow:self.chooseYear-self.firstYear inComponent:0 animated:false];
     }
     return _pickerViewOfMonth;
 }
 
 - (UIPickerView *)pickerViewOfWeek {
     if (_pickerViewOfWeek == nil) {
-        _pickerViewOfWeek = [[UIPickerView alloc] initWithFrame:CGRectMake(20 Wper, 32 Hper, 75 Wper, 7 Hper)];
+        _pickerViewOfWeek = [[UIPickerView alloc] initWithFrame:CGRectMake(15 Wper, 32 Hper, 80 Wper, 7 Hper)];
         _pickerViewOfWeek.delegate = (id) self;
         _pickerViewOfWeek.dataSource = (id) self;
         _pickerViewOfWeek.backgroundColor = [UIColor clearColor];
         _pickerViewOfWeek.tag = 1;
+        [_pickerViewOfWeek selectRow:self.chooseYear-self.firstYear inComponent:0 animated:false];
     }
     return _pickerViewOfWeek;
 }
@@ -647,12 +671,35 @@
 
 #pragma mark - base data of pic and list
 
-- (void)refreshdataoftime {
-    self.yNum = [self setyNumwithmax:633.00];
-}
 
-- (void)refreshdataoftype {
+- (void)refreshdata {
+    NSString*week;
+    NSInteger month;
+    NSMutableArray*basedata=[[NSMutableArray alloc] init];
+    if(self.chooseYear==0){
+        self.chooseYear=2021;
+        week=[self gettheNo:0 weekin:self.chooseYear];
+        month=1;
+    }
+    else{
+        week=[self gettheNo:[self.pickerViewOfWeek selectedRowInComponent:1] weekin:self.chooseYear];
+        month=[self.pickerViewOfMonth selectedRowInComponent:1]+1;
+    }
+    
+    for(NSInteger i=0;i<self.maindata.count;i++){
+        if(self.mode==1){
+            
+        }
+        else if(self.mode==2){
+            
+        }
+    }
+    
+    self.firstYear=2017;
+    self.lastYear=2025;
     self.pieNum = 15;
+    self.yNum = [self setyNumwithmax:633.00];
+
 }
 
 #pragma mark - linepic
