@@ -11,6 +11,34 @@
 
 @end
 
+@implementation Entry
+
+- (instancetype)initWithIcon:(UIImage *)icon
+                    iconName:(NSString *)iconName
+                 description:(NSString *)description
+                        cost:(CGFloat)cost
+                    moreText:(NSString *)moreText
+                  morePhotos:(NSMutableArray *)morePhotos
+                    dateYear:(NSInteger)dateYear
+                   dateMonth:(NSInteger)dateMonth
+                     dateDay:(NSInteger)dateDay
+                    dateHour:(NSInteger)dateHour
+                  dateMinute:(NSInteger)dateMinute {
+    self.icon = icon;
+    self.iconName = iconName;
+    self.description = description;
+    self.moreText = moreText;
+    self.morePhotos = morePhotos;
+    self.dateYear = dateYear;
+    self.dateMonth = dateMonth;
+    self.dateDay = dateDay;
+    self.dateHour = dateHour;
+    self.dateMonth = dateMinute;
+    return self;
+}
+
+@end
+
 @implementation IconType
 
 - (instancetype)initWithImg:(UIImage *)img label:(NSString *)label {
@@ -56,7 +84,7 @@ static NSMutableArray *allAccounts;
 @implementation DataManage
 
 + (void)loadRequestData {
-    [self setIconArray];
+    [self loadIconArray];
     [self loadPersonalMes];
     [self loadAllAccounts];
 }
@@ -69,10 +97,20 @@ static NSMutableArray *allAccounts;
 /// @param password password
 + (BOOL)loginUser:(NSString *)username password:(NSString *)password {
     /*
-     Get from API
+     Request:
+     {
+         "username": "ppss99",
+         "password": "dolore"
+     }
+     Response:
+     {
+       "status": true
+     }
      */
-    
-    return YES;
+    if (YES/* accept */) {
+        return YES;
+    }
+    return NO;
 }
 
 #pragma mark - SignUp Interface
@@ -81,10 +119,23 @@ static NSMutableArray *allAccounts;
 /// @param newUser new user's information
 + (BOOL)signUpUser:(PersonalMes *)newUser {
     /*
-     Get from API
+     Request:
+     {
+         "nickname": "zhuping",
+         "username": "zhuping123",
+         "phone": "12345678910",
+         "password": "dolore"
+     }
+     Response:
+     {
+         "status": true
+     }
      */
     
-    return YES;
+    if (YES/* accept */) {
+        return YES;
+    }
+    return NO;
 }
 
 #pragma mark - User Information Interface
@@ -98,7 +149,16 @@ static NSMutableArray *allAccounts;
     userInformation.password = @"xhx0530";
     userInformation.phone = @"18350507093";
     /*
-     Get from API
+     Request:
+     {
+         "username": "hinn11"
+     }
+     Response:
+     {
+         "nickname": "冯丽",
+         "points": 25,
+         "phone": "18174847183"
+     }
      */
     
 }
@@ -108,9 +168,24 @@ static NSMutableArray *allAccounts;
 + (BOOL)modifyPersonalMes:(PersonalMes *)newObject {
     userInformation = newObject;
     /*
-     Get from API
+     Request:
+     {
+         "nickname": "zhuping",
+         "username": "zhuping123",
+         "phone": "12345678910",
+         "password": "dolore",
+     }
+     Response:
+     {
+         "status": true
+     }
      */
-    return YES;
+    
+    if (YES/* accept */) {
+        userInformation = newObject;
+        return YES;
+    }
+    return NO;
 }
 
 /// Return user's information
@@ -149,29 +224,34 @@ static NSMutableArray *allAccounts;
 
 /// Load all of accounts
 + (BOOL)loadAllAccounts {
-//    {
-//        "status": true,
-//        "data": [
-//            {
-//                "id": 19,
-//                "type": "food",
-//                "tips": "aliqua nulla sunt",
-//                "amount": 16,
-//                "date": "1977-07-29 21:30"
-//            },
-//            {
-//                "id": 38,
-//                "type": "play",
-//                "tips": "in Duis ex ad pariatur",
-//                "amount": 82,
-//                "date": "1982-12-09 10:01"
-//            }
-//        ]
-//    }
-    allAccounts = [[NSMutableArray alloc]init];
     /*
-     Get from API
+     Request:
+     {
+         "username": "hungyam"
+     }
+     Response:
+     {
+         "status": true,
+         "data": [
+             {
+                 "id": 19,
+                 "type": "food",
+                 "tips": "aliqua nulla sunt",
+                 "amount": 16,
+                 "date": "1977-07-29 21:30"
+             },
+             {
+                 "id": 38,
+                 "type": "play",
+                 "tips": "in Duis ex ad pariatur",
+                 "amount": 82,
+                 "date": "1982-12-09 10:01"
+             }
+         ]
+     }
      */
+    
+    allAccounts = [[NSMutableArray alloc]init];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"交通" tips:@"公交" amount:10.5 dateYear:2021 dateMonth:5 dateDay:30 dateHour:12 dateMinute:30]];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"交通" tips:@"公交" amount:20.8 dateYear:2021 dateMonth:4 dateDay:10 dateHour:11 dateMinute:32]];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"交通" tips:@"公交" amount:9.8 dateYear:2021 dateMonth:5 dateDay:30 dateHour:12 dateMinute:30]];
@@ -199,8 +279,8 @@ static NSMutableArray *allAccounts;
 
 #pragma mark - Category Selection Interface
 
-/// Initializes the array of  icons
-+ (void)setIconArray {
+/// Load the array of  icons
++ (void)loadIconArray {
     iconArray = [[NSMutableArray alloc]init];
     [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"caipiao.png"] label:@"彩票"]];
     [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"canyin.png"] label:@"餐饮"]];
