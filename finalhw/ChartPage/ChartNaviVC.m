@@ -18,8 +18,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self pushViewController:self.chartVC animated:NO];
-    [self.navigationController.navigationBar setHidden:YES];
     self.title = @"图表";
+    [self.navigationController.navigationBar setHidden:YES];
+
 }
 
 - (ChartVC *)chartVC {

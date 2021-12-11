@@ -10,12 +10,15 @@
 
 @interface TabBarVC ()
 
+//Plus Button
+@property (nonatomic, strong) UIButton* plusButton;
+
 //DetailPage RootVC
-@property (nonatomic, strong) DetailVC* detailVC;
+@property (nonatomic, strong) DetailNaviVC* detailNaviVC;
 //ChartPage RootVC
 @property (nonatomic, strong) ChartNaviVC* chartNaviVC;
 //NewEntry RootVC
-@property (nonatomic, strong) NewEntryVC* addEntryVC;
+@property (nonatomic, strong) NewEntryNaviVC* addEntryNaviVC;
 //ExtendedPage RootVC
 @property (nonatomic, strong) ExtendedVC* extendedVC;
 //PersonalPage RootVC
@@ -29,24 +32,45 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.viewControllers = @[
-        self.detailVC,
+        self.detailNaviVC,
         self.chartNaviVC,
-        self.addEntryVC,
+        [[UIViewController alloc]init],
         self.extendedVC,
         self.personalVC
     ];
     self.tabBar.backgroundColor = [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1];
     self.tabBar.tintColor = MainColor;
-    [self.navigationController.navigationBar setHidden:YES];
+    [self.view addSubview:self.plusButton];
+    [self.view bringSubviewToFront:self.plusButton];
 }
 
-- (DetailVC *)detailVC {
-    if (_detailVC == nil) {
-        _detailVC = [[DetailVC alloc] init];
-        _detailVC.title = @"详情";
-        _detailVC.tabBarItem.image = [UIImage systemImageNamed:@"list.dash"];
+- (UIButton *)plusButton {
+    if (_plusButton == nil) {
+        _plusButton = [[UIButton alloc]initWithFrame:CGRectMake((self.tabBar.frame.size.width - 60.0) / 2, (self.view.frame.size.height - 60.0) - 33.0, 60.0, 60.0)];
+        _plusButton.backgroundColor = MainColor;
+        _plusButton.layer.shadowColor = MainColor.CGColor;
+        _plusButton.layer.shadowOffset = CGSizeMake(0, 0);
+        _plusButton.layer.shadowRadius = 10;
+        _plusButton.layer.shadowOpacity = 0.6;
+        _plusButton.layer.cornerRadius = 20;
+        [_plusButton setTintColor:[UIColor whiteColor]];
+        [_plusButton setImage:[UIImage systemImageNamed:@"plus"] forState:UIControlStateNormal];
+        [_plusButton addTarget:self action:@selector(showNewEntryPage) forControlEvents:UIControlEventTouchDown];
     }
-    return _detailVC;
+    return _plusButton;
+}
+
+- (void)showNewEntryPage {
+    [self presentViewController:self.addEntryNaviVC animated:YES completion:nil];
+}
+
+- (DetailNaviVC *)detailNaviVC {
+    if (_detailNaviVC == nil) {
+        _detailNaviVC = [[DetailNaviVC alloc] init];
+        _detailNaviVC.title = @"详情";
+        _detailNaviVC.tabBarItem.image = [UIImage systemImageNamed:@"list.dash"];
+    }
+    return _detailNaviVC;
 }
 
 - (ChartNaviVC *)chartNaviVC {
@@ -58,13 +82,12 @@
     return _chartNaviVC;
 }
 
-- (NewEntryVC *)addEntryVC {
-    if (_addEntryVC == nil) {
-        _addEntryVC = [[NewEntryVC alloc] init];
-        _addEntryVC.title = @"添加纪录";
-        _addEntryVC.tabBarItem.image = [UIImage systemImageNamed:@"plus"];
+- (NewEntryNaviVC *)addEntryNaviVC {
+    if (_addEntryNaviVC == nil) {
+        _addEntryNaviVC = [[NewEntryNaviVC alloc] init];
+        _addEntryNaviVC.modalPresentationStyle = UIModalPresentationFullScreen;
     }
-    return _addEntryVC;
+    return _addEntryNaviVC;
 }
 
 - (ExtendedVC *)extendedVC {

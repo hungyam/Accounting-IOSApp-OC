@@ -10,5 +10,6 @@
 
 @interface DetailVC : UIViewController
 
+- (instancetype)initWithIndex:(NSInteger)index;
 
 @end

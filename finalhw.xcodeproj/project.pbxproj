@@ -61,6 +61,9 @@
 		3037CB3B273D13850013EEBB /* finalhwUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3037CB3A273D13850013EEBB /* finalhwUITests.m */; };
 		3037CB3D273D13850013EEBB /* finalhwUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3037CB3C273D13850013EEBB /* finalhwUITestsLaunchTests.m */; };
 		309C33E827605869004D627C /* ChartNaviVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 309C33E727605869004D627C /* ChartNaviVC.m */; };
+		30CF24842764991300C1C858 /* NewEntryNaviVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CF24832764991300C1C858 /* NewEntryNaviVC.m */; };
+		30CF24872764AD5200C1C858 /* DetailNaviVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CF24862764AD5200C1C858 /* DetailNaviVC.m */; };
+		30CF248A2764B02D00C1C858 /* AccountDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CF24892764B02D00C1C858 /* AccountDetailVC.m */; };
 		30FA7D80275F00990075BEC6 /* DataManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 30FA7D7F275F00990075BEC6 /* DataManage.m */; };
 /* End PBXBuildFile section */
 
@@ -156,6 +159,12 @@
 		3037CB3C273D13850013EEBB /* finalhwUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = finalhwUITestsLaunchTests.m; sourceTree = "<group>"; };
 		309C33E62760584B004D627C /* ChartNaviVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChartNaviVC.h; sourceTree = "<group>"; };
 		309C33E727605869004D627C /* ChartNaviVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChartNaviVC.m; sourceTree = "<group>"; };
+		30CF24822764990A00C1C858 /* NewEntryNaviVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewEntryNaviVC.h; sourceTree = "<group>"; };
+		30CF24832764991300C1C858 /* NewEntryNaviVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewEntryNaviVC.m; sourceTree = "<group>"; };
+		30CF24852764AD4000C1C858 /* DetailNaviVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailNaviVC.h; sourceTree = "<group>"; };
+		30CF24862764AD5200C1C858 /* DetailNaviVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailNaviVC.m; sourceTree = "<group>"; };
+		30CF24882764B01B00C1C858 /* AccountDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountDetailVC.h; sourceTree = "<group>"; };
+		30CF24892764B02D00C1C858 /* AccountDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountDetailVC.m; sourceTree = "<group>"; };
 		30FA7D7E275F00870075BEC6 /* DataManage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataManage.h; sourceTree = "<group>"; };
 		30FA7D7F275F00990075BEC6 /* DataManage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataManage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -237,6 +246,10 @@
 			children = (
 				3036FC26274C8D4B00ECDF89 /* DetailVC.h */,
 				3036FC27274C8D5E00ECDF89 /* DetailVC.m */,
+				30CF24852764AD4000C1C858 /* DetailNaviVC.h */,
+				30CF24862764AD5200C1C858 /* DetailNaviVC.m */,
+				30CF24882764B01B00C1C858 /* AccountDetailVC.h */,
+				30CF24892764B02D00C1C858 /* AccountDetailVC.m */,
 			);
 			path = DetailPage;
 			sourceTree = "<group>";
@@ -289,6 +302,8 @@
 			children = (
 				3036FC32274C902600ECDF89 /* NewEntryVC.h */,
 				3036FC33274C903600ECDF89 /* NewEntryVC.m */,
+				30CF24822764990A00C1C858 /* NewEntryNaviVC.h */,
+				30CF24832764991300C1C858 /* NewEntryNaviVC.m */,
 			);
 			path = NewEntry;
 			sourceTree = "<group>";
@@ -543,15 +558,18 @@
 			files = (
 				302B5895275DE8B70097B7C3 /* ModifyMes.m in Sources */,
 				3036FC31274C8E6C00ECDF89 /* PersonalVC.m in Sources */,
+				30CF24872764AD5200C1C858 /* DetailNaviVC.m in Sources */,
 				302B8837275C6D5600DB2EED /* SettingVC.m in Sources */,
 				302A35D3274BF2E4003BAED3 /* SignUpVC.m in Sources */,
 				3037CB1C273D137C0013EEBB /* TabBarVC.m in Sources */,
 				3037CB16273D137C0013EEBB /* AppDelegate.m in Sources */,
 				3036FC28274C8D5E00ECDF89 /* DetailVC.m in Sources */,
 				3036FC34274C903600ECDF89 /* NewEntryVC.m in Sources */,
+				30CF248A2764B02D00C1C858 /* AccountDetailVC.m in Sources */,
 				302A35D1274BF2D2003BAED3 /* LoginVC.m in Sources */,
 				3037CB27273D13840013EEBB /* main.m in Sources */,
 				30FA7D80275F00990075BEC6 /* DataManage.m in Sources */,
+				30CF24842764991300C1C858 /* NewEntryNaviVC.m in Sources */,
 				302B883B275C858000DB2EED /* SettingRootVC.m in Sources */,
 				3036FC2D274C8E3000ECDF89 /* ExtendedVC.m in Sources */,
 				3017956A27589AF300EB0002 /* StartNaviVC.m in Sources */,

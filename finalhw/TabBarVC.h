@@ -6,9 +6,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DetailVC.h"
+#import "DetailNaviVC.h"
 #import "ChartNaviVC.h"
-#import "NewEntryVC.h"
+#import "NewEntryNaviVC.h"
 #import "ExtendedVC.h"
 #import "PersonalVC.h"
 

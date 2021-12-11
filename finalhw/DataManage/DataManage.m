@@ -252,22 +252,25 @@ static NSMutableArray *allAccounts;
      */
     
     allAccounts = [[NSMutableArray alloc]init];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"交通" tips:@"公交" amount:10.5 dateYear:2021 dateMonth:5 dateDay:30 dateHour:12 dateMinute:30]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"交通" tips:@"公交" amount:20.8 dateYear:2021 dateMonth:4 dateDay:10 dateHour:11 dateMinute:32]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"交通" tips:@"公交" amount:9.8 dateYear:2021 dateMonth:5 dateDay:30 dateHour:12 dateMinute:30]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"交通" tips:@"公交" amount:100.6 dateYear:2021 dateMonth:5 dateDay:30 dateHour:12 dateMinute:30]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"交通" tips:@"公交" amount:30 dateYear:2021 dateMonth:5 dateDay:30 dateHour:12 dateMinute:30]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"交通" tips:@"公交" amount:10.5 dateYear:2021 dateMonth:5 dateDay:30 dateHour:12 dateMinute:30]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"交通" tips:@"公交" amount:10.5 dateYear:2021 dateMonth:5 dateDay:30 dateHour:12 dateMinute:30]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"交通" tips:@"公交" amount:10.5 dateYear:2021 dateMonth:5 dateDay:30 dateHour:12 dateMinute:30]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"交通" tips:@"公交" amount:10.5 dateYear:2021 dateMonth:5 dateDay:30 dateHour:12 dateMinute:30]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"交通" tips:@"公交" amount:10.5 dateYear:2021 dateMonth:5 dateDay:30 dateHour:12 dateMinute:30]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"交通" tips:@"公交" amount:10.5 dateYear:2021 dateMonth:5 dateDay:30 dateHour:12 dateMinute:30]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"交通" tips:@"公交" amount:10.5 dateYear:2021 dateMonth:5 dateDay:30 dateHour:12 dateMinute:30]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"交通" tips:@"公交" amount:10.5 dateYear:2021 dateMonth:5 dateDay:30 dateHour:12 dateMinute:30]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"交通" tips:@"公交" amount:10.5 dateYear:2021 dateMonth:5 dateDay:30 dateHour:12 dateMinute:30]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"交通" tips:@"公交" amount:10.5 dateYear:2021 dateMonth:5 dateDay:30 dateHour:12 dateMinute:30]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"交通" tips:@"公交" amount:10.5 dateYear:2021 dateMonth:5 dateDay:30 dateHour:12 dateMinute:30]];
+    /*
+     Testing Data
+     */
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"交通" tips:@"fhsafjk" amount:10.5 dateYear:2021 dateMonth:5 dateDay:30 dateHour:12 dateMinute:30]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"宠物" tips:@"dsadasd" amount:20.8 dateYear:2021 dateMonth:4 dateDay:10 dateHour:11 dateMinute:32]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"电影" tips:@"asdf" amount:9.8 dateYear:2021 dateMonth:4 dateDay:9 dateHour:12 dateMinute:45]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"理财" tips:@"csdac" amount:100.6 dateYear:2021 dateMonth:4 dateDay:8 dateHour:23 dateMinute:23]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"饰品" tips:@"adsf" amount:30 dateYear:2021 dateMonth:4 dateDay:8 dateHour:12 dateMinute:46]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"零食" tips:@"afasdf" amount:12.5 dateYear:2021 dateMonth:3 dateDay:12 dateHour:11 dateMinute:42]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"奶茶" tips:@"adfs" amount:14.4 dateYear:2021 dateMonth:3 dateDay:11 dateHour:9 dateMinute:2]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"汽车" tips:@"sdfs" amount:23.5 dateYear:2021 dateMonth:3 dateDay:1 dateHour:8 dateMinute:23]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"美容" tips:@"vsdvsd" amount:143.5 dateYear:2021 dateMonth:3 dateDay:1 dateHour:7 dateMinute:43]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"旅游" tips:@"sdfas" amount:23.5 dateYear:2021 dateMonth:3 dateDay:1 dateHour:3 dateMinute:12]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"果蔬" tips:@"bsf" amount:10.5 dateYear:2021 dateMonth:2 dateDay:25 dateHour:17 dateMinute:43]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"娱乐" tips:@"dasfs" amount:10.5 dateYear:2021 dateMonth:2 dateDay:20 dateHour:21 dateMinute:54]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"衣服" tips:@"usdnfkasf" amount:10.5 dateYear:2021 dateMonth:2 dateDay:17 dateHour:23 dateMinute:23]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"医疗" tips:@"asdfosdn" amount:10.5 dateYear:2021 dateMonth:1 dateDay:5 dateHour:8 dateMinute:34]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"网络" tips:@"dsaf" amount:10.5 dateYear:2020 dateMonth:12 dateDay:30 dateHour:18 dateMinute:51]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"文具" tips:@"fsduio" amount:10.5 dateYear:2020 dateMonth:11 dateDay:28 dateHour:9 dateMinute:31]];
     
     return YES;
 }
@@ -311,6 +314,15 @@ static NSMutableArray *allAccounts;
     [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"yundong.png"] label:@"运动"]];
     [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"yvle.png"] label:@"娱乐"]];
     [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"zhufang.png"] label:@"住房"]];
+}
+
++ (UIImage *)getIconByLabel:(NSString *)str {
+    for (NSInteger i = 0; i < iconArray.count; i++) {
+        if ([((IconType *)iconArray[i]).label isEqual:str]) {
+            return ((IconType *)iconArray[i]).icon;
+        }
+    }
+    return nil;
 }
 
 /// Return Icon array (type: IconType)

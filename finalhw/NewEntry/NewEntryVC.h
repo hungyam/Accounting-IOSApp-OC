@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewEntryVC : UIViewController
+@interface NewEntryVC : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource>
 
 
 @end

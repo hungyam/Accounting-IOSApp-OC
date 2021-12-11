@@ -7,11 +7,16 @@
 
 #import "DetailVC.h"
 #import "StartNaviVC.h"
+#import "DetailNaviVC.h"
 #define Wper *self.view.bounds.size.width/100
 #define Hper *self.view.bounds.size.height/100
 #define SubWper *_lastestArea.bounds.size.width/100
 #define SubHper *_lastestArea.bounds.size.height/100
-@interface DetailVC ()
+@interface DetailVC () {
+    NSInteger accountIndex;
+}
+
+@property (nonatomic, strong) NSMutableArray *allAcountData;
 
 @property (nonatomic, strong) CAGradientLayer *backLayer;
 @property (nonatomic, strong) UIView *lastestArea;
@@ -32,12 +37,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.allAcountData = [DataManage getAllAccounts];
+    NSLog(@"%@",self.allAcountData);
     self.view.backgroundColor = [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1];
     [self.view.layer addSublayer:self.backLayer];
     [self.view addSubview:self.lastestArea];
-//    [self.view addSubview:self.dashBoard];
     [self.view addSubview:self.entryList];
 }
+
 
 - (CAGradientLayer *)backLayer {
     if (_backLayer == nil) {
@@ -66,33 +73,16 @@
         _lastestArea.layer.shadowOffset = CGSizeMake(5, 5);
         _lastestArea.layer.shadowRadius = 5;
         _lastestArea.layer.shadowOpacity = 0.2;
-//        CALayer *layer = [CALayer layer];
-//        layer.frame = CGRectMake(0, 50 Hper, _lastestArea.bounds.size.width, 1);
-//        layer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1].CGColor;
-//        [_lastestArea.layer addSublayer:layer];
-//        [_lastestArea addSubview:self.userImgView];
         [_lastestArea addSubview:self.lastestLabel];
         [_lastestArea addSubview:self.lastestImage1];
         [_lastestArea addSubview:self.lastestImage2];
         [_lastestArea addSubview:self.lastestImage3];
-//        [_lastestArea addSubview:self.usernameLabel];
-//        [_lastestArea addSubview:self.pointsLabel];
-//        [_lastestArea addSubview:self.pointsText];
+
     }
     return _lastestArea;
 }
 
 #pragma mark - lastestAreaSubView
-//
-//- (UIImageView *)userImgView {
-//    if (_userImgView == nil) {
-//        _userImgView = [[UIImageView alloc]initWithFrame:CGRectMake(6 SubWper, 6 SubWper, 26 SubWper, 26 SubWper)];
-//        _userImgView.image = userImg;
-//        _userImgView.layer.cornerRadius = 13 SubWper;
-//        _userImgView.layer.masksToBounds = YES;
-//    }
-//    return _userImgView;
-//}
 
 - (UILabel *)lastestLabel {
     if (_lastestLabel == nil) {
@@ -110,7 +100,6 @@
         _lastestImage1.clipsToBounds = YES;
         _lastestImage1.contentMode = UIViewContentModeScaleAspectFill;
         _lastestImage1.image = [UIImage imageNamed:@"userTest.png"];
-        //_lastestImage1.image = [UIImage imageNamed:@"userImg.png"];
     }
     return _lastestImage1;
 }
@@ -118,8 +107,6 @@
 - (UIImageView* )lastestImage2 {
     if (_lastestImage2 == nil) {
         _lastestImage2 = [[UIImageView alloc]initWithFrame:CGRectMake(55 SubWper, 28 SubHper, 40 SubWper, 30 SubHper)];
-//        _lastestImage2.contentMode = UIViewContentModeScaleAspectFill;
-//        _lastestImage2.image = [UIImage imageNamed:@"userTest.png"];
         _lastestImage2.layer.cornerRadius = 10;
         _lastestImage2.clipsToBounds = YES;
         _lastestImage2.image = [UIImage imageNamed:@"userImg.png"];
@@ -129,60 +116,16 @@
 - (UIImageView* )lastestImage3 {
     if (_lastestImage3 == nil) {
         _lastestImage3 = [[UIImageView alloc]initWithFrame:CGRectMake(55 SubWper, 62 SubHper, 40 SubWper, 30 SubHper)];
-//        _lastestImage3.contentMode = UIViewContentModeScaleAspectFill;
-//        _lastestImage3.image = [UIImage imageNamed:@"userTest.png"];
         _lastestImage3.layer.cornerRadius = 10;
         _lastestImage3.clipsToBounds = YES;
         _lastestImage3.image = [UIImage imageNamed:@"userImg.png"];
     }
     return _lastestImage3;
 }
-//
-//- (UILabel *)usernameLabel {
-//    if (_usernameLabel == nil) {
-//        _usernameLabel = [[UILabel alloc]initWithFrame:CGRectMake(40 SubWper, 32 SubHper, 50 SubWper, 15 SubHper)];
-//        _usernameLabel.text = username;
-//        _usernameLabel.textColor = [UIColor grayColor];
-//        _usernameLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightThin];
-//    }
-//    return _usernameLabel;
-//}
-//
-//-(UILabel *)pointsLabel {
-//    if (_pointsLabel == nil) {
-//        _pointsLabel = [[UILabel alloc]initWithFrame:CGRectMake(35 SubWper, 71 SubHper, 30 SubWper, 12 SubHper)];
-//        _pointsLabel.text = @"个人公益积分";
-//        _pointsLabel.textColor = [UIColor grayColor];
-//        _pointsLabel.font = [UIFont systemFontOfSize:14];
-//        _pointsLabel.textAlignment = NSTextAlignmentCenter;
-//    }
-//    return _pointsLabel;
-//}
-//
-//- (UILabel *)pointsText {
-//    if (_pointsText == nil) {
-//        _pointsText = [[UILabel alloc]initWithFrame:CGRectMake(35 SubWper, 82 SubHper, 30 SubWper, 15 SubHper)];
-//        _pointsText.font = [UIFont systemFontOfSize:26];
-//        _pointsText.text = [NSString stringWithFormat:@"%ld", (long)points];
-//        _pointsText.textAlignment = NSTextAlignmentCenter;
-//    }
-//    return _pointsText;
-//}
+
 
 #pragma mark end -
 
-//- (UIView *)dashBoard {
-//    if (_dashBoard == nil) {
-//        _dashBoard = [[UIView alloc]initWithFrame:CGRectMake(5 Wper, 38 Hper, 90 Wper, 50 Hper)];
-//        _dashBoard.backgroundColor = [UIColor whiteColor];
-//        _dashBoard.layer.cornerRadius = 10;
-//        _dashBoard.layer.shadowColor = [UIColor grayColor].CGColor;
-//        _dashBoard.layer.shadowOffset = CGSizeMake(5, 5);
-//        _dashBoard.layer.shadowRadius = 5;
-//        _dashBoard.layer.shadowOpacity = 0.2;
-//    }
-//    return _dashBoard;
-//}
 
 - (UITableView *)entryList {
     if (_entryList == nil) {
@@ -204,7 +147,7 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
 //    return self.allDate.count;// number of date
-    return 5;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -215,7 +158,7 @@
 //        }
 //    }
 //    return num;// number of date
-    return 2;
+    return self.allAcountData.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell * cell = [[UITableViewCell alloc]initWithFrame:CGRectMake(0, 0, 90 Wper, 7 Hper)];
@@ -236,23 +179,11 @@
 //    img.image = [UIImage imageNamed:@"jiaotong.png"];
 //    iconNameLabel.text = @"交通";
 //    descriptionLabel.text = @"坐地铁";
-    switch (indexPath.row) {
-        case 0:
-            img.image = [UIImage imageNamed:@"jiaotong.png"];
-            descriptionLabel.text = @"地铁";
-            costLabel.text = @"4";
-            cell.separatorInset = UIEdgeInsetsMake(0, 2 Wper + 7 Hper, 0, 0);
-            break;
-        case 1:
-            img.image = [UIImage imageNamed:@"yvle.png"];
-            descriptionLabel.text = @"KTV";
-            costLabel.text = @"66";
-            cell.separatorInset = UIEdgeInsetsMake(0, 2 Wper + 7 Hper, 0, 0);
-            break;
-        default:
-            descriptionLabel.text = @"NULL";
-            cell.separatorInset = UIEdgeInsetsMake(0, 45 Wper, 0, 45 Wper);
-    }
+    img.image = [DataManage getIconByLabel:((AccountType *)self.allAcountData[indexPath.row]).type];
+    descriptionLabel.text = ((AccountType *)self.allAcountData[indexPath.row]).type;
+    costLabel.text = [NSString stringWithFormat:@"%.2f",((AccountType *)self.allAcountData[indexPath.row]).amount ];
+    cell.separatorInset = UIEdgeInsetsMake(0, 2 Wper + 7 Hper, 0, 0);
+        
     return cell;
 }
 
@@ -265,6 +196,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //  goToProfile: indexPath.row
+    [(DetailNaviVC *)self.parentViewController pushAccountDetailPage:indexPath.row];
 }
 
 - (void)deleteEntry {
@@ -280,12 +212,5 @@
 
 #pragma mark end -
 
-//- (ProfileVC *)profileVC {
-//    if (_profileVC == nil) {
-//        _profileVC = [[profileVC alloc]init];
-//        _profileVC.view.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.97];
-//    }
-//    return _profileVC;
-//}
 @end
 

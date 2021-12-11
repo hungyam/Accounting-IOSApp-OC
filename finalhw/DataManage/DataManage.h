@@ -85,5 +85,6 @@
 + (PersonalMes *)getPersonalMes;
 
 + (NSMutableArray *)getIconArray;
++ (UIImage *)getIconByLabel:(NSString *)str;
 
 @end
