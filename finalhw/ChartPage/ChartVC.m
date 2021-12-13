@@ -365,7 +365,7 @@
     return tmp;
 }
 
--(NSInteger)weekdatein:(NSInteger)y and:(NSInteger)m and:(NSInteger)d{
+-(NSInteger)weekdateinyear:(NSInteger)y month:(NSInteger)m day:(NSInteger)d{
     if (m == 1 || m == 2)
     {
         m += 12;
@@ -447,6 +447,8 @@
         NSInteger chooseyear;
         if(self.firstYear<=nowyear&&self.lastYear>=nowyear){
             chooseyear=nowyear;
+            NSInteger month=[[self getNowdate] month];
+            [_pickerViewOfMonth selectRow:month-1 inComponent:1 animated:false];
         }
         else{
             if(nowyear>self.lastYear){
@@ -473,6 +475,16 @@
         NSInteger chooseyear;
         if(self.firstYear<=nowyear&&self.lastYear>=nowyear){
             chooseyear=nowyear;
+            NSInteger day=[[self getNowdate] day];
+            NSInteger month=[[self getNowdate] month];
+            
+            for(NSInteger i=0;i<54;i++){
+                NSInteger tmp=[self ismonth:month day:day inWeekNo:i ofyear:chooseyear];
+                if(tmp>-1){
+                    [_pickerViewOfWeek selectRow:i inComponent:1 animated:false];
+                    break;
+                }
+            }
         }
         else{
             if(nowyear>self.lastYear){
@@ -501,7 +513,7 @@
     }
     if(pickerView.tag==1){
         NSInteger chooseyear=[self.pickerViewOfWeek selectedRowInComponent:0]+self.firstYear ;
-        NSInteger weekdate=[self weekdatein:chooseyear and:1 and:1];
+        NSInteger weekdate=[self weekdateinyear:chooseyear month:1 day:1];
         if([self isRun:chooseyear]&&(weekdate==7||weekdate==6)){
             return  53;
         
@@ -538,6 +550,9 @@
     NSInteger basedate=[self begindayin:year];
     NSInteger beginday=basedate+7*num,endday=beginday+6;
     NSInteger daysinmonth[13]={31,28,31,30,31,30,31,31,30,31,30,31,666};
+    if([self isRun:year]){
+        daysinmonth[1]++;
+    }
     NSInteger days=day;
     for(NSInteger i=0;i<month-1;i++){
         days+=daysinmonth[i];
@@ -564,7 +579,7 @@
     return [NSString stringWithFormat:@"%ld.%ld",month,day];
 }
 -(NSInteger)begindayin:(NSInteger)year{
-    return 8-[self weekdatein:year and:1 and:1];
+    return 8-[self weekdateinyear:year month:1 day:1];
 }
 //用户进行选择
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
@@ -779,7 +794,7 @@
         }
     }
     for(NSInteger i=0;i<32;i++){
-        [self.databytime addObject:[[NSNumber alloc]initWithLong:tmp[i]]];
+        [self.databytime addObject:[[NSNumber alloc]initWithFloat:tmp[i]]];
     }
     self.pieNum = self.databytype.count;
     self.yNum = [self setyNumwithmax:max];
@@ -788,15 +803,15 @@
     for(NSInteger i=0;i<self.nameoftype.count;i++){
         NSString*typename=[self.nameoftype objectAtIndex:i];
         if([typename isEqual:account.type]){
-            NSInteger tmp=[[self.databytype objectAtIndex:i] longValue];
+            float tmp=[[self.databytype objectAtIndex:i] floatValue];
             tmp+=account.amount;
-            [self.databytype replaceObjectAtIndex:i withObject:[[NSNumber alloc]initWithLong:tmp]];
+            [self.databytype replaceObjectAtIndex:i withObject:[[NSNumber alloc]initWithFloat:tmp]];
             return;
         }
     }
 
     [self.nameoftype addObject:account.type];
-    [self.databytype addObject:[[NSNumber alloc]initWithLong:account.amount]];
+    [self.databytype addObject:[[NSNumber alloc]initWithFloat:account.amount]];
 }
 #pragma mark - linepic
 
@@ -971,7 +986,6 @@
     pathAnimation.removedOnCompletion = YES;
     pathAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
     pathAnimation.toValue = [NSNumber numberWithFloat:1.0f];
-    // 设置动画代理，动画结束时添加一个标签，显示折线终点的信息
     pathAnimation.delegate = (id) self;
     [labelLineLayer addAnimation:pathAnimation forKey:@"strokeEnd"];
 
@@ -1009,7 +1023,6 @@
     pathAnimation.removedOnCompletion = YES;
     pathAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
     pathAnimation.toValue = [NSNumber numberWithFloat:1.0f];
-    // 设置动画代理，动画结束时添加一个标签，显示折线终点的信息
     pathAnimation.delegate = (id) self;
     [self.lineChartLayer addAnimation:pathAnimation forKey:@"strokeEnd"];
 }
