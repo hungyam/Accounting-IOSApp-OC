@@ -66,7 +66,7 @@
     self.dateMonth = dateMonth;
     self.dateDay = dateDay;
     self.dateHour = dateHour;
-    self.dateMonth = dateMinute;
+    self.dateMinute = dateMinute;
     return self;
 }
 
@@ -263,11 +263,14 @@ static NSMutableArray *allAccounts;
     [allAccounts addObject:[[AccountType alloc] initWithType:@"零食" tips:@"afasdf" amount:12.5 dateYear:2021 dateMonth:3 dateDay:12 dateHour:11 dateMinute:42]];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"奶茶" tips:@"adfs" amount:14.4 dateYear:2021 dateMonth:3 dateDay:11 dateHour:9 dateMinute:2]];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"汽车" tips:@"sdfs" amount:23.5 dateYear:2021 dateMonth:3 dateDay:1 dateHour:8 dateMinute:23]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"美容" tips:@"vsdvsd" amount:143.5 dateYear:2021 dateMonth:3 dateDay:1 dateHour:7 dateMinute:43]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"旅游" tips:@"sdfas" amount:23.5 dateYear:2021 dateMonth:3 dateDay:1 dateHour:3 dateMinute:12]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"果蔬" tips:@"bsf" amount:10.5 dateYear:2021 dateMonth:2 dateDay:25 dateHour:17 dateMinute:43]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"娱乐" tips:@"dasfs" amount:10.5 dateYear:2021 dateMonth:2 dateDay:20 dateHour:21 dateMinute:54]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"衣服" tips:@"usdnfkasf" amount:10.5 dateYear:2021 dateMonth:2 dateDay:17 dateHour:23 dateMinute:23]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"美容" tips:@"vsdvsd" amount:143.5 dateYear:2021 dateMonth:2 dateDay:1 dateHour:7 dateMinute:43]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"旅游" tips:@"sdfas" amount:23.5 dateYear:2021 dateMonth:2 dateDay:1 dateHour:3 dateMinute:12]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"果蔬" tips:@"bsf" amount:10.5 dateYear:2021 dateMonth:1 dateDay:25 dateHour:17 dateMinute:43]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"娱乐" tips:@"dasfs" amount:10.5 dateYear:2021 dateMonth:1 dateDay:20 dateHour:21 dateMinute:54]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"衣服" tips:@"usdnfkasf" amount:10.5 dateYear:2021 dateMonth:1 dateDay:17 dateHour:23 dateMinute:23]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"果蔬" tips:@"asdfosdn" amount:18.5 dateYear:2021 dateMonth:1 dateDay:8 dateHour:8 dateMinute:34]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"衣服" tips:@"asdfosdn" amount:20.5 dateYear:2021 dateMonth:1 dateDay:7 dateHour:8 dateMinute:34]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"娱乐" tips:@"asdfosdn" amount:13.5 dateYear:2021 dateMonth:1 dateDay:6 dateHour:8 dateMinute:34]];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"医疗" tips:@"asdfosdn" amount:10.5 dateYear:2021 dateMonth:1 dateDay:5 dateHour:8 dateMinute:34]];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"网络" tips:@"dsaf" amount:10.5 dateYear:2020 dateMonth:12 dateDay:30 dateHour:18 dateMinute:51]];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"文具" tips:@"fsduio" amount:10.5 dateYear:2020 dateMonth:11 dateDay:28 dateHour:9 dateMinute:31]];

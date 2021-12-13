@@ -38,7 +38,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.allAcountData = [DataManage getAllAccounts];
-    NSLog(@"%@",self.allAcountData);
     self.view.backgroundColor = [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1];
     [self.view.layer addSublayer:self.backLayer];
     [self.view addSubview:self.lastestArea];
