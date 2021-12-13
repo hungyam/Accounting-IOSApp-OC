@@ -516,7 +516,6 @@
         NSInteger weekdate=[self weekdateinyear:chooseyear month:1 day:1];
         if([self isRun:chooseyear]&&(weekdate==7||weekdate==6)){
             return  53;
-        
         }
         else if(weekdate==7){
             return  53;

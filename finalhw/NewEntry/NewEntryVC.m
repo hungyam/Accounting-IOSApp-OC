@@ -20,6 +20,8 @@
 @property(nonatomic, strong) UIButton *chooseone;
 @property(nonatomic, strong) UICollectionView *collect;
 @property(nonatomic, strong) UIView *subArea;
+@property(nonatomic, strong) UIDatePicker*datelist;
+@property(nonatomic, strong) UILabel*datelabel;
 
 @end
 
@@ -32,6 +34,30 @@
     self.title = @"添加新纪录";
 }
 
+
+-(UIDatePicker*)datelist{
+    if(_datelist==nil){
+        _datelist = [[UIDatePicker alloc]init];
+        //设置本地化支持的语言（在此是中文)
+        _datelist.locale = [NSLocale localeWithLocaleIdentifier:@"zh"];
+         //显示方式是只显示年月日
+        _datelist.datePickerMode = UIDatePickerModeDate;
+        [_datelist setDate:[NSDate date] animated:YES];
+        _datelist.preferredDatePickerStyle = UIDatePickerStyleWheels;
+        [_datelist setFrame:CGRectMake(0, 0, 100 Wper, 40 Hper)];
+        
+        NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        NSDate *currentDate = [NSDate date];
+        NSDateComponents *comps = [[NSDateComponents alloc] init];
+        [comps setYear:3];//设置最大时间为：当前时间推后十年
+        NSDate *maxDate = [calendar dateByAddingComponents:comps toDate:currentDate options:0];
+        [comps setYear:-3];//设置最小时间为：当前时间前推十年
+        NSDate *minDate = [calendar dateByAddingComponents:comps toDate:currentDate options:0];
+        [_datelist setMaximumDate:maxDate];
+        [_datelist setMinimumDate:minDate];
+    }
+    return _datelist;
+}
 - (NSMutableArray *)listArr {
     if (_listArr == nil) {
         _listArr = [DataManage getIconArray];
@@ -56,8 +82,74 @@
     if (_subArea == nil) {
         _subArea = [[UIView alloc]initWithFrame:CGRectMake(0, 60 Hper, 100 Wper, 40 Hper)];
         _subArea.backgroundColor = [UIColor purpleColor];
+        UIButton*submitbutton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0, _subArea.frame.size.width/2, _subArea.frame.size.height/6)];
+        UIButton*quitbutton=[[UIButton alloc]initWithFrame:CGRectMake(_subArea.frame.size.width/2, 0, _subArea.frame.size.width/2, _subArea.frame.size.height/6)];
+        UIButton*dateselect=[[UIButton alloc]initWithFrame:CGRectMake(0, _subArea.frame.size.height/6, _subArea.frame.size.width/4, _subArea.frame.size.height/6)];
+        [submitbutton setTitle:@"提交" forState:UIControlStateNormal];
+        [quitbutton setTitle:@"取消" forState:UIControlStateNormal];
+        [dateselect setTitle:@"日期选择" forState:UIControlStateNormal];
+        submitbutton.layer.borderColor=[UIColor grayColor].CGColor;
+        submitbutton.layer.borderWidth=1;
+        quitbutton.layer.borderColor=[UIColor grayColor].CGColor;
+        quitbutton.layer.borderWidth=1;
+        dateselect.layer.borderColor=[UIColor grayColor].CGColor;
+        dateselect.layer.borderWidth=1;
+        [submitbutton addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchDown];
+        [quitbutton addTarget:self action:@selector(reset) forControlEvents:UIControlEventTouchDown];
+        [dateselect addTarget:self action:@selector(selectdate) forControlEvents:UIControlEventTouchDown];
+        [_subArea addSubview:submitbutton];
+        [_subArea addSubview:quitbutton];
+        [_subArea addSubview:dateselect];
+        [_subArea addSubview: self.datelabel];
+        
     }
     return _subArea;
+}
+-(UILabel*)datelabel{
+    if(_datelabel==nil){
+        _datelabel=[[UILabel alloc]initWithFrame:CGRectMake(_subArea.frame.size.width/4, _subArea.frame.size.height/6, _subArea.frame.size.width*3/4, _subArea.frame.size.height/6)];
+        
+        _datelabel.textColor = [UIColor blackColor];
+        _datelabel.textAlignment = NSTextAlignmentCenter;
+        [self resetdatelabel];
+    }
+    return _datelabel;
+}
+
+-(void)resetdatelabel{
+    
+    NSDate *theDate = self.datelist.date;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"YYYY-MM-dd";
+    self.datelabel.text=[dateFormatter stringFromDate:theDate];
+}
+
+-(void)submit{
+    
+}
+-(void)reset{
+    if (self.chooseone != nil) {
+        self.chooseone.layer.shadowRadius = 0;
+        self.chooseone.backgroundColor = BackColor;
+        self.chooseone.layer.shadowOpacity = 0;
+    }
+    self.collect.frame = CGRectMake(3 Wper, 0, 94 Wper, 100 Hper);
+    [self.subArea removeFromSuperview];
+}
+-(void)selectdate{
+    [self resetdatelabel];
+}
+
+
+-(NSDateComponents *)getNowdate{
+    NSDate *date = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    NSInteger unitFlags = NSCalendarUnitYear |NSCalendarUnitMonth |NSCalendarUnitDay |NSCalendarUnitWeekday |NSCalendarUnitHour |NSCalendarUnitMinute |NSCalendarUnitSecond;
+    comps = [calendar components:unitFlags fromDate:date];
+    return comps;
 }
 
 #pragma mark - UICollectionVC DataSource

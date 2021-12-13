@@ -37,6 +37,7 @@
 }
 
 - (void)dismissPresentView {
+    [self.newEntryVC reset];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

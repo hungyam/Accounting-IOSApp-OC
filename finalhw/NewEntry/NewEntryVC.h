@@ -9,5 +9,5 @@
 
 @interface NewEntryVC : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource>
 
-
+-(void)reset;
 @end
