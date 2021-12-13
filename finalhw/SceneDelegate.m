@@ -22,8 +22,7 @@
     [DataManage loadRequestData];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.windowScene = (UIWindowScene*)scene;
-//    TabBarVC* control = [[TabBarVC alloc]init];
-    StartNaviVC* control = [[StartNaviVC alloc]init];
+    TabBarVC* control = [[TabBarVC alloc]init];
     self.window.rootViewController = control;
     self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];

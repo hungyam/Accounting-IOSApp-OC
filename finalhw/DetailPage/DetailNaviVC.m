@@ -19,7 +19,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self pushViewController:self.detailVC animated:NO];
-    [self.navigationController.navigationBar setHidden:YES];
     self.title = @"详情";
 }
 

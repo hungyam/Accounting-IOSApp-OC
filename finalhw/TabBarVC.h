@@ -11,9 +11,11 @@
 #import "NewEntryNaviVC.h"
 #import "ExtendedVC.h"
 #import "PersonalVC.h"
+#import "StartNaviVC.h"
 
 @interface TabBarVC : UITabBarController
 
+- (void)showStartNaviVC;
 
 @end
 

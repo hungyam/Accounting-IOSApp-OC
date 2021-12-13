@@ -8,21 +8,20 @@
 #import "TabBarVC.h"
 #define MainColor [UIColor colorWithRed:244/255.0 green:105/255.0 blue:123/255.0 alpha:1]
 
-@interface TabBarVC ()
+@interface TabBarVC () {
+    BOOL flag;
+}
 
 //Plus Button
 @property (nonatomic, strong) UIButton* plusButton;
 
-//DetailPage RootVC
 @property (nonatomic, strong) DetailNaviVC* detailNaviVC;
-//ChartPage RootVC
 @property (nonatomic, strong) ChartNaviVC* chartNaviVC;
-//NewEntry RootVC
 @property (nonatomic, strong) NewEntryNaviVC* addEntryNaviVC;
-//ExtendedPage RootVC
 @property (nonatomic, strong) ExtendedVC* extendedVC;
-//PersonalPage RootVC
 @property (nonatomic, strong) PersonalVC* personalVC;
+
+@property (nonatomic, strong) StartNaviVC *startNaviVC;
 
 @end
 
@@ -31,6 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    flag = YES;
     self.viewControllers = @[
         self.detailNaviVC,
         self.chartNaviVC,
@@ -42,6 +42,19 @@
     self.tabBar.tintColor = MainColor;
     [self.view addSubview:self.plusButton];
     [self.view bringSubviewToFront:self.plusButton];
+    [self setSelectedIndex:0];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (flag) {
+        [self presentViewController:self.startNaviVC animated:NO completion:nil];
+        flag = NO;
+    }
+}
+
+- (void)showStartNaviVC {
+    [self presentViewController:self.startNaviVC animated:YES completion:nil];
 }
 
 - (UIButton *)plusButton {
@@ -106,6 +119,14 @@
         _personalVC.tabBarItem.image = [UIImage systemImageNamed:@"person"];
     }
     return _personalVC;
+}
+
+- (StartNaviVC *)startNaviVC {
+    if (_startNaviVC == nil) {
+        _startNaviVC = [[StartNaviVC alloc]init];
+        _startNaviVC.modalPresentationStyle = UIModalPresentationFullScreen;
+    }
+    return _startNaviVC;
 }
 
 

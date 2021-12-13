@@ -6,7 +6,7 @@
 //
 
 #import "PersonalVC.h"
-#import "StartNaviVC.h"
+#import "TabBarVC.h"
 #define Wper *self.view.bounds.size.width/100
 #define Hper *self.view.bounds.size.height/100
 #define SubWper *_userArea.bounds.size.width/100
@@ -231,7 +231,7 @@
 - (void)signOut {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认退出" preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *conform = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            [(StartNaviVC *)self.parentViewController.parentViewController mainToLoginVC];
+            [(TabBarVC *)self.parentViewController showStartNaviVC];
         }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:conform];

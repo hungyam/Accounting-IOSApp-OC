@@ -12,7 +12,6 @@
 
 @property (nonatomic, strong) LoginVC *loginVC;
 @property (nonatomic, strong) SignUpVC *signUpVC;
-@property (nonatomic, strong) TabBarVC *tabBarVC;
 
 @end
 
@@ -21,8 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self pushViewController:self.tabBarVC animated:NO];
-//    [self pushViewController:self.loginVC animated:NO];
+    [self pushViewController:self.loginVC animated:NO];
 }
 
 - (LoginVC *)loginVC {
@@ -47,12 +45,6 @@
     return _signUpVC;
 }
 
-- (TabBarVC *)tabBarVC {
-    if (_tabBarVC == nil) {
-        _tabBarVC = [[TabBarVC alloc]init];
-    }
-    return _tabBarVC;
-}
 
 - (void)loginToSignUpVC {
     [self pushViewController:self.signUpVC animated:YES];
@@ -63,11 +55,8 @@
 }
 
 - (void)goToMianVC {
-    [self popToRootViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)mainToLoginVC {
-    [self pushViewController:self.loginVC animated:YES];
-}
 
 @end
