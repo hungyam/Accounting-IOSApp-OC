@@ -49,6 +49,7 @@
 /// Structure of account
 @interface AccountType : NSObject
 
+@property BOOL inOrOut;
 @property NSString *type;
 @property NSString *tips;
 @property CGFloat amount;
@@ -65,7 +66,8 @@
                    dateMonth:(NSInteger)dateMonth
                      dateDay:(NSInteger)dateDay
                     dateHour:(NSInteger)dateHour
-                  dateMinute:(NSInteger)dateMinute ;
+                  dateMinute:(NSInteger)dateMinute
+                        kind:(BOOL)inOrOut;
 
 @end
 
