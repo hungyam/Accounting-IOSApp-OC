@@ -103,6 +103,11 @@
     self.navigationItem.leftBarButtonItems = @[btnItemLeft,btnItemRight];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self renewdata];
+    [self refresh];
+}
+
 - (void)refresh {
     if (self.labelinUse != nil) {
         [self.labelinUse removeFromSuperview];

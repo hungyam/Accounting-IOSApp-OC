@@ -6,6 +6,7 @@
 //
 
 #import "ExtendedVC.h"
+#define BackColor [UIColor colorWithRed:248 / 255.0 green:248 / 255.0 blue:248 / 255.0 alpha:1]
 
 @interface ExtendedVC ()
 
@@ -16,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = BackColor;
 }
 
 

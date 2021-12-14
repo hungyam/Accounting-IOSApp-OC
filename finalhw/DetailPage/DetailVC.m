@@ -169,7 +169,7 @@
     UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(2 Wper, 3 Wper, 5 Hper, 5 Hper)];
     img.contentMode = UIViewContentModeScaleAspectFill;
     UILabel *descriptionLabel = [[UILabel alloc]initWithFrame:CGRectMake(cell.bounds.size.width/100 * 25, 0, cell.bounds.size.width/100 * 60, 7 Hper)];
-    UILabel *costLabel = [[UILabel alloc]initWithFrame:CGRectMake(cell.bounds.size.width/100 * 90, 0, cell.bounds.size.width/100 * 20, 7 Hper)];
+    UILabel *costLabel = [[UILabel alloc]initWithFrame:CGRectMake(cell.bounds.size.width/100 * 80, 0, cell.bounds.size.width/100 * 30, 7 Hper)];
     //cost text need to be changable
     costLabel.textAlignment = NSTextAlignmentRight;
     [cell addSubview:img];
