@@ -83,7 +83,7 @@
 + (BOOL)modifyPersonalMes:(PersonalMes *)newObject;
 + (PersonalMes *)getPersonalMes;
 
-+ (NSMutableArray *)getIconArray;
++ (NSMutableArray *)getIconArray:(BOOL)type;
 + (UIImage *)getIconByLabel:(NSString *)str;
 
 @end

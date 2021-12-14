@@ -71,7 +71,8 @@
 
 @end
 
-static NSMutableArray *iconArray;
+static NSMutableArray *inIconArray;
+static NSMutableArray *outIconArray;
 static PersonalMes *userInformation;
 static NSMutableArray *allAccounts;
 
@@ -284,50 +285,54 @@ static NSMutableArray *allAccounts;
 
 /// Load the array of  icons
 + (void)loadIconArray {
-    iconArray = [[NSMutableArray alloc]init];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"caipiao.png"] label:@"彩票"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"canyin.png"] label:@"餐饮"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"chongwu.png"] label:@"宠物"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"dianying.png"] label:@"电影"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"fangdai.png"] label:@"房贷"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"guoshu.png"] label:@"果蔬"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"jianshen.png"] label:@"健身"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"jiaotong.png"] label:@"交通"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"jiezhi.png"] label:@"饰品"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"licai.png"] label:@"理财"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"lingshi.png"] label:@"零食"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"lvyou.png"] label:@"旅游"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"meirong.png"] label:@"美容"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"muying.png"] label:@"母婴"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"naicha.png"] label:@"奶茶"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"qiche.png"] label:@"汽车"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"shejiao.png"] label:@"社交"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"shuji.png"] label:@"书籍"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"shuma.png"] label:@"数码"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"tongxun.png"] label:@"通讯"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"wangluo.png"] label:@"网络"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"wenjv.png"] label:@"文具"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"xiemao.png"] label:@"鞋帽"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"yanjiu.png"] label:@"烟酒"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"yifu.png"] label:@"衣服"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"yiliao.png"] label:@"医疗"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"yundong.png"] label:@"运动"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"yvle.png"] label:@"娱乐"]];
-    [iconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"zhufang.png"] label:@"住房"]];
+    inIconArray = [[NSMutableArray alloc]init];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"caipiao.png"] label:@"彩票"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"canyin.png"] label:@"餐饮"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"chongwu.png"] label:@"宠物"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"dianying.png"] label:@"电影"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"fangdai.png"] label:@"房贷"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"guoshu.png"] label:@"果蔬"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"jianshen.png"] label:@"健身"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"jiaotong.png"] label:@"交通"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"jiezhi.png"] label:@"饰品"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"licai.png"] label:@"理财"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"lingshi.png"] label:@"零食"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"lvyou.png"] label:@"旅游"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"meirong.png"] label:@"美容"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"muying.png"] label:@"母婴"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"naicha.png"] label:@"奶茶"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"qiche.png"] label:@"汽车"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"shejiao.png"] label:@"社交"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"shuji.png"] label:@"书籍"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"shuma.png"] label:@"数码"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"tongxun.png"] label:@"通讯"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"wangluo.png"] label:@"网络"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"wenjv.png"] label:@"文具"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"xiemao.png"] label:@"鞋帽"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"yanjiu.png"] label:@"烟酒"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"yifu.png"] label:@"衣服"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"yiliao.png"] label:@"医疗"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"yundong.png"] label:@"运动"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"yvle.png"] label:@"娱乐"]];
+    [inIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"zhufang.png"] label:@"住房"]];
+
+    outIconArray = [[NSMutableArray alloc] init];
+    [outIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"fangdai.png"] label:@"工资"]];
+    [outIconArray addObject:[[IconType alloc] initWithImg:[UIImage imageNamed:@"licai.png"] label:@"理财"]];
 }
 
 + (UIImage *)getIconByLabel:(NSString *)str {
-    for (NSInteger i = 0; i < iconArray.count; i++) {
-        if ([((IconType *)iconArray[i]).label isEqual:str]) {
-            return ((IconType *)iconArray[i]).icon;
+    for (NSInteger i = 0; i < inIconArray.count; i++) {
+        if ([((IconType *)inIconArray[i]).label isEqual:str]) {
+            return ((IconType *)inIconArray[i]).icon;
         }
     }
     return nil;
 }
 
 /// Return Icon array (type: IconType)
-+ (NSMutableArray *)getIconArray {
-    return iconArray;
++ (NSMutableArray *)getIconArray:(BOOL)type {
+    return type? inIconArray : outIconArray;
 }
 
 

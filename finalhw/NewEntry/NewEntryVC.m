@@ -17,13 +17,15 @@
 
 
 @interface NewEntryVC () {
-    CGRect keyBoardRect;
+    BOOL inOrOut;
     BOOL showKB;
 }
 
-@property(nonatomic, strong) NSMutableArray *listArr;
-@property(nonatomic, strong) UIButton *chooseOne;
-@property(nonatomic, strong) UICollectionView *collect;
+@property(nonatomic, strong) UISegmentedControl *segmentedControl;
+@property(nonatomic, strong) NSMutableArray *inIconArr;
+@property(nonatomic, strong) UICollectionView *inCollectView;
+@property(nonatomic, strong) NSMutableArray *outIconArr;
+@property(nonatomic, strong) UICollectionView *outCollectView;
 
 @property(nonatomic, strong) UIView *subArea;
     @property(nonatomic, strong) UILabel *dateLabel;
@@ -35,6 +37,7 @@
 @property(nonatomic, strong) UIViewController *datePickerVC;
     @property(nonatomic, strong) UIDatePicker *datePicker;
 
+@property(nonatomic, strong) UIButton *chooseOne;
 
 @end
 
@@ -43,32 +46,90 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = BackColor;
-    [self.view addSubview:self.collect];
+    [self.view addSubview:self.inCollectView];
+    [self.view addSubview:self.outCollectView];
     self.title = @"添加新纪录";
     showKB = NO;
+    inOrOut = YES;
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [self.view addSubview:self.subArea];
+    self.navigationItem.leftBarButtonItems = @[[[UIBarButtonItem alloc]initWithCustomView:self.segmentedControl]];
 }
 
-- (NSMutableArray *)listArr {
-    if (_listArr == nil) {
-        _listArr = [DataManage getIconArray];
+- (UISegmentedControl *)segmentedControl {
+    if (_segmentedControl == nil) {
+        _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"支出", @"收入"]];
+        _segmentedControl.frame = CGRectMake(0 , 0, 22 Wper, 4 Hper);
+        _segmentedControl.tintColor = [UIColor whiteColor];
+        _segmentedControl.apportionsSegmentWidthsByContent = YES;
+        [_segmentedControl addTarget:self action:@selector(segmentSelected:) forControlEvents:UIControlEventValueChanged];
+        _segmentedControl.selectedSegmentIndex = 0;
     }
-    return _listArr;
+    return _segmentedControl;
+}
+- (void)segmentSelected:(UISegmentedControl *)control {
+    if (control.selectedSegmentIndex == 0) {
+        [UIView animateWithDuration:0.5
+                              delay:0
+                            options:UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             self.inCollectView.frame = CGRectMake(3 Wper, 0, 94 Wper, 100 Hper);
+                             self.outCollectView.frame = CGRectMake(103 Wper, 0, 94 Wper, 100 Hper);
+                         }
+                         completion:nil];
+        inOrOut = YES;
+    } else {
+        [UIView animateWithDuration:0.5
+                              delay:0
+                            options:UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             self.inCollectView.frame = CGRectMake(-97 Wper, 0, 94 Wper, 100 Hper);
+                             self.outCollectView.frame = CGRectMake(3 Wper, 0, 94 Wper, 100 Hper);
+                         }
+                         completion:nil];
+        inOrOut = NO;
+    }
 }
 
-- (UICollectionView *)collect {
-    if (_collect == nil) {
+- (NSMutableArray *)inIconArr {
+    if (_inIconArr == nil) {
+        _inIconArr = [DataManage getIconArray:YES];
+    }
+    return _inIconArr;
+}
+
+- (UICollectionView *)inCollectView {
+    if (_inCollectView == nil) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        _collect = [[UICollectionView alloc] initWithFrame:CGRectMake(3 Wper, 0, 94 Wper, 100 Hper) collectionViewLayout:layout];
-        _collect.backgroundColor = [UIColor clearColor];
-        _collect.delegate = (id) self;
-        _collect.dataSource = (id) self;
-        [_collect registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellid"];
+        _inCollectView = [[UICollectionView alloc] initWithFrame:CGRectMake(3 Wper, 0, 94 Wper, 100 Hper) collectionViewLayout:layout];
+        _inCollectView.backgroundColor = [UIColor clearColor];
+        _inCollectView.delegate = (id) self;
+        _inCollectView.dataSource = (id) self;
+        [_inCollectView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellid"];
     }
-    return _collect;
+    return _inCollectView;
+}
+
+- (NSMutableArray *)outIconArr {
+    if (_outIconArr == nil) {
+        _outIconArr = [DataManage getIconArray:NO];
+    }
+    return _outIconArr;
+}
+
+- (UICollectionView *)outCollectView {
+    if (_outCollectView == nil) {
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+        _outCollectView = [[UICollectionView alloc] initWithFrame:CGRectMake(103 Wper, 0, 94 Wper, 100 Hper) collectionViewLayout:layout];
+        _outCollectView.backgroundColor = [UIColor clearColor];
+        _outCollectView.delegate = (id) self;
+        _outCollectView.dataSource = (id) self;
+        [_outCollectView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellid"];
+    }
+    return _outCollectView;
 }
 
 - (UIView *)subArea {
@@ -142,13 +203,13 @@
         dateFormatter.dateFormat = @"dd";
         NSInteger day = [dateFormatter stringFromDate:date].integerValue;
         AccountType *newAccount = [[AccountType alloc]
-                initWithType:((IconType *) self.listArr[(NSUInteger) self.chooseOne.tag]).label
+                initWithType:((IconType *) self.inIconArr[(NSUInteger) self.chooseOne.tag]).label
                         tips:self.tipsText.text
                       amount:self.amount.text.doubleValue
                     dateYear:year
                    dateMonth:month
                      dateDay:day
-                        kind:YES];
+                        kind:inOrOut];
         [DataManage addNewAccount:newAccount];
         [self reset];
     }
@@ -164,7 +225,21 @@
     self.amount.text = @"";
     self.datePicker.date = [NSDate date];
     [self resetDateLabel];
-    self.collect.frame = CGRectMake(3 Wper, 0, 94 Wper, 100 Hper);
+    if (inOrOut) {
+        self.inCollectView.frame = CGRectMake(3 Wper, 0, 94 Wper, 100 Hper);
+    }else {
+        self.outCollectView.frame = CGRectMake(3 Wper, 0, 94 Wper, 100 Hper);
+        [UIView animateWithDuration:0.5
+                              delay:0
+                            options:UIViewAnimationOptionBeginFromCurrentState
+                         animations:^{
+                             self.inCollectView.frame = CGRectMake(3 Wper, 0, 94 Wper, 100 Hper);
+                             self.outCollectView.frame = CGRectMake(103 Wper, 0, 94 Wper, 100 Hper);
+                         }
+                         completion:nil];
+        inOrOut = YES;
+    }
+    self.segmentedControl.selectedSegmentIndex = 0;
     [UIView animateWithDuration:0.5
                           delay:0
                         options:UIViewAnimationOptionBeginFromCurrentState
@@ -318,19 +393,26 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.listArr.count;
+    return collectionView == self.inCollectView? self.inIconArr.count : self.outIconArr.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellid" forIndexPath:indexPath];
-    UIButton *button = [self seticonButton:indexPath.item];
+    UIButton *button = [self seticonButton:indexPath.item type:collectionView == self.inCollectView];
     [cell addSubview:button];
     return cell;
 }
 
-- (UIButton *)seticonButton:(NSInteger)index {
-    UIImage *img = ((IconType *) self.listArr[index]).icon;
-    NSString *name = ((IconType *) self.listArr[index]).label;
+- (UIButton *)seticonButton:(NSInteger)index type:(BOOL)isIn{
+    UIImage *img;
+    NSString *name;
+    if (isIn) {
+        img = ((IconType *) self.inIconArr[index]).icon;
+        name = ((IconType *) self.inIconArr[index]).label;
+    }else{
+        img = ((IconType *) self.outIconArr[index]).icon;
+        name = ((IconType *) self.outIconArr[index]).label;
+    }
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 94 Wper / 4 - 5, 94 Wper / 4 - 5)];
     button.tag = index;
     button.backgroundColor = BackColor;
@@ -372,10 +454,14 @@
                      }
                      completion:^(BOOL fin) {
                          if (fin) {
-                             self.collect.frame = CGRectMake(3 Wper, 0, 94 Wper, 65 Hper);
+                             if (inOrOut) {
+                                 self.inCollectView.frame = CGRectMake(3 Wper, 0, 94 Wper, 65 Hper);
+                             }else {
+                                 self.outCollectView.frame = CGRectMake(3 Wper, 0, 94 Wper, 65 Hper);
+                             }
                          }
                      }];
-    self.bigImg.image = ((IconType *) self.listArr[(NSUInteger) self.chooseOne.tag]).icon;
+    self.bigImg.image = inOrOut? ((IconType *) self.inIconArr[(NSUInteger) self.chooseOne.tag]).icon : ((IconType *) self.outIconArr[(NSUInteger) self.chooseOne.tag]).icon;
 }
 
 #pragma mark - UICollectionVC Delegate
