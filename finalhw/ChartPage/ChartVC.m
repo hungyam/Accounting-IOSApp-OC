@@ -764,6 +764,12 @@
         if(account.dateYear!=year){
             continue;
         }
+        if(self.inOrOut==0&&account.inOrOut){
+            continue;
+        }
+        else if(self.inOrOut==1&&!account.inOrOut){
+            continue;
+        }
         if(self.mode==1){
             NSInteger weekday=[self ismonth:account.dateMonth day:account.dateDay inWeekNo:weeknum ofyear:year];
             if(weekday>-1){
