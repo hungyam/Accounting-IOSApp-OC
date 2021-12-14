@@ -44,6 +44,10 @@
     [self.view addSubview:self.entryList];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self.entryList reloadData];
+}
+
 
 - (CAGradientLayer *)backLayer {
     if (_backLayer == nil) {

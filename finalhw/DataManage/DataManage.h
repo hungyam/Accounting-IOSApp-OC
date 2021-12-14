@@ -20,21 +20,21 @@
 @end
 
 /// Structure of user's record entry
-@interface Entry : NSObject
-
-@property UIImage *icon;
-@property NSString *iconName;
-@property NSString *description;
-@property CGFloat cost;
-@property NSString *moreText;
-@property NSMutableArray *morePhotos;
-
-@property NSInteger dateYear;
-@property NSInteger dateMonth;
-@property NSInteger dateDay;
-@property NSInteger dateHour;
-@property NSInteger dateMinute;
-@end
+//@interface Entry : NSObject
+//
+//@property UIImage *icon;
+//@property NSString *iconName;
+//@property NSString *description;
+//@property CGFloat cost;
+//@property NSString *moreText;
+//@property NSMutableArray *morePhotos;
+//
+//@property NSInteger dateYear;
+//@property NSInteger dateMonth;
+//@property NSInteger dateDay;
+//@property NSInteger dateHour;
+//@property NSInteger dateMinute;
+//@end
 
 /// Structure of category selection button content
 @interface IconType : NSObject
@@ -56,8 +56,7 @@
 @property NSInteger dateYear;
 @property NSInteger dateMonth;
 @property NSInteger dateDay;
-@property NSInteger dateHour;
-@property NSInteger dateMinute;
+
 
 - (instancetype)initWithType:(NSString *)type
                         tips:(NSString *)tips
@@ -65,8 +64,6 @@
                     dateYear:(NSInteger)dateYear
                    dateMonth:(NSInteger)dateMonth
                      dateDay:(NSInteger)dateDay
-                    dateHour:(NSInteger)dateHour
-                  dateMinute:(NSInteger)dateMinute
                         kind:(BOOL)inOrOut;
 
 @end
@@ -79,7 +76,7 @@
 + (BOOL)loginUser:(NSString *)username password:(NSString *)password;
 + (BOOL)signUpUser:(PersonalMes *)newUser;
 
-+ (BOOL)addNewAccount:(AccountType *)newAccount addPoints:(NSUInteger)point;
++ (BOOL)addNewAccount:(AccountType *)newAccount;
 + (BOOL)loadAllAccounts;
 + (NSMutableArray *)getAllAccounts;
 
