@@ -76,16 +76,18 @@
 - (NSMutableArray *)colorofpie {
     if (_colorofpie == nil) {
         _colorofpie = [[NSMutableArray alloc] init];
-        [_colorofpie addObject:[UIColor redColor]];
-        [_colorofpie addObject:[UIColor orangeColor]];
-        [_colorofpie addObject:[UIColor yellowColor]];
-        [_colorofpie addObject:[UIColor greenColor]];
-        [_colorofpie addObject:[UIColor cyanColor]];
-        [_colorofpie addObject:[UIColor blueColor]];
-        [_colorofpie addObject:[UIColor purpleColor]];
-        [_colorofpie addObject:[UIColor grayColor]];
-        [_colorofpie addObject:[UIColor brownColor]];
-        [_colorofpie addObject:[UIColor magentaColor]];
+        [_colorofpie addObject:[UIColor colorWithRed:255/ 255.0 green:255/ 255.0 blue:0/ 255.0 alpha:1]];
+        [_colorofpie addObject:[UIColor colorWithRed:127/ 255.0 green:255/ 255.0 blue:0/ 255.0 alpha:1]];
+        [_colorofpie addObject:[UIColor colorWithRed:0/ 255.0 green:255/ 255.0 blue:0/ 255.0 alpha:1]];
+        [_colorofpie addObject:[UIColor colorWithRed:0/ 255.0 green:255/ 255.0 blue:127/ 255.0 alpha:1]];
+        [_colorofpie addObject:[UIColor colorWithRed:0/ 255.0 green:255/ 255.0 blue:255/ 255.0 alpha:1]];
+        [_colorofpie addObject:[UIColor colorWithRed:0/ 255.0 green:127/ 255.0 blue:255/ 255.0 alpha:1]];
+        [_colorofpie addObject:[UIColor colorWithRed:0/ 255.0 green:0/ 255.0 blue:255/ 255.0 alpha:1]];
+        [_colorofpie addObject:[UIColor colorWithRed:127/ 255.0 green:0/ 255.0 blue:255/ 255.0 alpha:1]];
+        [_colorofpie addObject:[UIColor colorWithRed:255/ 255.0 green:0/ 255.0 blue:255/ 255.0 alpha:1]];
+        [_colorofpie addObject:[UIColor colorWithRed:255/ 255.0 green:0/ 255.0 blue:127/ 255.0 alpha:1]];
+        [_colorofpie addObject:[UIColor colorWithRed:255/ 255.0 green:0/ 255.0 blue:0/ 255.0 alpha:1]];
+        [_colorofpie addObject:[UIColor colorWithRed:255/ 255.0 green:127/ 255.0 blue:0/ 255.0 alpha:1]];
     }
     return _colorofpie;
 }
@@ -93,7 +95,7 @@
 - (UILabel *)midpielabel {
     if (_midpielabel == nil) {
         CGFloat radius = self.radius / 2;
-        _midpielabel = [[UILabel alloc] initWithFrame:CGRectMake(self.midpoint.x - 0.86 * radius, self.midpoint.y - 0.5 * radius, 1.72 * radius, radius)];
+        _midpielabel = [[UILabel alloc] initWithFrame:CGRectMake(self.midpoint.x -  radius, self.midpoint.y - 0.5 * radius, 2 * radius, radius)];
         _midpielabel.backgroundColor = [UIColor clearColor];
         _midpielabel.font = [UIFont systemFontOfSize:35];
         _midpielabel.textColor = [UIColor blackColor];
@@ -121,7 +123,7 @@
         _toppielabel.text = @"某个类名";
         _toppielabel.backgroundColor = [UIColor clearColor];
 
-        _toppielabel.font = [UIFont systemFontOfSize:20];
+        _toppielabel.font = [UIFont systemFontOfSize:30];
         _toppielabel.textColor = [UIColor blackColor];
     }
     return _toppielabel;
@@ -131,12 +133,14 @@
     if (_bottompielabel == nil) {
         _bottompielabel = [[UILabel alloc] initWithFrame:CGRectMake(self.classifyPie.frame.size.width / 2 - self.radius / 2, self.classifyPie.frame.size.height * 5 / 8 + self.radius * 3 / 4, self.radius, self.classifyPie.frame.size.height / 4 - self.radius / 2)];
         _bottompielabel.backgroundColor = [UIColor clearColor];
-        _bottompielabel.font = [UIFont systemFontOfSize:25];
+        _bottompielabel.font = [UIFont systemFontOfSize:30];
         _bottompielabel.textColor = [UIColor blackColor];
         _bottompielabel.textAlignment = NSTextAlignmentCenter;
     }
     return _bottompielabel;
 }
+
+
 
 - (CAShapeLayer *)pieMaskLayer {
     if (_pieMaskLayer == nil) {
@@ -192,18 +196,8 @@
         //4.计算当前end位置 = 上一个结束位置 + 当前部分百分比
         end = [[self.databytype objectAtIndex:i] floatValue] * M_PI * 2 / self.total + start;
         //图层
-
-        UIColor *color;
-        if (i < self.colorofpie.count) {
-            color = [self.colorofpie objectAtIndex:i];
-        } else {
-            CGFloat red = arc4random_uniform(256) / 255.0;
-            CGFloat green = arc4random_uniform(256) / 255.0;
-            CGFloat blue = arc4random_uniform(256) / 255.0;
-            color = [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
-            [self.colorofpie addObject:color];
-        }
-
+        UIColor *color= [self.colorofpie objectAtIndex:i%self.colorofpie.count];
+      
         UIBezierPath *partPath = [UIBezierPath bezierPathWithArcCenter:self.midpoint
                                                                 radius:self.radius
                                                             startAngle:start - M_PI_2
@@ -262,20 +256,20 @@
     //获取触摸对象
     UITouch *touch = [allTouches anyObject];
     //返回触摸点所在视图中的坐标
-    CGPoint point = [touch locationInView:[touch view]];
+    CGPoint point = [touch locationInView:self.classifyPie];
     NSInteger num = [self layerpos:point];
-    NSLog(@"%ld",num);
     if (num >= 0 && num < self.pieNum) {
 
         float ratio = [[self.databytype objectAtIndex:num] floatValue] / self.total * 100;
         self.midpielabel.text = [NSString stringWithFormat:@"%0.1f%%", ratio];
         [self.classifyPie addSubview:self.midpielabel];
         [self.view bringSubviewToFront:self.midpielabel];
-        self.colorexp.backgroundColor = [self.colorofpie objectAtIndex:num];
+        self.colorexp.backgroundColor = [self.colorofpie objectAtIndex:num%self.colorofpie.count];
         [self.classifyPie addSubview:self.colorexp];
         self.toppielabel.text = [self.nameoftype objectAtIndex:num];
         [self.classifyPie addSubview:self.toppielabel];
         self.bottompielabel.text = [NSString stringWithFormat:@"%0.2f元", [[self.databytype objectAtIndex:num] floatValue]];
+        self.bottompielabel.frame=CGRectMake(self.classifyPie.frame.size.width / 2 - self.radius*self.bottompielabel.text.length/12, self.classifyPie.frame.size.height * 5 / 8 + self.radius * 3 / 4, self.radius*self.bottompielabel.text.length/6, self.classifyPie.frame.size.height / 4 - self.radius / 2);
         [self.classifyPie addSubview:self.bottompielabel];
 
     }
