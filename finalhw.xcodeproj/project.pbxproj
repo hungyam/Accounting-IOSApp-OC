@@ -66,6 +66,7 @@
 		30CF248A2764B02D00C1C858 /* AccountDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CF24892764B02D00C1C858 /* AccountDetailVC.m */; };
 		30FA7D80275F00990075BEC6 /* DataManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 30FA7D7F275F00990075BEC6 /* DataManage.m */; };
 		4B6DD1C4C26C51F412476C2F /* yes.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B6DD52DAD5F1FF01C270F94 /* yes.png */; };
+		4B6DD40FDC184E0B5C5FF116 /* SubViewPieVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6DDF8E9D2CB34638E59AA0 /* SubViewPieVC.m */; };
 		4B6DDBD47EF37CD4C86FA7CB /* no.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B6DDFDE80BEF0D14F7A6F09 /* no.png */; };
 /* End PBXBuildFile section */
 
@@ -170,6 +171,8 @@
 		30FA7D7E275F00870075BEC6 /* DataManage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataManage.h; sourceTree = "<group>"; };
 		30FA7D7F275F00990075BEC6 /* DataManage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataManage.m; sourceTree = "<group>"; };
 		4B6DD52DAD5F1FF01C270F94 /* yes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yes.png; sourceTree = "<group>"; };
+		4B6DDD7786427E9EA9C9CEA8 /* SubViewPieVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubViewPieVC.h; sourceTree = "<group>"; };
+		4B6DDF8E9D2CB34638E59AA0 /* SubViewPieVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubViewPieVC.m; sourceTree = "<group>"; };
 		4B6DDFDE80BEF0D14F7A6F09 /* no.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -278,6 +281,8 @@
 				3036FC2A274C8D8000ECDF89 /* ChartVC.m */,
 				309C33E62760584B004D627C /* ChartNaviVC.h */,
 				309C33E727605869004D627C /* ChartNaviVC.m */,
+				4B6DDF8E9D2CB34638E59AA0 /* SubViewPieVC.m */,
+				4B6DDD7786427E9EA9C9CEA8 /* SubViewPieVC.h */,
 			);
 			path = ChartPage;
 			sourceTree = "<group>";
@@ -584,6 +589,7 @@
 				309C33E827605869004D627C /* ChartNaviVC.m in Sources */,
 				3037CB19273D137C0013EEBB /* SceneDelegate.m in Sources */,
 				3036FC2B274C8D8000ECDF89 /* ChartVC.m in Sources */,
+				4B6DD40FDC184E0B5C5FF116 /* SubViewPieVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
