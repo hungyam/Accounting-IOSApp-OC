@@ -331,6 +331,11 @@ static NSMutableArray *allAccounts;
             return ((IconType *)inIconArray[i]).icon;
         }
     }
+    for (NSInteger i = 0; i < outIconArray.count; i++) {
+        if ([((IconType *)outIconArray[i]).label isEqual:str]) {
+            return ((IconType *)outIconArray[i]).icon;
+        }
+    }
     return nil;
 }
 
