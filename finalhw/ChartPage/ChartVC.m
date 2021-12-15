@@ -7,6 +7,7 @@
 
 #import "ChartVC.h"
 #import "DataManage.h"
+
 #define Wper *self.view.bounds.size.width/100
 #define Hper *self.view.bounds.size.height/100
 
@@ -41,7 +42,7 @@
 @property(nonatomic, strong) UIButton *buttoninUse;
 
 @property(nonatomic, strong) UIView *dateChooseArea;
-
+@property(nonatomic, strong) UIViewController *showPieVC;
 @property(nonatomic, strong) UIView *classifyPie;
 @property(nonatomic, strong) NSMutableArray *colorofpie;
 @property(nonatomic, assign) NSInteger pieNum;
@@ -56,8 +57,8 @@
 
 @property(nonatomic, strong) UIView *classifyList;
 
+@property(nonatomic, strong) UIButton *showPieButton;
 @property(nonatomic, strong) UISegmentedControl *segment;
-//@property (nonatomic, strong) UISegmentedControl *topSegment;
 @property(nonatomic, strong) UIButton *topSegmentLeft;
 @property(nonatomic, strong) UIButton *topSegmentRight;
 
@@ -71,36 +72,39 @@
 @end
 
 @implementation ChartVC
--(void)renewdata{
-    self.maindata=[DataManage getAllAccounts];
-    
-    for(NSInteger i=0;i<self.maindata.count;i++){
-        AccountType*account=(AccountType*)[self.maindata objectAtIndex:i];
-        NSInteger year=account.dateYear;
+- (void)renewdata {
+    self.maindata = [DataManage getAllAccounts];
 
-        if(i==0){
-            self.firstYear=year;
-            self.lastYear=year;
-        }
-        else{
-            if(self.firstYear>year){
-                self.firstYear=year;
+    for (NSInteger i = 0; i < self.maindata.count; i++) {
+        AccountType *account = (AccountType *) [self.maindata objectAtIndex:i];
+        NSInteger year = account.dateYear;
+
+        if (i == 0) {
+            self.firstYear = year;
+            self.lastYear = year;
+        } else {
+            if (self.firstYear > year) {
+                self.firstYear = year;
             }
-            if(self.lastYear<year){
-                self.lastYear=year;
+            if (self.lastYear < year) {
+                self.lastYear = year;
             }
         }
     }
+    [self.pickerViewOfYear reloadAllComponents];
+    [self.pickerViewOfMonth reloadAllComponents];
+    [self.pickerViewOfWeek reloadAllComponents];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self renewdata];
     self.view.backgroundColor = [UIColor colorWithRed:248 / 255.0 green:248 / 255.0 blue:248 / 255.0 alpha:1];
     [self.view addSubview:self.mainView];
     [self setButtonLine];
-    UIBarButtonItem *btnItemLeft = [[UIBarButtonItem alloc]initWithCustomView:self.topSegmentLeft];
-    UIBarButtonItem *btnItemRight = [[UIBarButtonItem alloc]initWithCustomView:self.topSegmentRight];
-    self.navigationItem.leftBarButtonItems = @[btnItemLeft,btnItemRight];
+    UIBarButtonItem *btnItemLeft = [[UIBarButtonItem alloc] initWithCustomView:self.topSegmentLeft];
+    UIBarButtonItem *btnItemRight = [[UIBarButtonItem alloc] initWithCustomView:self.topSegmentRight];
+    self.navigationItem.leftBarButtonItems = @[btnItemLeft, btnItemRight];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -134,35 +138,35 @@
     return _databytime;
 }
 
--(NSMutableArray*)databytype{
-    if(_databytype==nil){
-        _databytype=[[NSMutableArray alloc]init];
+- (NSMutableArray *)databytype {
+    if (_databytype == nil) {
+        _databytype = [[NSMutableArray alloc] init];
     }
-    return  _databytype;
+    return _databytype;
 }
 
--(NSMutableArray*)maindata{
-    if(_maindata==nil){
-        _maindata=[[NSMutableArray alloc] init];
+- (NSMutableArray *)maindata {
+    if (_maindata == nil) {
+        _maindata = [[NSMutableArray alloc] init];
     }
-    return  _maindata;
+    return _maindata;
 }
 
--(NSMutableArray*)nameoftype{
-    if(_nameoftype==nil){
-        _nameoftype=[[NSMutableArray alloc] init];
+- (NSMutableArray *)nameoftype {
+    if (_nameoftype == nil) {
+        _nameoftype = [[NSMutableArray alloc] init];
     }
-    return  _nameoftype;
+    return _nameoftype;
 }
 
 - (UIScrollView *)mainView {
     if (_mainView == nil) {
-        _mainView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 100 Wper, 100 Hper)];
+        _mainView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 100 Wper, 100 Hper)];
         _mainView.backgroundColor = [UIColor clearColor];
         [_mainView addSubview:self.chartView];
         [_mainView addSubview:self.classifyList];
-        [_mainView addSubview:self.segment];
         [_mainView addSubview:self.datePickerLabel];
+        [_mainView addSubview:self.showPieButton];
         _mainView.contentSize = CGSizeMake(100 Wper, 120 Hper);
     }
     return _mainView;
@@ -181,7 +185,7 @@
         _topSegmentLeft.layer.shadowOffset = CGSizeMake(0, 0);
         _topSegmentLeft.layer.shadowRadius = 10;
         _topSegmentLeft.layer.shadowOpacity = 0.7;
-        [_topSegmentLeft setTitle:@"收入" forState:UIControlStateNormal];
+        [_topSegmentLeft setTitle:@"支出" forState:UIControlStateNormal];
         [_topSegmentLeft setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_topSegmentLeft addTarget:self action:@selector(topSegmentSelected:) forControlEvents:UIControlEventTouchDown];
     }
@@ -198,7 +202,7 @@
         _topSegmentRight.layer.shadowOffset = CGSizeMake(0, 0);
         _topSegmentRight.layer.shadowRadius = 10;
         _topSegmentRight.layer.shadowOpacity = 0.1;
-        [_topSegmentRight setTitle:@"支出" forState:UIControlStateNormal];
+        [_topSegmentRight setTitle:@"收入" forState:UIControlStateNormal];
         [_topSegmentRight setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         [_topSegmentRight addTarget:self action:@selector(topSegmentSelected:) forControlEvents:UIControlEventTouchDown];
     }
@@ -208,8 +212,8 @@
 - (void)topSegmentSelected:(id)sender {
     UIButton *control = (UIButton *) sender;
     if (control.tag == 1) {
-        if (self.inOrOut == 1) {
-            self.inOrOut = 0;
+        if (self.inOrOut == 0) {
+            self.inOrOut = 1;
             [UIView animateWithDuration:0.3
                                   delay:0
                                 options:UIViewAnimationOptionBeginFromCurrentState
@@ -232,8 +236,8 @@
             [self refresh];
         }
     } else {
-        if (self.inOrOut == 0) {
-            self.inOrOut = 1;
+        if (self.inOrOut == 1) {
+            self.inOrOut = 0;
             [UIView animateWithDuration:0.3
                                   delay:0
                                 options:UIViewAnimationOptionBeginFromCurrentState
@@ -343,7 +347,8 @@
                      completion:nil];
     self.buttoninUse = btn;
 }
--(bool)isRun:(NSInteger)year{
+
+- (bool)isRun:(NSInteger)year {
     if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
         return true;
     }
@@ -370,27 +375,27 @@
     return tmp;
 }
 
--(NSInteger)weekdateinyear:(NSInteger)y month:(NSInteger)m day:(NSInteger)d{
-    if (m == 1 || m == 2)
-    {
+- (NSInteger)weekdateinyear:(NSInteger)y month:(NSInteger)m day:(NSInteger)d {
+    if (m == 1 || m == 2) {
         m += 12;
         y--;
     }
-    int week=(d+2*m+3*(m+1)/5+y+y/4-y/100+y/400)%7;
-    return week+1;
+    int week = (d + 2 * m + 3 * (m + 1) / 5 + y + y / 4 - y / 100 + y / 400) % 7;
+    return week + 1;
 }
 
 
--(NSDateComponents *)getNowdate{
+- (NSDateComponents *)getNowdate {
     NSDate *date = [NSDate date];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *comps = [[NSDateComponents alloc] init];
-    NSInteger unitFlags = NSCalendarUnitYear |NSCalendarUnitMonth |NSCalendarUnitDay |NSCalendarUnitWeekday |NSCalendarUnitHour |NSCalendarUnitMinute |NSCalendarUnitSecond;
+    NSInteger unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekday | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
     comps = [calendar components:unitFlags fromDate:date];
     return comps;
 }
+
 #pragma mark - main part
 
 - (UIScrollView *)chartView {
@@ -406,9 +411,10 @@
 }
 
 #pragma mark - Set DatePicker
+
 - (UILabel *)datePickerLabel {
     if (_datePickerLabel == nil) {
-        _datePickerLabel = [[UILabel alloc]initWithFrame:CGRectMake(5 Wper, 32 Hper, 20 Wper, 6.5 Hper)];
+        _datePickerLabel = [[UILabel alloc] initWithFrame:CGRectMake(5 Wper, 32 Hper, 20 Wper, 6.5 Hper)];
         _datePickerLabel.text = @"日期";
 //        _datePickerLabel
     }
@@ -422,20 +428,18 @@
         _pickerViewOfYear.dataSource = (id) self;
         _pickerViewOfYear.backgroundColor = [UIColor clearColor];
         _pickerViewOfYear.tag = 3;
-        NSInteger nowyear=[[self getNowdate] year];
+        NSInteger nowyear = [[self getNowdate] year];
         NSInteger chooseyear;
-        if(self.firstYear<=nowyear&&self.lastYear>=nowyear){
-            chooseyear=nowyear;
-        }
-        else{
-            if(nowyear>self.lastYear){
-                chooseyear=self.lastYear;
-            }
-            else{
-                chooseyear=self.firstYear;
+        if (self.firstYear <= nowyear && self.lastYear >= nowyear) {
+            chooseyear = nowyear;
+        } else {
+            if (nowyear > self.lastYear) {
+                chooseyear = self.lastYear;
+            } else {
+                chooseyear = self.firstYear;
             }
         }
-        [_pickerViewOfYear selectRow:chooseyear-self.firstYear inComponent:0 animated:false];
+        [_pickerViewOfYear selectRow:chooseyear - self.firstYear inComponent:0 animated:false];
     }
     return _pickerViewOfYear;
 }
@@ -447,23 +451,21 @@
         _pickerViewOfMonth.dataSource = (id) self;
         _pickerViewOfMonth.backgroundColor = [UIColor clearColor];
         _pickerViewOfMonth.tag = 2;
-        
-        NSInteger nowyear=[[self getNowdate] year];
+
+        NSInteger nowyear = [[self getNowdate] year];
         NSInteger chooseyear;
-        if(self.firstYear<=nowyear&&self.lastYear>=nowyear){
-            chooseyear=nowyear;
-            NSInteger month=[[self getNowdate] month];
-            [_pickerViewOfMonth selectRow:month-1 inComponent:1 animated:false];
-        }
-        else{
-            if(nowyear>self.lastYear){
-                chooseyear=self.lastYear;
-            }
-            else{
-                chooseyear=self.firstYear;
+        if (self.firstYear <= nowyear && self.lastYear >= nowyear) {
+            chooseyear = nowyear;
+            NSInteger month = [[self getNowdate] month];
+            [_pickerViewOfMonth selectRow:month - 1 inComponent:1 animated:false];
+        } else {
+            if (nowyear > self.lastYear) {
+                chooseyear = self.lastYear;
+            } else {
+                chooseyear = self.firstYear;
             }
         }
-        [_pickerViewOfMonth selectRow:chooseyear-self.firstYear inComponent:0 animated:false];
+        [_pickerViewOfMonth selectRow:chooseyear - self.firstYear inComponent:0 animated:false];
     }
     return _pickerViewOfMonth;
 }
@@ -476,30 +478,28 @@
         _pickerViewOfWeek.dataSource = (id) self;
         _pickerViewOfWeek.backgroundColor = [UIColor clearColor];
         _pickerViewOfWeek.tag = 1;
-        NSInteger nowyear=[[self getNowdate] year];
+        NSInteger nowyear = [[self getNowdate] year];
         NSInteger chooseyear;
-        if(self.firstYear<=nowyear&&self.lastYear>=nowyear){
-            chooseyear=nowyear;
-            NSInteger day=[[self getNowdate] day];
-            NSInteger month=[[self getNowdate] month];
-            
-            for(NSInteger i=0;i<54;i++){
-                NSInteger tmp=[self ismonth:month day:day inWeekNo:i ofyear:chooseyear];
-                if(tmp>-1){
+        if (self.firstYear <= nowyear && self.lastYear >= nowyear) {
+            chooseyear = nowyear;
+            NSInteger day = [[self getNowdate] day];
+            NSInteger month = [[self getNowdate] month];
+
+            for (NSInteger i = 0; i < 54; i++) {
+                NSInteger tmp = [self ismonth:month day:day inWeekNo:i ofyear:chooseyear];
+                if (tmp > -1) {
                     [_pickerViewOfWeek selectRow:i inComponent:1 animated:false];
                     break;
                 }
             }
-        }
-        else{
-            if(nowyear>self.lastYear){
-                chooseyear=self.lastYear;
-            }
-            else{
-                chooseyear=self.firstYear;
+        } else {
+            if (nowyear > self.lastYear) {
+                chooseyear = self.lastYear;
+            } else {
+                chooseyear = self.firstYear;
             }
         }
-        [_pickerViewOfWeek selectRow:chooseyear-self.firstYear inComponent:0 animated:false];
+        [_pickerViewOfWeek selectRow:chooseyear - self.firstYear inComponent:0 animated:false];
     }
     return _pickerViewOfWeek;
 }
@@ -514,16 +514,15 @@
 //设置指定列包含的项数
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     if (component == 0) {
-        return self.lastYear-self.firstYear+1;
+        return self.lastYear - self.firstYear + 1;
     }
-    if(pickerView.tag==1){
-        NSInteger chooseyear=[self.pickerViewOfWeek selectedRowInComponent:0]+self.firstYear ;
-        NSInteger weekdate=[self weekdateinyear:chooseyear month:1 day:1];
-        if([self isRun:chooseyear]&&(weekdate==7||weekdate==6)){
-            return  53;
-        }
-        else if(weekdate==7){
-            return  53;
+    if (pickerView.tag == 1) {
+        NSInteger chooseyear = [self.pickerViewOfWeek selectedRowInComponent:0] + self.firstYear;
+        NSInteger weekdate = [self weekdateinyear:chooseyear month:1 day:1];
+        if ([self isRun:chooseyear] && (weekdate == 7 || weekdate == 6)) {
+            return 53;
+        } else if (weekdate == 7) {
+            return 53;
         }
         return 52;
     }
@@ -531,63 +530,66 @@
 }
 
 
-
 //设置每个选项显示的内容
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     if (component == 0) {
-        return [NSString stringWithFormat:@"%ld",self.firstYear+row];
+        return [NSString stringWithFormat:@"%ld", self.firstYear + row];
     }
-    if(pickerView.tag==1){
-        NSInteger chooseyear=[self.pickerViewOfWeek selectedRowInComponent:0]+self.firstYear ;
+    if (pickerView.tag == 1) {
+        NSInteger chooseyear = [self.pickerViewOfWeek selectedRowInComponent:0] + self.firstYear;
         return [self gettheNo:row weekin:chooseyear];
     }
-    return [NSString stringWithFormat:@"%ld",row+1];
+    return [NSString stringWithFormat:@"%ld", row + 1];
 }
--(NSString*)gettheNo:(NSInteger)num weekin:(NSInteger)year{
-    NSInteger basedate=[self begindayin:year];
-    NSInteger beginday=basedate+7*num,endday=beginday+6;
-    NSString*begin=[self dateof:beginday daysinyear:year];
-    NSString*end=[self dateof:endday daysinyear:year];
-    return [NSString stringWithFormat:@"%@-%@",begin,end];
+
+- (NSString *)gettheNo:(NSInteger)num weekin:(NSInteger)year {
+    NSInteger basedate = [self begindayin:year];
+    NSInteger beginday = basedate + 7 * num, endday = beginday + 6;
+    NSString *begin = [self dateof:beginday daysinyear:year];
+    NSString *end = [self dateof:endday daysinyear:year];
+    return [NSString stringWithFormat:@"%@-%@", begin, end];
 }
--(NSInteger)ismonth:(NSInteger)month day:(NSInteger)day  inWeekNo:(NSInteger)num ofyear:(NSInteger)year{
-    NSInteger basedate=[self begindayin:year];
-    NSInteger beginday=basedate+7*num,endday=beginday+6;
-    NSInteger daysinmonth[13]={31,28,31,30,31,30,31,31,30,31,30,31,666};
-    if([self isRun:year]){
+
+- (NSInteger)ismonth:(NSInteger)month day:(NSInteger)day inWeekNo:(NSInteger)num ofyear:(NSInteger)year {
+    NSInteger basedate = [self begindayin:year];
+    NSInteger beginday = basedate + 7 * num, endday = beginday + 6;
+    NSInteger daysinmonth[13] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 666};
+    if ([self isRun:year]) {
         daysinmonth[1]++;
     }
-    NSInteger days=day;
-    for(NSInteger i=0;i<month-1;i++){
-        days+=daysinmonth[i];
+    NSInteger days = day;
+    for (NSInteger i = 0; i < month - 1; i++) {
+        days += daysinmonth[i];
     }
-    if(days>=beginday&&days<=endday){
-        return days-beginday;
+    if (days >= beginday && days <= endday) {
+        return days - beginday;
     }
     return -1;
 }
 
--(NSString*)dateof:(NSInteger)day daysinyear:(NSInteger)year{
-    NSInteger daysinmonth[13]={31,28,31,30,31,30,31,31,30,31,30,31,666};
-    NSInteger month=1;
-    if([self isRun:year]){
+- (NSString *)dateof:(NSInteger)day daysinyear:(NSInteger)year {
+    NSInteger daysinmonth[13] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31, 666};
+    NSInteger month = 1;
+    if ([self isRun:year]) {
         daysinmonth[1]++;
     }
-    while (day>daysinmonth[month-1]){
-        day-=daysinmonth[month-1];
+    while (day > daysinmonth[month - 1]) {
+        day -= daysinmonth[month - 1];
         month++;
-        if(month==13){
-            month-=12;
+        if (month == 13) {
+            month -= 12;
         }
     }
-    return [NSString stringWithFormat:@"%ld.%ld",month,day];
+    return [NSString stringWithFormat:@"%ld.%ld", month, day];
 }
--(NSInteger)begindayin:(NSInteger)year{
-    return 8-[self weekdateinyear:year month:1 day:1];
+
+- (NSInteger)begindayin:(NSInteger)year {
+    return 8 - [self weekdateinyear:year month:1 day:1];
 }
+
 //用户进行选择
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    if (component == 0&&pickerView.tag==1) {
+    if (component == 0 && pickerView.tag == 1) {
         [pickerView reloadAllComponents];
     }
     [self refresh];
@@ -598,7 +600,7 @@
 
 - (UIView *)classifyList {
     if (_classifyList == nil) {
-        _classifyList = [[UIView alloc] initWithFrame:CGRectMake(4 Wper, 45 Hper, 92 Wper, 60 Hper)];
+        _classifyList = [[UIView alloc] initWithFrame:CGRectMake(4 Wper, 42 Hper, 92 Wper, 60 Hper)];
         _classifyList.backgroundColor = [UIColor whiteColor];
         _classifyList.layer.cornerRadius = 15;
         _classifyList.layer.shadowColor = [UIColor grayColor].CGColor;
@@ -611,7 +613,7 @@
 
 - (UIView *)classifyPie {
     if (_classifyPie == nil) {
-        _classifyPie = [[UIView alloc] initWithFrame:CGRectMake(4 Wper, 45 Hper, 92 Wper, 45 Hper)];
+        _classifyPie = [[UIView alloc] initWithFrame:CGRectMake(4 Wper, 25 Hper, 92 Wper, 50 Hper)];
         self.midpoint = CGPointMake(_classifyPie.frame.size.width / 2, _classifyPie.frame.size.height / 2);
         self.radius = self.midpoint.y < self.midpoint.x ? self.midpoint.y / 3 * 2 : self.midpoint.x / 3 * 2;
         _classifyPie.backgroundColor = [UIColor whiteColor];
@@ -625,34 +627,42 @@
     return _classifyPie;
 }
 
-- (UISegmentedControl *)segment {
-    if (_segment == nil) {
-        _segment = [[UISegmentedControl alloc] initWithItems:@[@"排行榜", @"扇形图"]];
-        _segment.frame = CGRectMake(70 Wper, 40 Hper , 25 Wper, 30);
-        _segment.selectedSegmentIndex = 1;
-        _segment.tintColor = [UIColor whiteColor];
-        _segment.apportionsSegmentWidthsByContent = YES;
-        [_segment addTarget:self action:@selector(segmentSelected:) forControlEvents:UIControlEventValueChanged];
-        _segment.selectedSegmentIndex = 0;
+- (UIButton *)showPieButton {
+    if (_showPieButton == nil) {
+        _showPieButton = [[UIButton alloc] initWithFrame:CGRectMake(70 Wper, 45 Hper, 20 Wper, 5 Hper)];
+        _showPieButton.backgroundColor = [UIColor colorWithRed:170/250.0 green:216/255.0 blue:219/255.0 alpha:1];
+        _showPieButton.layer.cornerRadius = 15;
+        [_showPieButton setTitle:@"饼图" forState:UIControlStateNormal];
+        [_showPieButton addTarget:self action:@selector(showPieButtonAction) forControlEvents:UIControlEventTouchDown];
     }
-    return _segment;
+    return _showPieButton;
+}
+- (void)showPieButtonAction {
+    [self presentViewController:self.showPieVC
+                       animated:YES
+                     completion:^{
+                         if (self.drawdelay == 1) {
+                             NSLog(@"draw");
+                             self.drawdelay = 0;
+                             [self beginDrawpie];
+                         }
+    }];
 }
 
-- (void)segmentSelected:(id)sender {
-    UISegmentedControl *control = (UISegmentedControl *) sender;
-    if (control.selectedSegmentIndex == 0) {
-        [self.classifyPie removeFromSuperview];
-        [self.mainView addSubview:self.classifyList];
-        [self.mainView sendSubviewToBack:self.classifyList];
-    } else {
-        [self.classifyList removeFromSuperview];
-        if (self.drawdelay == 1) {
-            self.drawdelay = 0;
-            [self beginDrawpie];
-        }
-        [self.mainView addSubview:self.classifyPie];
-        [self.mainView sendSubviewToBack:self.classifyPie];
+- (UIViewController *)showPieVC {
+    if (_showPieVC == nil) {
+        _showPieVC = [[UIViewController alloc] init];
+        [_showPieVC.view addSubview:self.classifyPie];
+        [_showPieVC.view sendSubviewToBack:self.classifyPie];
+        _showPieVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        UITapGestureRecognizer *uiTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPieVC)];
+        _showPieVC.view.userInteractionEnabled = YES;
+        [_showPieVC.view addGestureRecognizer:uiTap];
     }
+    return _showPieVC;
+}
+- (void)dismissPieVC {
+    [self.showPieVC dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - part of pie
@@ -751,78 +761,75 @@
     [self.databytype removeAllObjects];
     [self.nameoftype removeAllObjects];
     NSInteger year;
-    NSInteger weeknum=[self .pickerViewOfWeek selectedRowInComponent:1] ;
-    NSInteger month=[self.pickerViewOfMonth selectedRowInComponent:1]+1;
-    if(self.mode==1){
-        year=[self.pickerViewOfWeek selectedRowInComponent:0]+self.firstYear;
+    NSInteger weeknum = [self.pickerViewOfWeek selectedRowInComponent:1];
+    NSInteger month = [self.pickerViewOfMonth selectedRowInComponent:1] + 1;
+    if (self.mode == 1) {
+        year = [self.pickerViewOfWeek selectedRowInComponent:0] + self.firstYear;
+    } else if (self.mode == 2) {
+        year = [self.pickerViewOfMonth selectedRowInComponent:0] + self.firstYear;
+    } else {
+        year = [self.pickerViewOfYear selectedRowInComponent:0] + self.firstYear;
     }
-    else if(self.mode==2){
-        year=[self.pickerViewOfMonth selectedRowInComponent:0]+self.firstYear;
-    }
-    else{
-        year=[self.pickerViewOfYear selectedRowInComponent:0]+self.firstYear;
-    }
-    float max=0;
-    float tmp[32]={0};
-    for(NSInteger i=0;i<self.maindata.count;i++){
-        AccountType*account=(AccountType*)[self.maindata objectAtIndex:i];
-        if(account.dateYear!=year){
+    float max = 0;
+    float tmp[32] = {0};
+    for (NSInteger i = 0; i < self.maindata.count; i++) {
+        AccountType *account = (AccountType *) [self.maindata objectAtIndex:i];
+        if (account.dateYear != year) {
             continue;
         }
-        if(self.inOrOut==0&&account.inOrOut){
+        if (self.inOrOut == 0 && account.inOrOut) {
+            continue;
+        } else if (self.inOrOut == 1 && !account.inOrOut) {
             continue;
         }
-        else if(self.inOrOut==1&&!account.inOrOut){
-            continue;
-        }
-        if(self.mode==1){
-            NSInteger weekday=[self ismonth:account.dateMonth day:account.dateDay inWeekNo:weeknum ofyear:year];
-            if(weekday>-1){
+        if (self.mode == 1) {
+            NSInteger weekday = [self ismonth:account.dateMonth day:account.dateDay inWeekNo:weeknum ofyear:year];
+            if (weekday > -1) {
                 [self addindatabytype:account];
-                tmp[weekday]+=account.amount;
-                if(max<tmp[weekday]){
-                    max=tmp[weekday];
+                tmp[weekday] += account.amount;
+                if (max < tmp[weekday]) {
+                    max = tmp[weekday];
                 }
             }
-        }
-        else if(self.mode==2){
-            if(account.dateMonth==month){
+        } else if (self.mode == 2) {
+            if (account.dateMonth == month) {
                 [self addindatabytype:account];
-                tmp[account.dateDay-1]+=account.amount;
-                if(max<tmp[account.dateDay-1]){
-                    max=tmp[account.dateDay-1];
+                tmp[account.dateDay - 1] += account.amount;
+                if (max < tmp[account.dateDay - 1]) {
+                    max = tmp[account.dateDay - 1];
                 }
             }
-            
-        }
-        else{
+
+        } else {
             [self addindatabytype:account];
-            tmp[account.dateMonth-1]+=account.amount;
-            if(max<tmp[account.dateMonth-1]){
-                max=tmp[account.dateMonth-1];
+            tmp[account.dateMonth - 1] += account.amount;
+            if (max < tmp[account.dateMonth - 1]) {
+                max = tmp[account.dateMonth - 1];
             }
         }
     }
-    for(NSInteger i=0;i<32;i++){
-        [self.databytime addObject:[[NSNumber alloc]initWithFloat:tmp[i]]];
+    for (NSInteger i = 0; i < 32; i++) {
+        [self.databytime addObject:[[NSNumber alloc] initWithFloat:tmp[i]]];
     }
     self.pieNum = self.databytype.count;
     self.yNum = [self setyNumwithmax:max];
 }
--(void)addindatabytype:(AccountType*)account{
-    for(NSInteger i=0;i<self.nameoftype.count;i++){
-        NSString*typename=[self.nameoftype objectAtIndex:i];
-        if([typename isEqual:account.type]){
-            float tmp=[[self.databytype objectAtIndex:i] floatValue];
-            tmp+=account.amount;
-            [self.databytype replaceObjectAtIndex:i withObject:[[NSNumber alloc]initWithFloat:tmp]];
+
+- (void)addindatabytype:(AccountType *)account {
+    for (NSInteger i = 0; i < self.nameoftype.count; i++) {
+        NSString *typename = [self.nameoftype objectAtIndex:i];
+        if ([typename isEqual:account.type]) {
+            float tmp = [[self.databytype objectAtIndex:i] floatValue];
+            tmp += account.amount;
+            [self.databytype replaceObjectAtIndex:i withObject:[[NSNumber alloc] initWithFloat:tmp]];
             return;
         }
     }
 
     [self.nameoftype addObject:account.type];
-    [self.databytype addObject:[[NSNumber alloc]initWithFloat:account.amount]];
+    [self.databytype addObject:[[NSNumber alloc] initWithFloat:account.amount]];
 }
+
 #pragma mark - linepic
 
 - (UIView *)drawbaseline {
@@ -862,8 +869,8 @@
     if (self.mode == 1) {
         self.xCount = 7;
     } else if (self.mode == 2) {
-        NSInteger year=[self.pickerViewOfMonth selectedRowInComponent:0]+self.firstYear;
-        NSInteger month=[self.pickerViewOfMonth selectedRowInComponent:1]+1;
+        NSInteger year = [self.pickerViewOfMonth selectedRowInComponent:0] + self.firstYear;
+        NSInteger month = [self.pickerViewOfMonth selectedRowInComponent:1] + 1;
         self.xCount = [self getdaysin:year and:month];
     } else {
         self.xCount = 12;
@@ -915,10 +922,9 @@
     for (int i = 0; i < self.xCount; i++) {
         float y = [[self.databytime objectAtIndex:i] floatValue];
         CGPoint point;
-        if(y==0){
+        if (y == 0) {
             point = CGPointMake(self.lineoffset + self.xSpace * i + 20, 8 * self.ySpace - 3);
-        }
-        else{
+        } else {
             point = CGPointMake(self.lineoffset + self.xSpace * i + 20, 8 * self.ySpace - y * self.ySpace / self.yNum - 3);
         }
         if (i == 0) {
@@ -946,7 +952,7 @@
         [picView addSubview:taparea];
         tapGesture.view.tag = i;
     }
-    
+
     self.lineChartLayer = [CAShapeLayer layer];
     self.lineChartLayer.path = path.CGPath;
     self.lineChartLayer.strokeColor = [UIColor grayColor].CGColor;
@@ -1150,7 +1156,7 @@
         [self.view bringSubviewToFront:self.midpielabel];
         self.colorexp.backgroundColor = [self.colorofpie objectAtIndex:num];
         [self.classifyPie addSubview:self.colorexp];
-        self.toppielabel.text=[self.nameoftype objectAtIndex:num];
+        self.toppielabel.text = [self.nameoftype objectAtIndex:num];
         [self.classifyPie addSubview:self.toppielabel];
         self.bottompielabel.text = [NSString stringWithFormat:@"%0.2f元", [[self.databytype objectAtIndex:num] floatValue]];
         [self.classifyPie addSubview:self.bottompielabel];
