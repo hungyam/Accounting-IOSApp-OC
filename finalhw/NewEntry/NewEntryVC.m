@@ -202,8 +202,14 @@
         NSInteger month = [dateFormatter stringFromDate:date].integerValue;
         dateFormatter.dateFormat = @"dd";
         NSInteger day = [dateFormatter stringFromDate:date].integerValue;
+        NSString *type;
+        if (inOrOut) {
+            type = ((IconType *) self.inIconArr[(NSUInteger) self.chooseOne.tag]).label;
+        }else {
+            type = ((IconType *) self.outIconArr[(NSUInteger) self.chooseOne.tag]).label;
+        }
         AccountType *newAccount = [[AccountType alloc]
-                initWithType:((IconType *) self.inIconArr[(NSUInteger) self.chooseOne.tag]).label
+                initWithType:type
                         tips:self.tipsText.text
                       amount:self.amount.text.doubleValue
                     dateYear:year
