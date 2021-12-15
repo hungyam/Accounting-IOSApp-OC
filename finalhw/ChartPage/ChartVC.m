@@ -53,7 +53,6 @@
 @property(nonatomic, assign) float total;
 @property(nonatomic, assign) float radius;
 @property(nonatomic, assign) CGPoint midpoint;
-@property(nonatomic, assign) bool drawdelay;
 
 @property(nonatomic, strong) UIView *classifyList;
 
@@ -99,6 +98,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self renewdata];
+    self.inOrOut=1;
     self.view.backgroundColor = [UIColor colorWithRed:248 / 255.0 green:248 / 255.0 blue:248 / 255.0 alpha:1];
     [self.view addSubview:self.mainView];
     [self setButtonLine];
@@ -124,11 +124,6 @@
     [self refreshdata];
     [self beginDrawline];
     [self setlist];
-    if (self.segment.selectedSegmentIndex == 0) {
-        self.drawdelay = 1;
-    } else {
-        [self beginDrawpie];
-    }
 }
 
 - (NSMutableArray *)databytime {
@@ -641,11 +636,7 @@
     [self presentViewController:self.showPieVC
                        animated:YES
                      completion:^{
-                         if (self.drawdelay == 1) {
-                             NSLog(@"draw");
-                             self.drawdelay = 0;
                              [self beginDrawpie];
-                         }
     }];
 }
 
@@ -657,12 +648,17 @@
         _showPieVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
         UITapGestureRecognizer *uiTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPieVC)];
         _showPieVC.view.userInteractionEnabled = YES;
-        [_showPieVC.view addGestureRecognizer:uiTap];
+        //[_showPieVC.view addGestureRecognizer:uiTap];
     }
     return _showPieVC;
 }
 - (void)dismissPieVC {
-    [self.showPieVC dismissViewControllerAnimated:YES completion:nil];
+    [self.showPieVC dismissViewControllerAnimated:YES completion:^{
+        if (self.pieViewinUse != nil) {
+            [self.pieViewinUse removeFromSuperview];
+            self.pieViewinUse=nil;
+        }
+    }];
 }
 
 #pragma mark - part of pie
@@ -1050,6 +1046,7 @@
     UIView *picView = [self drawpie];
     if (self.pieViewinUse != nil) {
         [self.pieViewinUse removeFromSuperview];
+        self.pieViewinUse=nil;
     }
     [self.classifyPie addSubview:picView];
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
@@ -1148,6 +1145,7 @@
     //返回触摸点所在视图中的坐标
     CGPoint point = [touch locationInView:[touch view]];
     NSInteger num = [self layerpos:point];
+    NSLog(@"%ld",num);
     if (num >= 0 && num < self.pieNum) {
 
         float ratio = [[self.databytime objectAtIndex:num] floatValue] / self.total * 100;
