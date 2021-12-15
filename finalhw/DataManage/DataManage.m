@@ -254,24 +254,28 @@ static NSMutableArray *allAccounts;
      Testing Data
      */
     [allAccounts addObject:[[AccountType alloc] initWithType:@"交通" tips:@"fhsafjk" amount:10.5 dateYear:2021 dateMonth:5 dateDay:30 kind:YES]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"宠物" tips:@"dsadasd" amount:20.8 dateYear:2021 dateMonth:4 dateDay:10 kind:NO]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"宠物" tips:@"dsadasd" amount:20.8 dateYear:2021 dateMonth:4 dateDay:10 kind:YES]];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"电影" tips:@"asdf" amount:9.8 dateYear:2021 dateMonth:4 dateDay:9 kind:YES]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"理财" tips:@"csdac" amount:100.6 dateYear:2021 dateMonth:4 dateDay:8 kind:NO]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"理财" tips:@"csdac" amount:100.6 dateYear:2021 dateMonth:4 dateDay:8 kind:YES]];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"饰品" tips:@"adsf" amount:30 dateYear:2021 dateMonth:4 dateDay:8 kind:YES]];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"零食" tips:@"afasdf" amount:12.5 dateYear:2021 dateMonth:3 dateDay:12 kind:YES]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"奶茶" tips:@"adfs" amount:14.4 dateYear:2021 dateMonth:3 dateDay:11 kind:NO]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"奶茶" tips:@"adfs" amount:14.4 dateYear:2021 dateMonth:3 dateDay:11 kind:YES]];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"汽车" tips:@"sdfs" amount:23.5 dateYear:2021 dateMonth:3 dateDay:1 kind:YES]];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"美容" tips:@"vsdvsd" amount:143.5 dateYear:2021 dateMonth:2 dateDay:1 kind:YES]];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"旅游" tips:@"sdfas" amount:23.5 dateYear:2021 dateMonth:2 dateDay:1 kind:YES]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"果蔬" tips:@"bsf" amount:10.5 dateYear:2021 dateMonth:1 dateDay:25 kind:NO]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"果蔬" tips:@"bsf" amount:10.5 dateYear:2021 dateMonth:1 dateDay:25 kind:YES]];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"娱乐" tips:@"dasfs" amount:10.5 dateYear:2021 dateMonth:1 dateDay:20 kind:YES]];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"衣服" tips:@"usdnfkasf" amount:10.5 dateYear:2021 dateMonth:1 dateDay:17 kind:YES]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"果蔬" tips:@"asdfosdn" amount:18.5 dateYear:2021 dateMonth:1 dateDay:8 kind:NO]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"衣服" tips:@"asdfosdn" amount:20.5 dateYear:2021 dateMonth:1 dateDay:7 kind:NO]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"果蔬" tips:@"asdfosdn" amount:18.5 dateYear:2021 dateMonth:1 dateDay:8 kind:YES]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"衣服" tips:@"asdfosdn" amount:20.5 dateYear:2021 dateMonth:1 dateDay:7 kind:YES]];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"娱乐" tips:@"asdfosdn" amount:13.5 dateYear:2021 dateMonth:1 dateDay:6 kind:YES]];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"医疗" tips:@"asdfosdn" amount:10.5 dateYear:2021 dateMonth:1 dateDay:5 kind:YES]];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"网络" tips:@"dsaf" amount:10.5 dateYear:2020 dateMonth:12 dateDay:30 kind:YES]];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"文具" tips:@"fsduio" amount:10.5 dateYear:2020 dateMonth:11 dateDay:28 kind:YES]];
+
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"理财" tips:@"csdac" amount:100.6 dateYear:2021 dateMonth:4 dateDay:8 kind:NO]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"工资" tips:@"csdac" amount:100.6 dateYear:2021 dateMonth:5 dateDay:8 kind:NO]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"理财" tips:@"csdac" amount:100.6 dateYear:2021 dateMonth:6 dateDay:8 kind:NO]];
     
     return YES;
 }
