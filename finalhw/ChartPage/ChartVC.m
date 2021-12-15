@@ -934,6 +934,7 @@
         _list.delegate = (id)self;
         _list.dataSource = (id)self;
         [_list setScrollEnabled:YES];
+        [_list setShowsVerticalScrollIndicator:NO];
     }
     return _list;
 }
@@ -954,6 +955,10 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellWithIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellWithIdentifier];
+    }
+    else{
+        [cell.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        
     }
     cell.textLabel.numberOfLines = 0;
     cell.backgroundColor=[UIColor whiteColor];
