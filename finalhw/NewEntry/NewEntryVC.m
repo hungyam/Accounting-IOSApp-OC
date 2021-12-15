@@ -258,6 +258,7 @@
         _tipsText.layer.cornerRadius = 18;
         _tipsText.backgroundColor = BackColor;
         _tipsText.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 4 SubWper, 12 SubHper)];
+        _tipsText.delegate = (id)self;
         _tipsText.leftViewMode = UITextFieldViewModeAlways;
         _tipsText.tintColor = [UIColor grayColor];
         [_tipsText addTarget:self action:@selector(listenInput:) forControlEvents:UIControlEventEditingChanged];
@@ -303,6 +304,7 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20, 15 SubHper)];
         label.text = @"¥";
         label.font = [UIFont fontWithName:@"ChalkboardSE-Light" size:45];
+        _amount.delegate = (id)self;
         _amount.rightViewMode = UITextFieldViewModeAlways;
         _amount.rightView = label;
     }
@@ -497,6 +499,13 @@
     }
 }
 
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    NSLog(@"return");
+    [textField resignFirstResponder];
+
+    return YES;
+
+}
 
 
 @end
