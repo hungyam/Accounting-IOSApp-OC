@@ -54,6 +54,7 @@
 @property(nonatomic, assign) NSInteger firstYear;
 @property(nonatomic, assign) NSInteger lastYear;
 
+@property(strong, nonatomic) UITableView*list;
 @end
 
 @implementation ChartVC
@@ -109,7 +110,7 @@
     }
     [self refreshdata];
     [self beginDrawline];
-    [self setlist];
+    [self.list reloadData];
     [self.showPieVC refreshdataofPie:self.databytype andNameofPie:self.nameoftype];
 }
 
@@ -148,8 +149,8 @@
         [_mainView addSubview:self.chartView];
         [_mainView addSubview:self.classifyList];
         [_mainView addSubview:self.datePickerLabel];
-        [_mainView addSubview:self.showPieButton];
-        _mainView.contentSize = CGSizeMake(100 Wper, 120 Hper);
+        _mainView.contentSize = CGSizeMake(100 Wper, 105 Hper);
+        [_mainView setShowsVerticalScrollIndicator:NO];
     }
     return _mainView;
 }
@@ -589,6 +590,8 @@
         _classifyList.layer.shadowOffset = CGSizeMake(0, 0);
         _classifyList.layer.shadowRadius = 10;
         _classifyList.layer.shadowOpacity = 0.1;
+        [_classifyList addSubview:self.showPieButton];
+        [_classifyList addSubview:self.list];
     }
     return _classifyList;
 }
@@ -597,7 +600,7 @@
 
 - (UIButton *)showPieButton {
     if (_showPieButton == nil) {
-        _showPieButton = [[UIButton alloc] initWithFrame:CGRectMake(70 Wper, 45 Hper, 20 Wper, 5 Hper)];
+        _showPieButton = [[UIButton alloc] initWithFrame:CGRectMake(66 Wper, 2 Hper, 20 Wper, 5 Hper)];
         _showPieButton.backgroundColor = [UIColor colorWithRed:170/250.0 green:216/255.0 blue:219/255.0 alpha:1];
         _showPieButton.layer.cornerRadius = 15;
         [_showPieButton setTitle:@"饼图" forState:UIControlStateNormal];
@@ -621,9 +624,6 @@
         //[_showPieVC.view addGestureRecognizer:uiTap];
     }
     return _showPieVC;
-}
-- (void)dismissPieVC {
-
 }
 
 
@@ -921,8 +921,105 @@
 
 
 #pragma mark -  set the list, add in classfylist
-
-- (void)setlist {
-    //
+-(UITableView*)list{
+    if(_list==nil){
+        _list = [[UITableView alloc]initWithFrame:CGRectMake(4 Wper, 9 Hper, 84 Wper, 51 Hper)];
+        _list.backgroundColor = [UIColor whiteColor];
+        _list.layer.cornerRadius = 10;
+        _list.layer.shadowColor = [UIColor grayColor].CGColor;
+        _list.layer.shadowOffset = CGSizeMake(5, 5);
+        _list.layer.shadowRadius = 5;
+        _list.layer.shadowOpacity = 0.7;
+        _list.clipsToBounds = YES;
+        _list.delegate = (id)self;
+        _list.dataSource = (id)self;
+        [_list setScrollEnabled:YES];
+        [_list setShowsVerticalScrollIndicator:NO];
+    }
+    return _list;
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return self.databytype.count;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *headView = [[UIView alloc]init];
+    headView.backgroundColor = [UIColor clearColor];
+    return headView;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellWithIdentifier = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellWithIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellWithIdentifier];
+    }
+    else{
+        [cell.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        
+    }
+    cell.textLabel.numberOfLines = 0;
+    cell.backgroundColor=[UIColor whiteColor];
+    cell.backgroundColor= [UIColor colorWithRed:248 / 255.0 green:248 / 255.0 blue:248 / 255.0 alpha:1];
+    cell.layer.shadowColor = [UIColor blackColor].CGColor;
+    cell.layer.shadowOffset = CGSizeMake(0, 5);
+    cell.layer.shadowRadius = 5;
+    cell.layer.shadowOpacity = 0.5;
+    cell.layer.cornerRadius=1 Hper;
+    
+    UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(1 Hper, 1 Hper, 5 Hper, 5 Hper)];
+    img.contentMode = UIViewContentModeScaleAspectFill;
+    img.image = [DataManage getIconByLabel:[self.nameoftype objectAtIndex:indexPath.section]];
+    img.backgroundColor=[UIColor clearColor];
+    
+    UIView*box=[[UIView alloc]initWithFrame:CGRectMake(1 Hper, -2 Hper, 7 Hper, 7 Hper)];
+    [box addSubview:img];
+    box.layer.borderColor=[UIColor blackColor].CGColor;
+    box.layer.borderWidth=1;
+    box.backgroundColor=[UIColor whiteColor];
+    box.layer.cornerRadius=1 Hper;
+    box.layer.shadowColor = [UIColor grayColor].CGColor;
+    box.layer.shadowOffset = CGSizeMake(0, 5);
+    box.layer.shadowRadius = 5;
+    box.layer.shadowOpacity = 0.7;
+    
+    UILabel*name=[[UILabel alloc]initWithFrame:CGRectMake(10 Hper, 0 Hper, 10 Hper, 7 Hper)];
+    UILabel*price=[[UILabel alloc]initWithFrame:CGRectMake(20 Hper, 0 Hper,84 Wper- 22 Hper, 7 Hper)];
+    name.backgroundColor=[UIColor clearColor];
+    name.textAlignment=NSTextAlignmentLeft;
+    name.text=[self.nameoftype objectAtIndex:indexPath.section];
+    [name setFont:[UIFont fontWithName:@"Hiragino Sans" size:22]];
+    
+    price.backgroundColor=[UIColor clearColor];
+    price.textAlignment=NSTextAlignmentRight;
+    price.text=[NSString stringWithFormat:@"¥%0.2f", [[self.databytype objectAtIndex:indexPath.section] floatValue]];
+    [price setFont:[UIFont fontWithName:@"ChalkboardSE-Light" size:25]];
+    
+    [cell addSubview:box];
+    [cell addSubview:name];
+    [cell addSubview:price];
+    return cell;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 7 Hper;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.0001;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 7 Hper;
+}
+ 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.layer.anchorPoint =CGPointMake(0,0.5);
+    cell.layer.transform =CATransform3DMakeScale(0.1,0.1,1);
+    cell.alpha =0.0;
+    [UIView animateWithDuration:0.5 animations:^{
+        cell.layer.transform =CATransform3DIdentity;
+        cell.alpha =1.0;
+    }];
 }
 @end
