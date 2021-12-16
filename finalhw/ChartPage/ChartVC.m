@@ -960,24 +960,28 @@
         [cell.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         
     }
-    cell.textLabel.numberOfLines = 0;
-    cell.backgroundColor=[UIColor whiteColor];
-    cell.backgroundColor= [UIColor colorWithRed:248 / 255.0 green:248 / 255.0 blue:248 / 255.0 alpha:1];
-    cell.layer.shadowColor = [UIColor blackColor].CGColor;
-    cell.layer.shadowOffset = CGSizeMake(0, 5);
-    cell.layer.shadowRadius = 5;
-    cell.layer.shadowOpacity = 0.5;
-    cell.layer.cornerRadius=1 Hper;
+    cell.backgroundColor=[UIColor clearColor];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(1 Hper, 1 Hper, 5 Hper, 5 Hper)];
+    UIView*inside=[[UIView alloc]initWithFrame:CGRectMake(1 Hper, 0, 80 Wper, 6 Hper)];
+    inside.backgroundColor=[UIColor whiteColor];
+    inside.backgroundColor= [UIColor whiteColor];
+    inside.layer.shadowColor = [UIColor grayColor].CGColor;
+    inside.layer.shadowOffset = CGSizeMake(0, 5);
+    inside.layer.shadowRadius = 5;
+    inside.layer.shadowOpacity = 0.5;
+    
+    
+    
+    UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0.5 Hper, 0.5 Hper, 5 Hper, 5 Hper)];
     img.contentMode = UIViewContentModeScaleAspectFill;
     img.image = [DataManage getIconByLabel:[self.nameoftype objectAtIndex:indexPath.section]];
     img.backgroundColor=[UIColor clearColor];
     
-    UIView*box=[[UIView alloc]initWithFrame:CGRectMake(1 Hper, -2 Hper, 7 Hper, 7 Hper)];
+    UIView*box=[[UIView alloc]initWithFrame:CGRectMake(1 Hper, -1.5 Hper, 6 Hper, 6 Hper)];
     [box addSubview:img];
     box.layer.borderColor=[UIColor blackColor].CGColor;
-    box.layer.borderWidth=1;
+    box.layer.borderWidth=0;
     box.backgroundColor=[UIColor whiteColor];
     box.layer.cornerRadius=1 Hper;
     box.layer.shadowColor = [UIColor grayColor].CGColor;
@@ -985,25 +989,26 @@
     box.layer.shadowRadius = 5;
     box.layer.shadowOpacity = 0.7;
     
-    UILabel*name=[[UILabel alloc]initWithFrame:CGRectMake(10 Hper, 0 Hper, 10 Hper, 7 Hper)];
-    UILabel*price=[[UILabel alloc]initWithFrame:CGRectMake(20 Hper, 0 Hper,84 Wper- 22 Hper, 7 Hper)];
+    UILabel*name=[[UILabel alloc]initWithFrame:CGRectMake(9 Hper, 0 Hper, 10 Hper, 6 Hper)];
+    UILabel*price=[[UILabel alloc]initWithFrame:CGRectMake(20 Hper, 0 Hper,80 Wper- 22 Hper, 6 Hper)];
     name.backgroundColor=[UIColor clearColor];
     name.textAlignment=NSTextAlignmentLeft;
     name.text=[self.nameoftype objectAtIndex:indexPath.section];
-    [name setFont:[UIFont fontWithName:@"Hiragino Sans" size:22]];
+    [name setFont:[UIFont fontWithName:@"Hiragino Sans" size:16]];
     
     price.backgroundColor=[UIColor clearColor];
     price.textAlignment=NSTextAlignmentRight;
     price.text=[NSString stringWithFormat:@"¥%0.2f", [[self.databytype objectAtIndex:indexPath.section] floatValue]];
-    [price setFont:[UIFont fontWithName:@"ChalkboardSE-Light" size:25]];
+    [price setFont:[UIFont fontWithName:@"ChalkboardSE-Light" size:20]];
     
-    [cell addSubview:box];
-    [cell addSubview:name];
-    [cell addSubview:price];
+    [inside addSubview:box];
+    [inside addSubview:name];
+    [inside addSubview:price];
+    [cell addSubview:inside];
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 7 Hper;
+    return 6 Hper;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 0.0001;
