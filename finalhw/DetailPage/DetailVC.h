@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "DataManage.h"
 
-@interface DetailVC : UIViewController
+@interface DetailVC : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 - (instancetype)initWithIndex:(NSInteger)index;
 

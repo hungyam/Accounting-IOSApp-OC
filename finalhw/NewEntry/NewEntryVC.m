@@ -10,8 +10,8 @@
 
 #define Wper *self.view.bounds.size.width/100
 #define Hper *self.view.bounds.size.height/100
-#define SubWper *_subArea.bounds.size.width/100
-#define SubHper *_subArea.bounds.size.height/100
+#define LastestSubWper *_subArea.bounds.size.width/100
+#define LastestSubHper *_subArea.bounds.size.height/100
 #define BackColor [UIColor colorWithRed:248 / 255.0 green:248 / 255.0 blue:248 / 255.0 alpha:1]
 #define MainColor [UIColor colorWithRed:244/255.0 green:105/255.0 blue:123/255.0 alpha:1]
 
@@ -139,7 +139,7 @@
         _subArea.layer.borderWidth = 1;
         _subArea.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.15].CGColor;
 
-        UIButton *submitButton = [[UIButton alloc] initWithFrame:CGRectMake(75 SubWper, 4 SubHper, 12 SubHper, 12 SubHper)];
+        UIButton *submitButton = [[UIButton alloc] initWithFrame:CGRectMake(75 LastestSubWper, 4 LastestSubHper, 12 LastestSubHper, 12 LastestSubHper)];
         [submitButton setImage:[UIImage imageNamed:@"yes.png"] forState:UIControlStateNormal];
         submitButton.layer.shadowColor = [UIColor colorWithRed:40 / 255.0 green:182 / 255.0 blue:120 / 255.0 alpha:1].CGColor;
         submitButton.layer.shadowOffset = CGSizeMake(0, 0);
@@ -147,7 +147,7 @@
         submitButton.layer.shadowRadius = 4;
         [submitButton addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchDown];
 
-        UIButton *quitButton = [[UIButton alloc] initWithFrame:CGRectMake(87 SubWper, 4 SubHper, 12 SubHper, 12 SubHper)];
+        UIButton *quitButton = [[UIButton alloc] initWithFrame:CGRectMake(87 LastestSubWper, 4 LastestSubHper, 12 LastestSubHper, 12 LastestSubHper)];
         [quitButton setImage:[UIImage imageNamed:@"no.png"] forState:UIControlStateNormal];
         quitButton.layer.shadowColor = [UIColor colorWithRed:243 / 255.0 green:104 / 255.0 blue:104 / 255.0 alpha:1].CGColor;
         quitButton.layer.shadowOffset = CGSizeMake(0, 0);
@@ -157,11 +157,11 @@
 
         CALayer *backlayer = [[CALayer alloc] init];
         backlayer.backgroundColor = [UIColor colorWithRed:243 / 255.0 green:240 / 255.0 blue:204 / 255.0 alpha:0.4].CGColor;
-        backlayer.frame = CGRectMake(12 SubWper, 25 SubHper, 76 SubWper, 55 SubHper);
+        backlayer.frame = CGRectMake(12 LastestSubWper, 25 LastestSubHper, 76 LastestSubWper, 55 LastestSubHper);
         backlayer.zPosition = -100;
         backlayer.cornerRadius = 15;
 
-        UIView *bigImgBack = [[UIView alloc] initWithFrame:CGRectMake(68 SubWper, 53 SubHper, 26 SubWper, 26 SubWper)];
+        UIView *bigImgBack = [[UIView alloc] initWithFrame:CGRectMake(68 LastestSubWper, 53 LastestSubHper, 26 LastestSubWper, 26 LastestSubWper)];
         [bigImgBack addSubview:self.bigImg];
         bigImgBack.layer.shadowColor = [UIColor grayColor].CGColor;
         bigImgBack.layer.shadowOffset = CGSizeMake(2, 5);
@@ -259,11 +259,11 @@
 
 - (UITextField *)tipsText {
     if (_tipsText == nil) {
-        _tipsText = [[UITextField alloc] initWithFrame:CGRectMake(3 SubWper, 4 SubHper, 69 SubWper, 12 SubHper)];
+        _tipsText = [[UITextField alloc] initWithFrame:CGRectMake(3 LastestSubWper, 4 LastestSubHper, 69 LastestSubWper, 12 LastestSubHper)];
         _tipsText.placeholder = @"备注";
         _tipsText.layer.cornerRadius = 18;
         _tipsText.backgroundColor = BackColor;
-        _tipsText.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 4 SubWper, 12 SubHper)];
+        _tipsText.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 4 LastestSubWper, 12 LastestSubHper)];
         _tipsText.delegate = (id)self;
         _tipsText.leftViewMode = UITextFieldViewModeAlways;
         _tipsText.tintColor = [UIColor grayColor];
@@ -278,7 +278,7 @@
 
 - (UIImageView *)bigImg {
     if (_bigImg == nil) {
-        _bigImg = [[UIImageView alloc] initWithFrame:CGRectMake(3 SubWper, 3 SubHper, 20 SubWper, 20 SubWper)];
+        _bigImg = [[UIImageView alloc] initWithFrame:CGRectMake(3 LastestSubWper, 3 LastestSubHper, 20 LastestSubWper, 20 LastestSubWper)];
         _bigImg.backgroundColor = [UIColor clearColor];
     }
     return _bigImg;
@@ -286,7 +286,7 @@
 
 - (UILabel *)dateLabel {
     if (_dateLabel == nil) {
-        _dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(20 SubWper, 67 SubHper, 60 SubWper, 10 SubHper)];
+        _dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(20 LastestSubWper, 67 LastestSubHper, 60 LastestSubWper, 10 LastestSubHper)];
         _dateLabel.font = [UIFont fontWithName:@"ChalkboardSE-Light" size:20];
         _dateLabel.textColor = [UIColor darkGrayColor];
         UITapGestureRecognizer *uiTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showDatePicker)];
@@ -302,12 +302,12 @@
 
 - (UITextField *)amount {
     if (_amount == nil) {
-        _amount = [[UITextField alloc] initWithFrame:CGRectMake(17 SubWper, 29 SubHper, 30 SubWper, 15 SubHper)];
+        _amount = [[UITextField alloc] initWithFrame:CGRectMake(17 LastestSubWper, 29 LastestSubHper, 30 LastestSubWper, 15 LastestSubHper)];
         _amount.font = [UIFont fontWithName:@"ChalkboardSE-Light" size:40];
         _amount.textAlignment = NSTextAlignmentCenter;
         _amount.placeholder = @"0";
         _amount.tintColor = [UIColor brownColor];
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20, 15 SubHper)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20, 15 LastestSubHper)];
         label.text = @"¥";
         label.font = [UIFont fontWithName:@"ChalkboardSE-Light" size:45];
         _amount.delegate = (id)self;
@@ -319,7 +319,7 @@
 
 - (UILabel *)tipsLabel {
     if (_tipsLabel == nil) {
-        _tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15 SubWper, 52 SubHper, 40 SubWper, 15 SubHper)];
+        _tipsLabel = [[UILabel alloc] initWithFrame:CGRectMake(15 LastestSubWper, 52 LastestSubHper, 40 LastestSubWper, 15 LastestSubHper)];
         _tipsLabel.font = [UIFont fontWithName:@"EuphemiaUCAS" size:16];
         _tipsLabel.textColor = [UIColor grayColor];
         _tipsLabel.textAlignment = NSTextAlignmentCenter;

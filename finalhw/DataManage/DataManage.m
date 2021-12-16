@@ -273,9 +273,9 @@ static NSMutableArray *allAccounts;
     [allAccounts addObject:[[AccountType alloc] initWithType:@"网络" tips:@"dsaf" amount:10.5 dateYear:2020 dateMonth:12 dateDay:30 kind:YES]];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"文具" tips:@"fsduio" amount:10.5 dateYear:2020 dateMonth:11 dateDay:28 kind:YES]];
 
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"理财" tips:@"csdac" amount:100.6 dateYear:2021 dateMonth:4 dateDay:8 kind:NO]];
-    [allAccounts addObject:[[AccountType alloc] initWithType:@"工资" tips:@"csdac" amount:100.6 dateYear:2021 dateMonth:5 dateDay:8 kind:NO]];
     [allAccounts addObject:[[AccountType alloc] initWithType:@"理财" tips:@"csdac" amount:100.6 dateYear:2021 dateMonth:6 dateDay:8 kind:NO]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"工资" tips:@"csdac" amount:100.6 dateYear:2021 dateMonth:5 dateDay:8 kind:NO]];
+    [allAccounts addObject:[[AccountType alloc] initWithType:@"理财" tips:@"csdac" amount:100.6 dateYear:2021 dateMonth:4 dateDay:8 kind:NO]];
     
     return YES;
 }

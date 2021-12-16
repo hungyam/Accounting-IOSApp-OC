@@ -9,8 +9,8 @@
 #import "StartNaviVC.h"
 #define Wper *self.view.bounds.size.width/100
 #define Hper *self.view.bounds.size.height/100
-#define SubWper *_loginArea.bounds.size.width/100
-#define SubHper *_loginArea.bounds.size.height/100
+#define LastestSubWper *_loginArea.bounds.size.width/100
+#define LastestSubHper *_loginArea.bounds.size.height/100
 #define MainColor [UIColor colorWithRed:255/255.0 green:78/255.0 blue:105/255.0 alpha:1]
 
 @interface LoginVC ()
@@ -130,7 +130,7 @@
 
 -(UILabel *)usernameLable {
     if (_usernameLable == nil) {
-        _usernameLable = [[UILabel alloc]initWithFrame:CGRectMake(11.85 SubWper, 2 SubHper, 26.3 SubWper, 20 SubHper)];
+        _usernameLable = [[UILabel alloc]initWithFrame:CGRectMake(11.85 LastestSubWper, 2 LastestSubHper, 26.3 LastestSubWper, 20 LastestSubHper)];
         _usernameLable.text = @"用户名";
         [_usernameLable setFont:[UIFont systemFontOfSize:16]];
         [_usernameLable setTextColor:[UIColor whiteColor]];
@@ -140,7 +140,7 @@
 
 - (UITextView *)usernameInput {
     if (_usernameInput == nil) {
-        _usernameInput = [[UITextView alloc]initWithFrame:CGRectMake(50 SubWper - 130, 23 SubHper - 25, 260, 50)];
+        _usernameInput = [[UITextView alloc]initWithFrame:CGRectMake(50 LastestSubWper - 130, 23 LastestSubHper - 25, 260, 50)];
         _usernameInput.backgroundColor = [UIColor clearColor];
         CALayer *layer = [CALayer layer];
         layer.frame = CGRectMake(0, _usernameInput.frame.size.height - 1, _usernameInput.frame.size.width, 1);
@@ -154,7 +154,7 @@
 
 - (UILabel *)passwordLable {
     if (_passwordLable == nil) {
-        _passwordLable = [[UILabel alloc]initWithFrame:CGRectMake(11.85 SubWper , 45 SubHper - 30, 26.3 SubWper, 60)];
+        _passwordLable = [[UILabel alloc]initWithFrame:CGRectMake(11.85 LastestSubWper , 45 LastestSubHper - 30, 26.3 LastestSubWper, 60)];
         _passwordLable.text = @"密码";
         [_passwordLable setFont:[UIFont systemFontOfSize:16]];
         [_passwordLable setTextColor:[UIColor whiteColor]];
@@ -164,7 +164,7 @@
 
 - (UITextView *)passwordInput {
     if (_passwordInput == nil) {
-        _passwordInput = [[UITextView alloc]initWithFrame:CGRectMake(50 SubWper - 130, 56 SubHper - 25, 260, 50)];
+        _passwordInput = [[UITextView alloc]initWithFrame:CGRectMake(50 LastestSubWper - 130, 56 LastestSubHper - 25, 260, 50)];
         _passwordInput.backgroundColor = [UIColor clearColor];
         CALayer *layer = [CALayer layer];
         layer.frame = CGRectMake(0, _passwordInput.frame.size.height - 1, _passwordInput.frame.size.width, 1);
@@ -178,7 +178,7 @@
 
 - (UIButton *)submitButton {
     if (_submitButton == nil) {
-        _submitButton = [[UIButton alloc]initWithFrame:CGRectMake(50 SubWper - 150, 100 SubHper - 48, 300, 60)];
+        _submitButton = [[UIButton alloc]initWithFrame:CGRectMake(50 LastestSubWper - 150, 100 LastestSubHper - 48, 300, 60)];
         _submitButton.backgroundColor = [UIColor whiteColor];
         _submitButton.layer.cornerRadius = 30;
         _submitButton.layer.shadowColor = [UIColor grayColor].CGColor;

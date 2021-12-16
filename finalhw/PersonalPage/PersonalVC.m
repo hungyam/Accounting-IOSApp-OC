@@ -9,8 +9,8 @@
 #import "TabBarVC.h"
 #define Wper *self.view.bounds.size.width/100
 #define Hper *self.view.bounds.size.height/100
-#define SubWper *_userArea.bounds.size.width/100
-#define SubHper *_userArea.bounds.size.height/100
+#define LastestSubWper *_userArea.bounds.size.width/100
+#define LastestSubHper *_userArea.bounds.size.height/100
 
 @interface PersonalVC () {
     NSString *nickname;
@@ -94,9 +94,9 @@
 
 - (UIImageView *)userImgView {
     if (_userImgView == nil) {
-        _userImgView = [[UIImageView alloc]initWithFrame:CGRectMake(6 SubWper, 6 SubWper, 26 SubWper, 26 SubWper)];
+        _userImgView = [[UIImageView alloc]initWithFrame:CGRectMake(6 LastestSubWper, 6 LastestSubWper, 26 LastestSubWper, 26 LastestSubWper)];
         _userImgView.image = userImg;
-        _userImgView.layer.cornerRadius = 13 SubWper;
+        _userImgView.layer.cornerRadius = 13 LastestSubWper;
         _userImgView.layer.masksToBounds = YES;
     }
     return _userImgView;
@@ -104,7 +104,7 @@
 
 - (UILabel *)nicknameLabel {
     if (_nicknameLabel == nil) {
-        _nicknameLabel = [[UILabel alloc]initWithFrame:CGRectMake(40 SubWper, 17 SubHper, 50 SubWper, 16 SubHper)];
+        _nicknameLabel = [[UILabel alloc]initWithFrame:CGRectMake(40 LastestSubWper, 17 LastestSubHper, 50 LastestSubWper, 16 LastestSubHper)];
         _nicknameLabel.text = nickname;
         _nicknameLabel.font = [UIFont systemFontOfSize:30];
     }
@@ -113,7 +113,7 @@
 
 - (UILabel *)usernameLabel {
     if (_usernameLabel == nil) {
-        _usernameLabel = [[UILabel alloc]initWithFrame:CGRectMake(40 SubWper, 32 SubHper, 50 SubWper, 15 SubHper)];
+        _usernameLabel = [[UILabel alloc]initWithFrame:CGRectMake(40 LastestSubWper, 32 LastestSubHper, 50 LastestSubWper, 15 LastestSubHper)];
         _usernameLabel.text = username;
         _usernameLabel.textColor = [UIColor grayColor];
         _usernameLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightThin];
@@ -123,7 +123,7 @@
 
 -(UILabel *)pointsLabel {
     if (_pointsLabel == nil) {
-        _pointsLabel = [[UILabel alloc]initWithFrame:CGRectMake(35 SubWper, 71 SubHper, 30 SubWper, 12 SubHper)];
+        _pointsLabel = [[UILabel alloc]initWithFrame:CGRectMake(35 LastestSubWper, 71 LastestSubHper, 30 LastestSubWper, 12 LastestSubHper)];
         _pointsLabel.text = @"个人公益积分";
         _pointsLabel.textColor = [UIColor grayColor];
         _pointsLabel.font = [UIFont systemFontOfSize:14];
@@ -134,7 +134,7 @@
 
 - (UILabel *)pointsText {
     if (_pointsText == nil) {
-        _pointsText = [[UILabel alloc]initWithFrame:CGRectMake(35 SubWper, 82 SubHper, 30 SubWper, 15 SubHper)];
+        _pointsText = [[UILabel alloc]initWithFrame:CGRectMake(35 LastestSubWper, 82 LastestSubHper, 30 LastestSubWper, 15 LastestSubHper)];
         _pointsText.font = [UIFont systemFontOfSize:26];
         _pointsText.text = [NSString stringWithFormat:@"%ld", (long)points];
         _pointsText.textAlignment = NSTextAlignmentCenter;
