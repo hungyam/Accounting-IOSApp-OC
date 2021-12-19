@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DataManage.h"
 
 @interface ExtendedVC : UIViewController
 
