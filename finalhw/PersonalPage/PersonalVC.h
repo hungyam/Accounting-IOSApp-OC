@@ -10,7 +10,7 @@
 #import "DataManage.h"
 
 
-@interface PersonalVC : UIViewController
+@interface PersonalVC : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
 
 @end

@@ -5,39 +5,12 @@
 //  Created by hungyam on 2021/12/7.
 //
 
+#import <ModelIO/ModelIO.h>
 #import "DataManage.h"
 
 @implementation PersonalMes
 
 @end
-
-//@implementation Entry
-//
-//- (instancetype)initWithIcon:(UIImage *)icon
-//                    iconName:(NSString *)iconName
-//                 description:(NSString *)description
-//                        cost:(CGFloat)cost
-//                    moreText:(NSString *)moreText
-//                  morePhotos:(NSMutableArray *)morePhotos
-//                    dateYear:(NSInteger)dateYear
-//                   dateMonth:(NSInteger)dateMonth
-//                     dateDay:(NSInteger)dateDay
-//                    dateHour:(NSInteger)dateHour
-//                  dateMinute:(NSInteger)dateMinute {
-//    self.icon = icon;
-//    self.iconName = iconName;
-//    self.description = description;
-//    self.moreText = moreText;
-//    self.morePhotos = morePhotos;
-//    self.dateYear = dateYear;
-//    self.dateMonth = dateMonth;
-//    self.dateDay = dateDay;
-//    self.dateHour = dateHour;
-//    self.dateMonth = dateMinute;
-//    return self;
-//}
-//
-//@end
 
 @implementation IconType
 
@@ -196,22 +169,29 @@ static NSMutableArray *allAccounts;
 #pragma mark - Account Interface
 
 + (BOOL)addNewAccount:(AccountType *)newAccount {
-//    {
-//        "username": "曹静",
-//        "data": {
-//            "type": "veniam in",
-//            "tips": "proident Duis minim",
-//            "amount": 49,
-//            "date": "1983-02-12 21:31"
-//        },
-//        "points": 92
-//    }
+    /*
+     Request:
+     {
+        "username": "曹静",
+        "data": {
+            "type": "veniam in",
+            "tips": "proident Duis minim",
+            "amount": 49,
+            "date": "1983-02-12 21:31"
+        },
+        "points": 92
+     }
+     Response:
+     {
+         "status": true
+     }
+     */
+
     NSString *date = [[NSString alloc]initWithFormat:@"%4lu-%2lu-%2lu",
                       (unsigned long)newAccount.dateYear,
                       (unsigned long)newAccount.dateMonth,
                       (unsigned long)newAccount.dateDay
     ];
-    NSLog(@"%@",date);
 //    userInformation.points += point;
     /*
      Get from API
@@ -283,6 +263,28 @@ static NSMutableArray *allAccounts;
 /// Return All of accounts
 + (NSMutableArray *)getAllAccounts {
     return allAccounts;
+}
+
++ (NSMutableArray *)getAllAccountsTypeDate {
+    NSMutableArray *arr = [[NSMutableArray alloc] initWithCapacity:2];
+    for (int i = 0; i < 2; i++) {
+        NSMutableArray *year = [[NSMutableArray alloc] initWithCapacity:12];
+        for (int j = 0; j < 12; j++) {
+            NSMutableArray *month = [[NSMutableArray alloc] initWithCapacity:31];
+            for (int k = 0; k < 31; k++) {
+                NSMutableArray *day = [[NSMutableArray alloc] init];
+                [month addObject:day];
+            }
+            [year addObject:month];
+        }
+    }
+    for (NSInteger i = 0; i < allAccounts.count; i++) {
+        NSInteger year = ((AccountType *)allAccounts[i]).dateYear;
+        NSInteger month = ((AccountType *)allAccounts[i]).dateMonth;
+        NSInteger day = ((AccountType *)allAccounts[i]).dateDay;
+        [arr[year][month][day] addObject:allAccounts[i]];
+    }
+    return arr;
 }
 
 #pragma mark - Category Selection Interface

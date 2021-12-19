@@ -167,8 +167,8 @@
         _funcList.layer.shadowRadius = 5;
         _funcList.layer.shadowOpacity = 0.2;
         _funcList.clipsToBounds = NO;
-        _funcList.delegate = (id)self;
-        _funcList.dataSource = (id)self;
+        _funcList.delegate = self;
+        _funcList.dataSource = self;
         [_funcList setScrollEnabled:NO];
     }
     return _funcList;

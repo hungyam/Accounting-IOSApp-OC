@@ -74,8 +74,8 @@
                               delay:0
                             options:UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
-                             self.inCollectView.frame = CGRectMake(3 Wper, 0, 94 Wper, 100 Hper);
-                             self.outCollectView.frame = CGRectMake(103 Wper, 0, 94 Wper, 100 Hper);
+                             self.inCollectView.frame = CGRectMake(2 Wper, 0, 96 Wper, 100 Hper);
+                             self.outCollectView.frame = CGRectMake(102 Wper, 0, 96 Wper, 100 Hper);
                          }
                          completion:nil];
         inOrOut = YES;
@@ -84,8 +84,8 @@
                               delay:0
                             options:UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
-                             self.inCollectView.frame = CGRectMake(-97 Wper, 0, 94 Wper, 100 Hper);
-                             self.outCollectView.frame = CGRectMake(3 Wper, 0, 94 Wper, 100 Hper);
+                             self.inCollectView.frame = CGRectMake(-98 Wper, 0, 96 Wper, 100 Hper);
+                             self.outCollectView.frame = CGRectMake(2 Wper, 0, 96 Wper, 100 Hper);
                          }
                          completion:nil];
         inOrOut = NO;
@@ -103,11 +103,13 @@
     if (_inCollectView == nil) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        _inCollectView = [[UICollectionView alloc] initWithFrame:CGRectMake(3 Wper, 0, 94 Wper, 100 Hper) collectionViewLayout:layout];
+        _inCollectView = [[UICollectionView alloc] initWithFrame:CGRectMake(2 Wper, 0, 96 Wper, 100 Hper) collectionViewLayout:layout];
         _inCollectView.backgroundColor = [UIColor clearColor];
-        _inCollectView.delegate = (id) self;
-        _inCollectView.dataSource = (id) self;
-        [_inCollectView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellid"];
+        _inCollectView.delegate = self;
+        _inCollectView.dataSource = self;
+        _inCollectView.clipsToBounds = NO;
+        _inCollectView.showsVerticalScrollIndicator = NO;
+        [_inCollectView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellID1"];
     }
     return _inCollectView;
 }
@@ -123,11 +125,13 @@
     if (_outCollectView == nil) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        _outCollectView = [[UICollectionView alloc] initWithFrame:CGRectMake(103 Wper, 0, 94 Wper, 100 Hper) collectionViewLayout:layout];
+        _outCollectView = [[UICollectionView alloc] initWithFrame:CGRectMake(102 Wper, 0, 96 Wper, 100 Hper) collectionViewLayout:layout];
         _outCollectView.backgroundColor = [UIColor clearColor];
-        _outCollectView.delegate = (id) self;
-        _outCollectView.dataSource = (id) self;
-        [_outCollectView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellid"];
+        _outCollectView.delegate = self;
+        _outCollectView.dataSource = self;
+        _outCollectView.clipsToBounds = NO;
+        _inCollectView.showsVerticalScrollIndicator = NO;
+        [_outCollectView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cellID2"];
     }
     return _outCollectView;
 }
@@ -224,23 +228,24 @@
 - (void)reset {
     if (self.chooseOne != nil) {
         self.chooseOne.layer.shadowRadius = 0;
-        self.chooseOne.backgroundColor = BackColor;
+        self.chooseOne.backgroundColor = [UIColor clearColor];
         self.chooseOne.layer.shadowOpacity = 0;
     }
     self.tipsText.text = @"";
+    self.tipsLabel.text = @"";
     self.amount.text = @"";
     self.datePicker.date = [NSDate date];
     [self resetDateLabel];
     if (inOrOut) {
-        self.inCollectView.frame = CGRectMake(3 Wper, 0, 94 Wper, 100 Hper);
+        self.inCollectView.frame = CGRectMake(2 Wper, 0, 96 Wper, 100 Hper);
     }else {
-        self.outCollectView.frame = CGRectMake(3 Wper, 0, 94 Wper, 100 Hper);
+        self.outCollectView.frame = CGRectMake(2 Wper, 0, 96 Wper, 100 Hper);
         [UIView animateWithDuration:0.5
                               delay:0
                             options:UIViewAnimationOptionBeginFromCurrentState
                          animations:^{
-                             self.inCollectView.frame = CGRectMake(3 Wper, 0, 94 Wper, 100 Hper);
-                             self.outCollectView.frame = CGRectMake(103 Wper, 0, 94 Wper, 100 Hper);
+                             self.inCollectView.frame = CGRectMake(2 Wper, 0, 96 Wper, 100 Hper);
+                             self.outCollectView.frame = CGRectMake(102 Wper, 0, 96 Wper, 100 Hper);
                          }
                          completion:nil];
         inOrOut = YES;
@@ -264,7 +269,7 @@
         _tipsText.layer.cornerRadius = 18;
         _tipsText.backgroundColor = BackColor;
         _tipsText.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 4 LastestSubWper, 12 LastestSubHper)];
-        _tipsText.delegate = (id)self;
+        _tipsText.delegate = self;
         _tipsText.leftViewMode = UITextFieldViewModeAlways;
         _tipsText.tintColor = [UIColor grayColor];
         [_tipsText addTarget:self action:@selector(listenInput:) forControlEvents:UIControlEventEditingChanged];
@@ -326,8 +331,6 @@
     }
     return _tipsLabel;
 }
-
-#pragma mark end -
 
 #pragma mark - DatePicker
 
@@ -392,8 +395,6 @@
     return comps;
 }
 
-#pragma mark end -
-
 #pragma mark - UICollectionVC DataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -405,13 +406,21 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellid" forIndexPath:indexPath];
-    UIButton *button = [self seticonButton:indexPath.item type:collectionView == self.inCollectView];
+    UICollectionViewCell *cell;
+    if (collectionView == self.inCollectView){
+         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellID1" forIndexPath:indexPath];
+    }else {
+         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cellID2" forIndexPath:indexPath];
+    }
+    UIButton *button = [self setIconButton:indexPath.item type:collectionView == self.inCollectView];
+    for (UIView *view in [cell subviews]) {
+        [view removeFromSuperview];
+    }
     [cell addSubview:button];
     return cell;
 }
 
-- (UIButton *)seticonButton:(NSInteger)index type:(BOOL)isIn{
+- (UIButton *)setIconButton:(NSInteger)index type:(BOOL)isIn{
     UIImage *img;
     NSString *name;
     if (isIn) {
@@ -421,9 +430,9 @@
         img = ((IconType *) self.outIconArr[index]).icon;
         name = ((IconType *) self.outIconArr[index]).label;
     }
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 94 Wper / 4 - 5, 94 Wper / 4 - 5)];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(2.5, 2.5, 96 Wper / 4 - 5, 96 Wper / 4 - 5)];
     button.tag = index;
-    button.backgroundColor = BackColor;
+    button.backgroundColor = [UIColor clearColor];
     button.layer.borderColor = [UIColor clearColor].CGColor;
     button.layer.borderWidth = 1;
     button.layer.cornerRadius = 20;
@@ -444,7 +453,7 @@
 - (void)selectButtonAction:(id)sender {
     if (self.chooseOne != nil) {
         self.chooseOne.layer.shadowRadius = 0;
-        self.chooseOne.backgroundColor = BackColor;
+        self.chooseOne.backgroundColor = [UIColor clearColor];
         self.chooseOne.layer.shadowOpacity = 0;
     }
     UIButton *button = (UIButton *) sender;
@@ -463,9 +472,9 @@
                      completion:^(BOOL fin) {
                          if (fin) {
                              if (inOrOut) {
-                                 self.inCollectView.frame = CGRectMake(3 Wper, 0, 94 Wper, 65 Hper);
+                                 self.inCollectView.frame = CGRectMake(2 Wper, 0, 96 Wper, 65 Hper);
                              }else {
-                                 self.outCollectView.frame = CGRectMake(3 Wper, 0, 94 Wper, 65 Hper);
+                                 self.outCollectView.frame = CGRectMake(2 Wper, 0, 96 Wper, 65 Hper);
                              }
                          }
                      }];
@@ -475,18 +484,18 @@
 #pragma mark - UICollectionVC Delegate
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(94 Wper / 4 - 5, 94 Wper / 4 - 5);
+    return CGSizeMake(96 Wper / 4 , 96 Wper / 4);
 }
 
 
 // 两行cell之间的间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 5;
+    return 0;
 }
 
 // 两列cell之间的间距
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 5;
+    return 0;
 }
 
 #pragma mark - KeyBoard
@@ -504,14 +513,5 @@
         showKB = NO;
     }
 }
-
--(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    NSLog(@"return");
-    [textField resignFirstResponder];
-
-    return YES;
-
-}
-
 
 @end

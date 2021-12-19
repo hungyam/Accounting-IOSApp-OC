@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    flag = NO;
+    flag = YES;
     self.viewControllers = @[
         self.detailNaviVC,
         self.chartNaviVC,

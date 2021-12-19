@@ -7,7 +7,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewEntryVC : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface NewEntryVC : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate>
 
 -(void)reset;
 @end

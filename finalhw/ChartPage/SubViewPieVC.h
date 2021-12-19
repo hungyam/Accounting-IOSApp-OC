@@ -8,7 +8,10 @@
 
 @interface SubViewPieVC : UIViewController
 - (instancetype)init;
--(void)refreshdataofPie:(NSMutableArray *)dataArr andNameofPie:(NSMutableArray *)nameArr;
-- (void)beginDrawpie;
--(void)clearTheView;
+
+- (void)refreshDataOfPie:(NSMutableArray *)dataArr andNameofPie:(NSMutableArray *)nameArr;
+
+- (void)beginDrawPie;
+
+- (void)clearTheView;
 @end

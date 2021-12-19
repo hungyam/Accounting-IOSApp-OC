@@ -6,38 +6,33 @@
 
 #define Wper *self.view.bounds.size.width/100
 #define Hper *self.view.bounds.size.height/100
+
 @interface SubViewPieVC ()
 
-@property(nonatomic, strong) NSMutableArray *databytype;
-@property(nonatomic, strong) NSMutableArray *nameoftype;
-
-@property(nonatomic, strong) CAShapeLayer *pieMaskLayer;
-
-@property(nonatomic, strong) NSMutableArray *colorofpie;
 @property(nonatomic, assign) NSInteger pieNum;
-@property(nonatomic, strong) UIView *colorexp;
-@property(nonatomic, strong) UILabel *midpielabel;
-@property(nonatomic, strong) UILabel *toppielabel;
-@property(nonatomic, strong) UILabel *bottompielabel;
 @property(nonatomic, assign) float total;
 @property(nonatomic, assign) float radius;
 @property(nonatomic, assign) CGPoint midpoint;
-@property(nonatomic, strong) UIView *pieViewinUse;
 
+@property(nonatomic, strong) NSMutableArray *dataByType;
+@property(nonatomic, strong) NSMutableArray *nameOfType;
+@property(nonatomic, strong) NSMutableArray *colorOfPie;
 
+@property(nonatomic, strong) UIView *colorExp;
+@property(nonatomic, strong) UILabel *midPieLabel;
+@property(nonatomic, strong) UILabel *topPieLabel;
+@property(nonatomic, strong) UILabel *bottomPieLabel;
+@property(nonatomic, strong) UIView *pieViewInUse;
 @property(nonatomic, strong) UIView *classifyPie;
+
+@property(nonatomic, strong) CAShapeLayer *pieMaskLayer;
 
 @end
 
 @implementation SubViewPieVC
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
-
-- (instancetype)init{
+- (instancetype)init {
     self = [super init];
-
     [self.view addSubview:self.classifyPie];
     [self.view sendSubviewToBack:self.classifyPie];
     self.modalPresentationStyle = UIModalPresentationOverFullScreen;
@@ -45,102 +40,108 @@
     return self;
 }
 
--(void)clearTheView{
-    if (self.pieViewinUse != nil) {
-        [self.pieViewinUse removeFromSuperview];
-        self.pieViewinUse=nil;
-    }
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
 }
 
--(void)refreshdataofPie:(NSMutableArray *)dataArr andNameofPie:(NSMutableArray *)nameArr{
-    self.databytype=dataArr;
-    self.nameoftype=nameArr;
-    self.pieNum = self.databytype.count;
+#pragma mark - Base Data
+
+- (void)refreshDataOfPie:(NSMutableArray *)dataArr andNameofPie:(NSMutableArray *)nameArr {
+    self.dataByType = dataArr;
+    self.nameOfType = nameArr;
+    self.pieNum = self.dataByType.count;
 }
+
+- (NSMutableArray *)colorOfPie {
+    if (_colorOfPie == nil) {
+        _colorOfPie = [[NSMutableArray alloc] init];
+        [_colorOfPie addObject:[UIColor colorWithRed:105 / 255.0 green:164 / 255.0 blue:245 / 255.0 alpha:1]];
+        [_colorOfPie addObject:[UIColor colorWithRed:247 / 255.0 green:191 / 255.0 blue:87 / 255.0 alpha:1]];
+        [_colorOfPie addObject:[UIColor colorWithRed:172 / 255.0 green:131 / 255.0 blue:225 / 255.0 alpha:1]];
+        [_colorOfPie addObject:[UIColor colorWithRed:110 / 255.0 green:202 / 255.0 blue:140 / 255.0 alpha:1]];
+        [_colorOfPie addObject:[UIColor colorWithRed:240 / 255.0 green:120 / 255.0 blue:100 / 255.0 alpha:1]];
+        [_colorOfPie addObject:[UIColor colorWithRed:94 / 255.0 green:208 / 255.0 blue:248 / 255.0 alpha:1]];
+        [_colorOfPie addObject:[UIColor colorWithRed:240 / 255.0 green:204 / 255.0 blue:81 / 255.0 alpha:1]];
+        [_colorOfPie addObject:[UIColor colorWithRed:180 / 255.0 green:90 / 255.0 blue:220 / 255.0 alpha:1]];
+        [_colorOfPie addObject:[UIColor colorWithRed:107 / 255.0 green:212 / 255.0 blue:177 / 255.0 alpha:1]];
+        [_colorOfPie addObject:[UIColor colorWithRed:242 / 255.0 green:155 / 255.0 blue:132 / 255.0 alpha:1]];
+        [_colorOfPie addObject:[UIColor colorWithRed:112 / 255.0 green:190 / 255.0 blue:244 / 255.0 alpha:1]];
+        [_colorOfPie addObject:[UIColor colorWithRed:244 / 255.0 green:174 / 255.0 blue:92 / 255.0 alpha:1]];
+        [_colorOfPie addObject:[UIColor colorWithRed:140 / 255.0 green:97 / 255.0 blue:242 / 255.0 alpha:1]];
+        [_colorOfPie addObject:[UIColor colorWithRed:150 / 255.0 green:213 / 255.0 blue:97 / 255.0 alpha:1]];
+        [_colorOfPie addObject:[UIColor colorWithRed:242 / 255.0 green:148 / 255.0 blue:162 / 255.0 alpha:1]];
+    }
+    return _colorOfPie;
+}
+
+#pragma mark - Views
+
 - (UIView *)classifyPie {
     if (_classifyPie == nil) {
         _classifyPie = [[UIView alloc] initWithFrame:CGRectMake(4 Wper, 25 Hper, 92 Wper, 50 Hper)];
         self.midpoint = CGPointMake(_classifyPie.frame.size.width / 2, _classifyPie.frame.size.height / 2);
-        self.radius = self.midpoint.y < self.midpoint.x ? self.midpoint.y / 3 * 2 : self.midpoint.x / 3 * 2;
+        self.radius = (float) (self.midpoint.y < self.midpoint.x ? self.midpoint.y / 3 * 2 : self.midpoint.x / 3 * 2);
         _classifyPie.backgroundColor = [UIColor whiteColor];
         _classifyPie.layer.cornerRadius = 15;
         _classifyPie.layer.shadowColor = [UIColor grayColor].CGColor;
         _classifyPie.layer.shadowOffset = CGSizeMake(0, 0);
         _classifyPie.layer.shadowRadius = 10;
         _classifyPie.layer.shadowOpacity = 0.1;
-
     }
     return _classifyPie;
 }
 
-- (NSMutableArray *)colorofpie {
-    if (_colorofpie == nil) {
-        _colorofpie = [[NSMutableArray alloc] init];
-        [_colorofpie addObject:[UIColor colorWithRed:255/ 255.0 green:255/ 255.0 blue:0/ 255.0 alpha:1]];
-        [_colorofpie addObject:[UIColor colorWithRed:127/ 255.0 green:255/ 255.0 blue:0/ 255.0 alpha:1]];
-        [_colorofpie addObject:[UIColor colorWithRed:0/ 255.0 green:255/ 255.0 blue:0/ 255.0 alpha:1]];
-        [_colorofpie addObject:[UIColor colorWithRed:0/ 255.0 green:255/ 255.0 blue:127/ 255.0 alpha:1]];
-        [_colorofpie addObject:[UIColor colorWithRed:0/ 255.0 green:255/ 255.0 blue:255/ 255.0 alpha:1]];
-        [_colorofpie addObject:[UIColor colorWithRed:0/ 255.0 green:127/ 255.0 blue:255/ 255.0 alpha:1]];
-        [_colorofpie addObject:[UIColor colorWithRed:0/ 255.0 green:0/ 255.0 blue:255/ 255.0 alpha:1]];
-        [_colorofpie addObject:[UIColor colorWithRed:127/ 255.0 green:0/ 255.0 blue:255/ 255.0 alpha:1]];
-        [_colorofpie addObject:[UIColor colorWithRed:255/ 255.0 green:0/ 255.0 blue:255/ 255.0 alpha:1]];
-        [_colorofpie addObject:[UIColor colorWithRed:255/ 255.0 green:0/ 255.0 blue:127/ 255.0 alpha:1]];
-        [_colorofpie addObject:[UIColor colorWithRed:255/ 255.0 green:0/ 255.0 blue:0/ 255.0 alpha:1]];
-        [_colorofpie addObject:[UIColor colorWithRed:255/ 255.0 green:127/ 255.0 blue:0/ 255.0 alpha:1]];
-    }
-    return _colorofpie;
-}
-
-- (UILabel *)midpielabel {
-    if (_midpielabel == nil) {
+- (UILabel *)midPieLabel {
+    if (_midPieLabel == nil) {
         CGFloat radius = self.radius / 2;
-        _midpielabel = [[UILabel alloc] initWithFrame:CGRectMake(self.midpoint.x -  radius, self.midpoint.y - 0.5 * radius, 2 * radius, radius)];
-        _midpielabel.backgroundColor = [UIColor clearColor];
-        _midpielabel.font = [UIFont systemFontOfSize:35];
-        _midpielabel.textColor = [UIColor blackColor];
-        _midpielabel.textAlignment = NSTextAlignmentCenter;
-        _midpielabel.layer.borderWidth = 0;
-        _midpielabel.layer.borderColor = [UIColor clearColor].CGColor;
+        _midPieLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.midpoint.x - radius, self.midpoint.y - 0.5 * radius, 2 * radius, radius)];
+        _midPieLabel.backgroundColor = [UIColor clearColor];
+        _midPieLabel.font = [UIFont fontWithName:@"ChalkboardSE-Light" size:35];
+        _midPieLabel.textColor = [UIColor blackColor];
+        _midPieLabel.textAlignment = NSTextAlignmentCenter;
+        _midPieLabel.layer.borderWidth = 0;
+        _midPieLabel.layer.borderColor = [UIColor clearColor].CGColor;
     }
-    return _midpielabel;
+    return _midPieLabel;
 }
 
-- (UIView *)colorexp {
-    if (_colorexp == nil) {
+- (UIView *)colorExp {
+    if (_colorExp == nil) {
         CGFloat radius = self.radius;
-        _colorexp = [[UIView alloc] initWithFrame:CGRectMake(self.classifyPie.frame.size.width / 2 - radius / 2, self.classifyPie.frame.size.height / 6 - radius / 3, self.classifyPie.frame.size.height / 6 - radius / 3, self.classifyPie.frame.size.height / 6 - radius / 3)];
-        _colorexp.layer.borderColor = [UIColor blackColor].CGColor;
-        _colorexp.layer.borderWidth = 1;
+        _colorExp = [[UIView alloc] initWithFrame:CGRectMake(self.classifyPie.frame.size.width / 2 - radius / 2, self.classifyPie.frame.size.height / 6 - radius / 3, self.classifyPie.frame.size.height / 6 - radius / 3, self.classifyPie.frame.size.height / 6 - radius / 3)];
+        _colorExp.layer.cornerRadius = 10;
+        _colorExp.layer.shadowColor = [UIColor grayColor].CGColor;
+        _colorExp.layer.shadowOffset = CGSizeMake(3, 3);
+        _colorExp.layer.shadowRadius = 4;
+        _colorExp.layer.shadowOpacity = 0.4;
     }
-    return _colorexp;
+    return _colorExp;
 }
 
-- (UILabel *)toppielabel {
-    if (_toppielabel == nil) {
+- (UILabel *)topPieLabel {
+    if (_topPieLabel == nil) {
         CGFloat radius = self.radius;
-        _toppielabel = [[UILabel alloc] initWithFrame:CGRectMake(self.classifyPie.frame.size.width / 2 - radius / 2 + self.classifyPie.frame.size.height / 3 - radius / 3 * 2, self.classifyPie.frame.size.height / 6 - radius / 3, radius, self.classifyPie.frame.size.height / 6 - radius / 3)];
-        _toppielabel.text = @"某个类名";
-        _toppielabel.backgroundColor = [UIColor clearColor];
+        _topPieLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.classifyPie.frame.size.width / 2 - radius / 2 + self.classifyPie.frame.size.height / 3 - radius / 3 * 2, self.classifyPie.frame.size.height / 6 - radius / 3, radius, self.classifyPie.frame.size.height / 6 - radius / 3)];
+        _topPieLabel.text = @"某个类名";
+        _topPieLabel.backgroundColor = [UIColor clearColor];
 
-        _toppielabel.font = [UIFont systemFontOfSize:30];
-        _toppielabel.textColor = [UIColor blackColor];
+        _topPieLabel.font = [UIFont fontWithName:@"ChalkboardSE-Light" size:30];
+        _topPieLabel.textColor = [UIColor blackColor];
     }
-    return _toppielabel;
+    return _topPieLabel;
 }
 
-- (UILabel *)bottompielabel {
-    if (_bottompielabel == nil) {
-        _bottompielabel = [[UILabel alloc] initWithFrame:CGRectMake(self.classifyPie.frame.size.width / 2 - self.radius / 2, self.classifyPie.frame.size.height * 5 / 8 + self.radius * 3 / 4, self.radius, self.classifyPie.frame.size.height / 4 - self.radius / 2)];
-        _bottompielabel.backgroundColor = [UIColor clearColor];
-        _bottompielabel.font = [UIFont systemFontOfSize:30];
-        _bottompielabel.textColor = [UIColor blackColor];
-        _bottompielabel.textAlignment = NSTextAlignmentCenter;
+- (UILabel *)bottomPieLabel {
+    if (_bottomPieLabel == nil) {
+        _bottomPieLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.classifyPie.frame.size.width / 2 - self.radius / 2, self.classifyPie.frame.size.height * 5 / 8 + self.radius * 3 / 4, self.radius, self.classifyPie.frame.size.height / 4 - self.radius / 2)];
+        _bottomPieLabel.backgroundColor = [UIColor clearColor];
+        _bottomPieLabel.font = [UIFont fontWithName:@"ChalkboardSE-Light" size:30];
+        _bottomPieLabel.textColor = [UIColor blackColor];
+        _bottomPieLabel.textAlignment = NSTextAlignmentCenter;
     }
-    return _bottompielabel;
+    return _bottomPieLabel;
 }
-
-
 
 - (CAShapeLayer *)pieMaskLayer {
     if (_pieMaskLayer == nil) {
@@ -163,41 +164,22 @@
     return _pieMaskLayer;
 }
 
-
-- (void)beginDrawpie {
-    UIView *picView = [self drawpie];
-    if (self.pieViewinUse != nil) {
-        [self.pieViewinUse removeFromSuperview];
-        self.pieViewinUse=nil;
-    }
-    [self.classifyPie addSubview:picView];
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    animation.duration = 2;
-    animation.fromValue = @0.0f;
-    animation.toValue = @1.0f;
-    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    animation.removedOnCompletion = YES;
-    [self.pieMaskLayer addAnimation:animation forKey:@"circleAnimation"];
-
-    self.pieViewinUse = picView;
-}
-
-- (UIView *)drawpie {
+- (UIView *)drawPie {
     UIView *picView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.classifyPie.frame.size.width, self.classifyPie.frame.size.height)];
     picView.backgroundColor = [UIColor clearColor];
     self.total = 0;
     for (int i = 0; i < self.pieNum; i++) {
-        self.total += [[self.databytype objectAtIndex:i] floatValue];
+        self.total += [self.dataByType[i] floatValue];
     }
     CGFloat start = 0.0f;
     CGFloat end = 0.0f;
 
     for (int i = 0; i < self.pieNum; i++) {
         //4.计算当前end位置 = 上一个结束位置 + 当前部分百分比
-        end = [[self.databytype objectAtIndex:i] floatValue] * M_PI * 2 / self.total + start;
+        end = [self.dataByType[i] floatValue] * M_PI * 2 / self.total + start;
         //图层
-        UIColor *color= [self.colorofpie objectAtIndex:i%self.colorofpie.count];
-      
+        UIColor *color = self.colorOfPie[i % self.colorOfPie.count];
+
         UIBezierPath *partPath = [UIBezierPath bezierPathWithArcCenter:self.midpoint
                                                                 radius:self.radius
                                                             startAngle:start - M_PI_2
@@ -232,21 +214,27 @@
     return picView;
 }
 
+#pragma mark - Action
 
+- (void)beginDrawPie {
+    UIView *picView = [self drawPie];
+    if (self.pieViewInUse != nil) {
+        [self.pieViewInUse removeFromSuperview];
+        self.pieViewInUse = nil;
+    }
+    [self.classifyPie addSubview:picView];
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+    animation.duration = 1;
+    animation.fromValue = @0.0f;
+    animation.toValue = @1.0f;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    animation.removedOnCompletion = YES;
+    [self.pieMaskLayer addAnimation:animation forKey:@"circleAnimation"];
 
-
-- (NSInteger)layerpos:(CGPoint)point {
-    __block NSInteger i = -1;
-    CGAffineTransform transform = CGAffineTransformIdentity;
-    [self.pieViewinUse.layer.sublayers enumerateObjectsUsingBlock:^(CALayer *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
-        CAShapeLayer *shapeLayer = (CAShapeLayer *) obj;
-        CGPathRef path = [shapeLayer path];
-        if (CGPathContainsPoint(path, &transform, point, 0)) {
-            i = idx;
-        }
-    }];
-    return i;
+    self.pieViewInUse = picView;
 }
+
+#pragma mark - Touch Action
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event {
 
@@ -257,34 +245,51 @@
     UITouch *touch = [allTouches anyObject];
     //返回触摸点所在视图中的坐标
     CGPoint point = [touch locationInView:self.classifyPie];
-    NSInteger num = [self layerpos:point];
+    NSInteger num = [self layerPos:point];
     if (num >= 0 && num < self.pieNum) {
 
-        float ratio = [[self.databytype objectAtIndex:num] floatValue] / self.total * 100;
-        self.midpielabel.text = [NSString stringWithFormat:@"%0.1f%%", ratio];
-        [self.classifyPie addSubview:self.midpielabel];
-        [self.view bringSubviewToFront:self.midpielabel];
-        self.colorexp.backgroundColor = [self.colorofpie objectAtIndex:num%self.colorofpie.count];
-        [self.classifyPie addSubview:self.colorexp];
-        self.toppielabel.text = [self.nameoftype objectAtIndex:num];
-        [self.classifyPie addSubview:self.toppielabel];
-        self.bottompielabel.text = [NSString stringWithFormat:@"%0.2f元", [[self.databytype objectAtIndex:num] floatValue]];
-        self.bottompielabel.frame=CGRectMake(self.classifyPie.frame.size.width / 2 - self.radius*self.bottompielabel.text.length/12, self.classifyPie.frame.size.height * 5 / 8 + self.radius * 3 / 4, self.radius*self.bottompielabel.text.length/6, self.classifyPie.frame.size.height / 4 - self.radius / 2);
-        [self.classifyPie addSubview:self.bottompielabel];
+        float ratio = [self.dataByType[num] floatValue] / self.total * 100;
+        self.midPieLabel.text = [NSString stringWithFormat:@"%0.1f%%", ratio];
+        [self.classifyPie addSubview:self.midPieLabel];
+        [self.view bringSubviewToFront:self.midPieLabel];
+        self.colorExp.backgroundColor = self.colorOfPie[num % self.colorOfPie.count];
+        [self.classifyPie addSubview:self.colorExp];
+        self.topPieLabel.text = self.nameOfType[num];
+        [self.classifyPie addSubview:self.topPieLabel];
+        self.bottomPieLabel.text = [NSString stringWithFormat:@"%0.2f元", [self.dataByType[num] floatValue]];
+        self.bottomPieLabel.frame = CGRectMake(self.classifyPie.frame.size.width / 2 - self.radius * self.bottomPieLabel.text.length / 12, self.classifyPie.frame.size.height * 5 / 8 + self.radius * 3 / 4, self.radius * self.bottomPieLabel.text.length / 6, self.classifyPie.frame.size.height / 4 - self.radius / 2);
+        [self.classifyPie addSubview:self.bottomPieLabel];
 
-    }
-    else if(num<0){
+    } else if (num < 0) {
         [self dismissViewControllerAnimated:YES completion:^{
             [self clearTheView];
         }];
     }
 }
+- (NSInteger)layerPos:(CGPoint)point {
+    __block NSInteger i = -1;
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    [self.pieViewInUse.layer.sublayers enumerateObjectsUsingBlock:^(CALayer *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+        CAShapeLayer *shapeLayer = (CAShapeLayer *) obj;
+        CGPathRef path = [shapeLayer path];
+        if (CGPathContainsPoint(path, &transform, point, 0)) {
+            i = idx;
+        }
+    }];
+    return i;
+}
+- (void)clearTheView {
+    if (self.pieViewInUse != nil) {
+        [self.pieViewInUse removeFromSuperview];
+        self.pieViewInUse = nil;
+    }
+}
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesEnded:touches withEvent:event];
-    [self.midpielabel removeFromSuperview];
-    [self.colorexp removeFromSuperview];
-    [self.toppielabel removeFromSuperview];
-    [self.bottompielabel removeFromSuperview];
+    [self.midPieLabel removeFromSuperview];
+    [self.colorExp removeFromSuperview];
+    [self.topPieLabel removeFromSuperview];
+    [self.bottomPieLabel removeFromSuperview];
 }
 @end

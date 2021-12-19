@@ -20,7 +20,8 @@
     NSInteger accountIndex;
 }
 
-@property (nonatomic, strong) NSMutableArray *allAcountData;
+@property (nonatomic, strong) NSMutableArray *allAccountData;
+@property (nonatomic, strong) NSMutableArray *allAccountD
 
 @property (nonatomic, strong) CAGradientLayer *backLayer;
 @property (nonatomic, strong) UIView *lastestArea;
@@ -49,6 +50,7 @@
 
     [self.view addSubview:self.lastestArea];
     [self.view addSubview:self.listArea];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -74,17 +76,17 @@
 
 -(UIView *)lastestArea {
     if (_lastestArea == nil) {
-        _lastestArea = [[UIView alloc]initWithFrame:CGRectMake(5 Wper, 10 Hper, 90 Wper, 10 Hper)];
+        _lastestArea = [[UIView alloc]initWithFrame:CGRectMake(5 Wper, 7 Hper, 90 Wper, 15 Hper)];
         _lastestArea.backgroundColor = [UIColor whiteColor];
         _lastestArea.layer.cornerRadius = 10;
         _lastestArea.layer.shadowColor = [UIColor grayColor].CGColor;
         _lastestArea.layer.shadowOffset = CGSizeMake(5, 5);
         _lastestArea.layer.shadowRadius = 5;
         _lastestArea.layer.shadowOpacity = 0.2;
-        [_lastestArea addSubview:self.lastestLabel];
-        [_lastestArea addSubview:self.lastestImage1];
-        [_lastestArea addSubview:self.lastestImage2];
-        [_lastestArea addSubview:self.lastestImage3];
+//        [_lastestArea addSubview:self.lastestLabel];
+//        [_lastestArea addSubview:self.lastestImage1];
+//        [_lastestArea addSubview:self.lastestImage2];
+//        [_lastestArea addSubview:self.lastestImage3];
 
     }
     return _lastestArea;
@@ -157,9 +159,6 @@
     return _lastestImage3;
 }
 
-#pragma mark end -
-
-
 - (UITableView *)entryList {
     if (_entryList == nil) {
         _entryList = [[UITableView alloc]initWithFrame:CGRectMake(0, 8 ListSubHper, 100 ListSubWper, 92 ListSubHper)];
@@ -193,10 +192,11 @@
     cell.backgroundColor = [UIColor clearColor];
     UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(20 ListSubWper, 1 ListSubHper, 8 ListSubHper, 8 ListSubHper)];
     img.contentMode = UIViewContentModeScaleAspectFill;
-    UILabel *descriptionLabel = [[UILabel alloc]initWithFrame:CGRectMake(35 ListSubWper, 0, 60 ListSubWper, 8 ListSubHper)];
-    UILabel *costLabel = [[UILabel alloc]initWithFrame:CGRectMake(80 ListSubWper, 0, 30 ListSubWper, 8 ListSubHper)];
+    UILabel *descriptionLabel = [[UILabel alloc]initWithFrame:CGRectMake(35 ListSubWper, 1 ListSubHper, 60 ListSubWper, 3 ListSubHper)];
+    UILabel *costLabel = [[UILabel alloc]initWithFrame:CGRectMake(38 ListSubWper, 4 ListSubHper, 30 ListSubWper, 6 ListSubHper)];
     //cost text need to be changable
-    costLabel.textAlignment = NSTextAlignmentRight;
+    costLabel.textAlignment = NSTextAlignmentLeft;
+    descriptionLabel.font = [UIFont systemFontOfSize:20];
     [cell addSubview:img];
     [cell addSubview:descriptionLabel];
     [cell addSubview:costLabel];
@@ -216,7 +216,7 @@
 }
 
 
-#pragma mark UITableViewDelegate
+#pragma mark - UITableViewDelegate
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100 ListSubWper, 10 ListSubHper)];
@@ -235,11 +235,15 @@
     CALayer *c4 = [CALayer layer];
     c4.frame = CGRectMake(0, 0, 100 ListSubWper, 10 ListSubHper + 1);
     c4.backgroundColor = [UIColor whiteColor].CGColor;
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20 ListSubWper, 0, 40 ListSubWper, 10 ListSubHper)];
+    label.text = @"2021-12-16";
+    label.textColor = [UIColor colorWithRed:58/255.0 green:188/255.0 blue:175/255.0 alpha:1];
     view.backgroundColor = [UIColor whiteColor];
     [view.layer addSublayer:c4];
     [view.layer addSublayer:c3];
     [view.layer addSublayer:c2];
     [view.layer addSublayer:c1];
+    [view addSubview:label];
     return view;
 }
 
@@ -267,8 +271,24 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
 
-#pragma mark end -
+- ( UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //删除
+    UIContextualAction *deleteRowAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
+                                                                                  title:@"delete"
+                                                                                handler:
+    ^(UIContextualAction *_Nonnull action, __kindof UIView *_Nonnull sourceView, void (^_Nonnull completionHandler)(BOOL)) {
+        NSLog(@"delete");
+        completionHandler(YES);
+    }];
+
+    UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteRowAction]];
+    return config;
+}
 
 @end
 

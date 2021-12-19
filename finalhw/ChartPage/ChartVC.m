@@ -111,7 +111,7 @@
     [self refreshdata];
     [self beginDrawline];
     [self.list reloadData];
-    [self.showPieVC refreshdataofPie:self.databytype andNameofPie:self.nameoftype];
+    [self.showPieVC refreshDataOfPie:self.databytype andNameofPie:self.nameoftype];
 }
 
 - (NSMutableArray *)databytime {
@@ -612,7 +612,7 @@
     [self presentViewController:self.showPieVC
                        animated:YES
                      completion:^{
-                             [self.showPieVC beginDrawpie];
+                         [self.showPieVC beginDrawPie];
     }];
 }
 
@@ -917,8 +917,6 @@
 }
 
 
-#pragma mark - piepic
-
 
 #pragma mark -  set the list, add in classfylist
 -(UITableView*)list{
@@ -931,8 +929,8 @@
         _list.layer.shadowRadius = 5;
         _list.layer.shadowOpacity = 0.7;
         _list.clipsToBounds = YES;
-        _list.delegate = (id)self;
-        _list.dataSource = (id)self;
+        _list.delegate = self;
+        _list.dataSource = self;
         [_list setScrollEnabled:YES];
         [_list setShowsVerticalScrollIndicator:NO];
     }
