@@ -79,6 +79,7 @@
 + (BOOL)addNewAccount:(AccountType *)newAccount;
 + (BOOL)loadAllAccounts;
 + (NSMutableArray *)getAllAccounts;
++ (NSMutableArray *)getAllAccountsTypeDate;
 
 + (BOOL)modifyPersonalMes:(PersonalMes *)newObject;
 + (PersonalMes *)getPersonalMes;

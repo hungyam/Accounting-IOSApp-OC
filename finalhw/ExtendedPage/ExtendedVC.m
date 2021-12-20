@@ -14,7 +14,7 @@
 
 @interface ExtendedVC ()
 
-//@property (nonatomic, strong) NSMutableArray *allAcountData;
+//@property (nonatomic, strong) NSMutableArray *allAccountData;
 //
 @property (nonatomic, strong) CAGradientLayer *backLayer;
 @property (nonatomic, strong) UIView *calendarArea;
@@ -127,7 +127,7 @@
 
 - (UITableView *)calendarList {
     if (_calendarList == nil) {
-        _calendarList = [[UITableView alloc]initWithFrame:CGRectMake(95 Wper, -20 Hper, 50 Wper, 100 Hper)];
+        _calendarList = [[UITableView alloc]initWithFrame:CGRectMake(95 Wper, -20 Hper, 50 Wper, 80 Hper)];
         _calendarList.backgroundColor = [UIColor blueColor];
         _calendarList.transform = CGAffineTransformMakeRotation(M_PI/-2);
 
@@ -138,8 +138,8 @@
         _calendarList.layer.shadowRadius = 5;
         _calendarList.layer.shadowOpacity = 0.2;
         _calendarList.clipsToBounds = YES;
-        _calendarList.delegate = (id)self;
-        _calendarList.dataSource = (id)self;
+        _calendarList.delegate = self;
+        _calendarList.dataSource = self;
         [_calendarList setScrollEnabled:NO];
     }
     return _calendarList;
@@ -156,12 +156,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell * cell = [[UITableViewCell alloc]initWithFrame:CGRectMake(0, 0, 5 Hper, 5 Hper)];
-    cell.backgroundColor = [UIColor redColor];
+    cell.backgroundColor = [UIColor clearColor];
     UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(1 Wper, 1 Wper, 5 Hper, 5 Hper)];
-//    img.contentMode = UIViewContentModeScaleAspectFill;
+    img.contentMode = UIViewContentModeScaleAspectFit;
     img.image = [UIImage imageNamed:@"cal.png"];
     
-    UILabel *descriptionLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0 Hper, 5 Hper, 5 Hper)];
+    UILabel *descriptionLabel = [[UILabel alloc]initWithFrame:CGRectMake(1 Hper, 1 Hper, 5 Hper, 5 Hper)];
 //
 //    UILabel *costLabel = [[UILabel alloc]initWithFrame:CGRectMake(cell.bounds.size.width/100 * 80, 0, cell.bounds.size.width/100 * 30, 7 Hper)];
     //cost text need to be changable
@@ -171,8 +171,8 @@
 //    [cell addSubview:costLabel];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    descriptionLabel.text = @"12.19";
-//    costLabel.text = [NSString stringWithFormat:@"%.2f",((AccountType *)self.allAcountData[indexPath.row]).amount ];
+    descriptionLabel.text = @"19";
+//    costLabel.text = [NSString stringWithFormat:@"%.2f",((AccountType *)self.allAccountData[indexPath.row]).amount ];
 //    cell.separatorInset = UIEdgeInsetsMake(0, 5 Wper + 5 Hper, 0, 0);
     cell.transform = CGAffineTransformMakeRotation(M_PI/2);
     cell.layer.cornerRadius = 5;
@@ -186,9 +186,9 @@
 
 
 #pragma mark UITableViewDelegate
-//
+////
 //- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    return 5 Hper;
+//    return 20 Hper;
 //}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

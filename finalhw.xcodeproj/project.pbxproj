@@ -66,9 +66,9 @@
 		30CF248A2764B02D00C1C858 /* AccountDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CF24892764B02D00C1C858 /* AccountDetailVC.m */; };
 		30FA7D80275F00990075BEC6 /* DataManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 30FA7D7F275F00990075BEC6 /* DataManage.m */; };
 		4B6DD1C4C26C51F412476C2F /* yes.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B6DD52DAD5F1FF01C270F94 /* yes.png */; };
+		4B6DD396E7625A72E1871F6A /* cal.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B6DD49D975A5843287D9838 /* cal.png */; };
 		4B6DD40FDC184E0B5C5FF116 /* SubViewPieVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6DDF8E9D2CB34638E59AA0 /* SubViewPieVC.m */; };
 		4B6DDBD47EF37CD4C86FA7CB /* no.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B6DDFDE80BEF0D14F7A6F09 /* no.png */; };
-		DFEC9131276F3219005D6390 /* cal.png in Resources */ = {isa = PBXBuildFile; fileRef = DFEC9130276F3219005D6390 /* cal.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,11 +171,11 @@
 		30CF24892764B02D00C1C858 /* AccountDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountDetailVC.m; sourceTree = "<group>"; };
 		30FA7D7E275F00870075BEC6 /* DataManage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataManage.h; sourceTree = "<group>"; };
 		30FA7D7F275F00990075BEC6 /* DataManage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataManage.m; sourceTree = "<group>"; };
+		4B6DD49D975A5843287D9838 /* cal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cal.png; sourceTree = "<group>"; };
 		4B6DD52DAD5F1FF01C270F94 /* yes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yes.png; sourceTree = "<group>"; };
 		4B6DDD7786427E9EA9C9CEA8 /* SubViewPieVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubViewPieVC.h; sourceTree = "<group>"; };
 		4B6DDF8E9D2CB34638E59AA0 /* SubViewPieVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubViewPieVC.m; sourceTree = "<group>"; };
 		4B6DDFDE80BEF0D14F7A6F09 /* no.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no.png; sourceTree = "<group>"; };
-		DFEC9130276F3219005D6390 /* cal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cal.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,7 +212,7 @@
 				30179572275A36AC00EB0002 /* userTest.png */,
 				4B6DD52DAD5F1FF01C270F94 /* yes.png */,
 				4B6DDFDE80BEF0D14F7A6F09 /* no.png */,
-				DFEC9130276F3219005D6390 /* cal.png */,
+				4B6DD49D975A5843287D9838 /* cal.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -543,12 +543,12 @@
 				301A4616276255AE00F6810C /* tongxun.png in Resources */,
 				301A461F276255AE00F6810C /* lvyou.png in Resources */,
 				3037CB21273D13840013EEBB /* Assets.xcassets in Resources */,
-				DFEC9131276F3219005D6390 /* cal.png in Resources */,
 				301A460E276255AE00F6810C /* guoshu.png in Resources */,
 				301A461C276255AE00F6810C /* chongwu.png in Resources */,
 				301A461B276255AE00F6810C /* meirong.png in Resources */,
 				4B6DD1C4C26C51F412476C2F /* yes.png in Resources */,
 				4B6DDBD47EF37CD4C86FA7CB /* no.png in Resources */,
+				4B6DD396E7625A72E1871F6A /* cal.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
