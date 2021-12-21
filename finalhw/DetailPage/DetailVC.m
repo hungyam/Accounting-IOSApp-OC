@@ -10,35 +10,26 @@
 #import "DetailNaviVC.h"
 #define Wper *self.view.bounds.size.width/100
 #define Hper *self.view.bounds.size.height/100
-#define LastestSubWper *_lastestArea.bounds.size.width/100
-#define LastestSubHper *_lastestArea.bounds.size.height/100
+#define ToolAreaSubWper *_toolArea.bounds.size.width/100
+#define ToolAreaSubHper *_toolArea.bounds.size.height/100
 #define ListSubWper *_listArea.bounds.size.width/100
 #define ListSubHper *_listArea.bounds.size.height/100
 #define BackColor [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1]
 
 @interface DetailVC () {
-    NSInteger accountIndex;
     NSInteger selectDateYear;
     NSInteger selectDateMonth;
 }
 
-@property (nonatomic, strong) NSMutableArray *allAccountData;
 @property (nonatomic, strong) NSMutableArray *allAccountDataTypeDate;
 @property (nonatomic, strong) NSMutableArray *listData;
 
 @property (nonatomic, strong) CAGradientLayer *backLayer;
-@property (nonatomic, strong) UIView *lastestArea;
-    @property (nonatomic, strong) UIImageView *lastestImage1;
-    @property (nonatomic, strong) UIImageView *lastestImage2;
-    @property (nonatomic, strong) UIImageView *lastestImage3;
-    @property (nonatomic, strong) UILabel *lastestLabel;
-@property (nonatomic, strong) UIView *dashBoard;
-
+@property (nonatomic, strong) UIView *toolArea;
+@property (nonatomic, strong) UIButton *dateBtn;
 @property (nonatomic, strong) UIView *listArea;
 @property (nonatomic, strong) UITableView *entryList;
-@property (nonatomic, strong) NSMutableArray *allEntry;
-@property (nonatomic, strong) NSMutableArray *allDate;
-//@property (nonatomic, strong) profileVC *profileVC;
+
 
 @end
 
@@ -52,12 +43,11 @@
     self.allAccountDataTypeDate = [DataManage getAllAccountsTypeDate];
     [self loadListData];
     self.view.backgroundColor = [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1];
-
-
     [self.view.layer addSublayer:self.backLayer];
-    [self.view addSubview:self.lastestArea];
+//    [self.view addSubview:self.lastestArea];
     [self.view addSubview:self.listArea];
-
+    [self.view addSubview:self.toolArea];
+    [self.navigationController setNavigationBarHidden:YES animated:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -90,80 +80,103 @@
     return _backLayer;
 }
 
--(UIView *)lastestArea {
-    if (_lastestArea == nil) {
-        _lastestArea = [[UIView alloc]initWithFrame:CGRectMake(5 Wper, 7 Hper, 90 Wper, 15 Hper)];
-        _lastestArea.backgroundColor = [UIColor whiteColor];
-        _lastestArea.layer.cornerRadius = 10;
-        _lastestArea.layer.shadowColor = [UIColor grayColor].CGColor;
-        _lastestArea.layer.shadowOffset = CGSizeMake(5, 5);
-        _lastestArea.layer.shadowRadius = 5;
-        _lastestArea.layer.shadowOpacity = 0.2;
-//        [_lastestArea addSubview:self.lastestLabel];
-//        [_lastestArea addSubview:self.lastestImage1];
-//        [_lastestArea addSubview:self.lastestImage2];
-//        [_lastestArea addSubview:self.lastestImage3];
+#pragma mark - Views
 
+- (UIView *)toolArea {
+    if (_toolArea == nil) {
+        _toolArea = [[UIView alloc] initWithFrame:CGRectMake(15 Wper, 7 Hper, 70 Wper, 15 Hper)];
+        _toolArea.layer.borderWidth = 1;
+        _toolArea.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.6].CGColor;
+        _toolArea.layer.cornerRadius = 15;
+        _toolArea.layer.masksToBounds = YES;
+        _toolArea.layer.shadowColor = [UIColor grayColor].CGColor;
+        _toolArea.layer.shadowOffset = CGSizeMake(5, 5);
+        _toolArea.layer.shadowRadius = 5;
+        _toolArea.layer.shadowOpacity = 0.3;
+        _toolArea.backgroundColor = [UIColor colorWithWhite:1 alpha:0.6];
+        [_toolArea addSubview:self.dateBtn];
+        UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(20 ToolAreaSubWper, 10 ToolAreaSubHper, 10 ToolAreaSubWper, 30 ToolAreaSubHper)];
+        [leftBtn setImage:[UIImage systemImageNamed:@"chevron.left.2"] forState:UIControlStateNormal];
+        [leftBtn setTintColor:[UIColor grayColor]];
+        leftBtn.tag = 0;
+        [leftBtn addTarget:self action:@selector(LRButtonAction:) forControlEvents:UIControlEventTouchDown];
+
+        UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake(70 ToolAreaSubWper, 10 ToolAreaSubHper, 10 ToolAreaSubWper, 30 ToolAreaSubHper)];
+        [rightBtn setImage:[UIImage systemImageNamed:@"chevron.right.2"] forState:UIControlStateNormal];
+        [rightBtn setTintColor:[UIColor grayColor]];
+        rightBtn.tag = 1;
+        [rightBtn addTarget:self action:@selector(LRButtonAction:) forControlEvents:UIControlEventTouchDown];
+        [_toolArea addSubview:leftBtn];
+        [_toolArea addSubview:rightBtn];
     }
-    return _lastestArea;
+    return _toolArea;
+}
+- (void)LRButtonAction:(UIButton *)button {
+    if (button.tag == 1) {
+        selectDateMonth++;
+        if (selectDateMonth == 13) {
+            selectDateMonth = 1;
+            selectDateYear++;
+            if (selectDateYear == 2022) {
+                selectDateYear = 2021;
+                selectDateMonth = 12;
+                return;
+            }
+        }
+    }else {
+        selectDateMonth--;
+        if (selectDateMonth == 0) {
+            selectDateMonth = 12;
+            selectDateYear--;
+            if (selectDateYear == 2019) {
+                selectDateYear = 2020;
+                selectDateMonth = 1;
+                return;
+            }
+        }
+    }
+    NSArray *month = @[@"一月", @"二月", @"三月", @"四月", @"五月", @"六月", @"七月", @"八月", @"九月", @"十月", @"十一月", @"十二月"];
+    [self.dateBtn setTitle:month[selectDateMonth-1] forState:UIControlStateNormal];
+    [self loadListData];
+    [self.entryList reloadData];
+}
+
+- (UIButton *)dateBtn {
+    if (_dateBtn == nil) {
+        _dateBtn = [[UIButton alloc] initWithFrame:CGRectMake(30 ToolAreaSubWper, 10 ToolAreaSubHper, 40 ToolAreaSubWper, 30 ToolAreaSubHper)];
+        NSArray *month = @[@"一月", @"二月", @"三月", @"四月", @"五月", @"六月", @"七月", @"八月", @"九月", @"十月", @"十一月", @"十二月"];
+        [_dateBtn setTitle:month[selectDateMonth-1] forState:UIControlStateNormal];
+        [_dateBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        _dateBtn.titleLabel.font = [UIFont systemFontOfSize:27 weight:UIFontWeightBold];
+    }
+    return _dateBtn;
 }
 
 - (UIView *)listArea {
     if (_listArea == nil) {
-        _listArea = [[UIView alloc] initWithFrame:CGRectMake(0, 25 Hper, 100 Wper, 70 Hper)];
+        _listArea = [[UIView alloc] initWithFrame:CGRectMake(0, 25 Hper, 100 Wper, 75 Hper)];
         _listArea.backgroundColor = [UIColor whiteColor];
+        _listArea.layer.cornerRadius = 50;
+        CALayer *layer = [CALayer layer];
+        layer.frame = CGRectMake(0, 0 , 50, 50);
+        layer.backgroundColor = [UIColor whiteColor].CGColor;
+        [_listArea.layer addSublayer:layer];
+        UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(5 ListSubWper, 1 ListSubHper, 20 ListSubWper, 5 ListSubHper)];
+        text.text = @"本月账单";
+        text.font = [UIFont systemFontOfSize:20 weight:UIFontWeightBold];
+        [_listArea addSubview:text];
         [_listArea addSubview:self.entryList];
-
-
-
     }
     return _listArea;
 }
 
-#pragma mark - lastestAreaSubView
 
-- (UILabel *)lastestLabel {
-    if (_lastestLabel == nil) {
-        _lastestLabel = [[UILabel alloc]initWithFrame:CGRectMake(10 LastestSubWper, 10 LastestSubHper, 50 LastestSubWper, 16 LastestSubHper)];
-        _lastestLabel.text = @"Lastest";
-        _lastestLabel.font = [UIFont systemFontOfSize:30];
-    }
-    return _lastestLabel;
-}
 
-- (UIImageView* )lastestImage1 {
-    if (_lastestImage1 == nil) {
-        _lastestImage1 = [[UIImageView alloc]initWithFrame:CGRectMake(3 LastestSubWper, 35 LastestSubHper, 50 LastestSubWper, 50 LastestSubHper)];
-        _lastestImage1.layer.cornerRadius = 10;
-        _lastestImage1.clipsToBounds = YES;
-        _lastestImage1.contentMode = UIViewContentModeScaleAspectFill;
-        _lastestImage1.image = [UIImage imageNamed:@"userTest.png"];
-    }
-    return _lastestImage1;
-}
 
-- (UIImageView* )lastestImage2 {
-    if (_lastestImage2 == nil) {
-        _lastestImage2 = [[UIImageView alloc]initWithFrame:CGRectMake(55 LastestSubWper, 28 LastestSubHper, 40 LastestSubWper, 30 LastestSubHper)];
-        _lastestImage2.layer.cornerRadius = 10;
-        _lastestImage2.clipsToBounds = YES;
-        _lastestImage2.image = [UIImage imageNamed:@"userImg.png"];
-    }
-    return _lastestImage2;
-}
-- (UIImageView* )lastestImage3 {
-    if (_lastestImage3 == nil) {
-        _lastestImage3 = [[UIImageView alloc]initWithFrame:CGRectMake(55 LastestSubWper, 62 LastestSubHper, 40 LastestSubWper, 30 LastestSubHper)];
-        _lastestImage3.layer.cornerRadius = 10;
-        _lastestImage3.clipsToBounds = YES;
-        _lastestImage3.image = [UIImage imageNamed:@"userImg.png"];
-    }
-    return _lastestImage3;
-}
 
 - (UITableView *)entryList {
     if (_entryList == nil) {
-        _entryList = [[UITableView alloc]initWithFrame:CGRectMake(0, 6 ListSubHper, 100 ListSubWper, 90 ListSubHper) style:UITableViewStyleGrouped];
+        _entryList = [[UITableView alloc]initWithFrame:CGRectMake(0, 6 ListSubHper, 100 ListSubWper, 94 ListSubHper) style:UITableViewStylePlain];
         _entryList.backgroundColor = [UIColor clearColor];
         _entryList.delegate = self;
         _entryList.dataSource = self;
@@ -202,6 +215,10 @@
     UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(25 ListSubWper, 1 ListSubHper, 6 ListSubHper, 6 ListSubHper)];
     img.contentMode = UIViewContentModeScaleAspectFill;
     img.image = [DataManage getIconByLabel:((AccountType *)self.listData[indexPath.section][indexPath.row]).type];
+    img.layer.shadowColor = [UIColor grayColor].CGColor;
+    img.layer.shadowOffset = CGSizeMake(3, 3);
+    img.layer.shadowRadius = 4;
+    img.layer.shadowOpacity = 0.3;
 
     UILabel *descriptionLabel = [[UILabel alloc]initWithFrame:CGRectMake(38 ListSubWper, 1 ListSubHper, 60 ListSubWper, 4 ListSubHper)];
     descriptionLabel.font = [UIFont systemFontOfSize:17 weight:UIFontWeightLight];
@@ -303,6 +320,10 @@
     return 6 ListSubHper;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 20;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 8 ListSubHper;
 }
@@ -312,17 +333,6 @@
     [(DetailNaviVC *)self.parentViewController pushAccountDetailPage:indexPath.row];
 }
 
-- (void)deleteEntry {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认删除" preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *conform = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        // remove this entry
-        }];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    [alert addAction:conform];
-    [alert addAction:cancel];
-    [self presentViewController:alert animated:YES completion:nil];
-}
-
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
@@ -330,10 +340,9 @@
 
 - ( UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
     UIContextualAction *deleteRowAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
-                                                                                  title:@"delete"
+                                                                                  title:nil
                                                                                 handler:
     ^(UIContextualAction *_Nonnull action, __kindof UIView *_Nonnull sourceView, void (^_Nonnull completionHandler)(BOOL)) {
-        NSLog(@"delete");
         [(NSMutableArray *)self.listData[indexPath.section] removeObjectAtIndex:indexPath.row];
         [self.entryList deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
         if ([(NSMutableArray *)self.listData[indexPath.section] count] == 0) {
@@ -342,6 +351,8 @@
         }
         completionHandler(YES);
     }];
+    deleteRowAction.image = [UIImage systemImageNamed:@"trash"];
+    deleteRowAction.backgroundColor = [UIColor systemRedColor];
 
     UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteRowAction]];
     return config;
@@ -351,11 +362,11 @@
 
     CATransform3D transform = CATransform3DIdentity;
     transform = CATransform3DRotate(transform, 0, 0, 0, 1);//渐变
-    transform = CATransform3DTranslate(transform, 0, 20, 0);//左边水平移动
+    transform = CATransform3DTranslate(transform, 10, 0, 0);//左边水平移动
 //    transform = CATransform3DScale(transform, 0, 0, 0);//由小变大
 
     cell.layer.transform = transform;
-    cell.layer.opacity = 0.0;
+    cell.layer.opacity = 0.5;
 
     [UIView animateWithDuration:0.3 animations:^{
         cell.layer.transform = CATransform3DIdentity;
