@@ -21,8 +21,8 @@
 @property (nonatomic, strong) UIView *loginArea;
     @property (nonatomic, strong) UILabel *usernameLable;
     @property (nonatomic, strong) UILabel *passwordLable;
-    @property (nonatomic, strong) UITextView *usernameInput;
-    @property (nonatomic, strong) UITextView *passwordInput;
+    @property (nonatomic, strong) UITextField *usernameInput;
+    @property (nonatomic, strong) UITextField *passwordInput;
     @property (nonatomic, strong) UIButton *submitButton;
 
 @end
@@ -48,8 +48,8 @@
         (__bridge id)[UIColor colorWithRed:255/255.0 green:106/255.0 blue:93/255.0 alpha:1].CGColor
     ];
     [self.view.layer addSublayer:gradientLayer];
-    
 }
+
 
 - (UILabel *)welcomeTips {
     if (_welcomeTips == nil) {
@@ -138,9 +138,9 @@
     return _usernameLable;
 }
 
-- (UITextView *)usernameInput {
+- (UITextField *)usernameInput {
     if (_usernameInput == nil) {
-        _usernameInput = [[UITextView alloc]initWithFrame:CGRectMake(50 LastestSubWper - 130, 23 LastestSubHper - 25, 260, 50)];
+        _usernameInput = [[UITextField alloc]initWithFrame:CGRectMake(50 LastestSubWper - 130, 23 LastestSubHper - 25, 260, 50)];
         _usernameInput.backgroundColor = [UIColor clearColor];
         CALayer *layer = [CALayer layer];
         layer.frame = CGRectMake(0, _usernameInput.frame.size.height - 1, _usernameInput.frame.size.width, 1);
@@ -162,9 +162,9 @@
     return _passwordLable;
 }
 
-- (UITextView *)passwordInput {
+- (UITextField *)passwordInput {
     if (_passwordInput == nil) {
-        _passwordInput = [[UITextView alloc]initWithFrame:CGRectMake(50 LastestSubWper - 130, 56 LastestSubHper - 25, 260, 50)];
+        _passwordInput = [[UITextField alloc]initWithFrame:CGRectMake(50 LastestSubWper - 130, 56 LastestSubHper - 25, 260, 50)];
         _passwordInput.backgroundColor = [UIColor clearColor];
         CALayer *layer = [CALayer layer];
         layer.frame = CGRectMake(0, _passwordInput.frame.size.height - 1, _passwordInput.frame.size.width, 1);
@@ -172,6 +172,7 @@
         [_passwordInput.layer addSublayer:layer];
         [_passwordInput setFont:[UIFont systemFontOfSize:25]];
         [_passwordInput setTextColor:[UIColor whiteColor]];
+        _passwordInput.secureTextEntry = YES;
     }
     return _passwordInput;
 }
@@ -194,6 +195,23 @@
 - (void)submitAction {
     NSLog(@"GoToMainVC");
     [(StartNaviVC *)self.parentViewController goToMianVC];
+    [self.loginArea setAlpha:0];
+    [self.welcomeTips setAlpha:0];
+    
+    CAKeyframeAnimation *ani= [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    ani.duration = 0;
+    ani.removedOnCompletion = NO;
+    ani.fillMode = kCAFillModeForwards;
+    ani.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    NSValue *value2 = [NSValue valueWithCGPoint:CGPointMake(50 Wper, 82 Hper)];
+    NSValue *value1 = [NSValue valueWithCGPoint:CGPointMake(50 Wper, 100 Hper + 28)];
+    ani.values = @[value1, value2];
+    [self.goToLogin.layer addAnimation:ani forKey:@"hide"];
+    
+    [_goToLogin addTarget:self action:@selector(goToLoginAction) forControlEvents:UIControlEventTouchDown];
+    
+    self.usernameInput.text=@"";
+    self.passwordInput.text=@"";
 }
 
 #pragma mark end -

@@ -161,7 +161,7 @@
         layer.frame = CGRectMake(0, 0 , 50, 50);
         layer.backgroundColor = [UIColor whiteColor].CGColor;
         [_listArea.layer addSublayer:layer];
-        UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(5 ListSubWper, 1 ListSubHper, 20 ListSubWper, 5 ListSubHper)];
+        UILabel *text = [[UILabel alloc] initWithFrame:CGRectMake(5 ListSubWper, 1 ListSubHper, 40 ListSubWper, 5 ListSubHper)];
         text.text = @"本月账单";
         text.font = [UIFont systemFontOfSize:20 weight:UIFontWeightBold];
         [_listArea addSubview:text];

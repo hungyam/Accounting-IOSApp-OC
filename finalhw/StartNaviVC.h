@@ -15,6 +15,5 @@
 - (void)loginToSignUpVC;
 - (void)signUpToLoginVC;
 - (void)goToMianVC;
-
 @end
 
