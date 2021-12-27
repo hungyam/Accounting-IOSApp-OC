@@ -17,7 +17,10 @@
     UIImage *userImg;
     NSString *username;
     NSInteger points;
+    NSString *password;
+    NSString *phone;
 }
+
 
 @property (nonatomic, strong) CAGradientLayer *backLayer;
 @property (nonatomic, strong) UIView *userArea;
@@ -51,6 +54,8 @@
     userImg = mes.userImg;
     username = mes.username;
     points = mes.points;
+    phone=mes.phone;
+    password=mes.password;
 }
 
 - (CAGradientLayer *)backLayer {

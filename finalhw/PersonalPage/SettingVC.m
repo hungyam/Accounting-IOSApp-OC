@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) SettingRootVC *rootVC;
 @property (nonatomic, strong) ModifyMes *modifyVC;
+@property (nonatomic, strong) ChangePassword *passwordVC;
 
 @end
 
@@ -44,6 +45,13 @@
     }
     return _modifyVC;
 }
+- (ChangePassword *)passwordVC {
+    if (_passwordVC == nil) {
+        _passwordVC = [[ChangePassword alloc]init];
+        _passwordVC.title = @"密码修改";
+    }
+    return _passwordVC;
+}
 
 - (void)dismissPresentView {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -51,6 +59,9 @@
 
 - (void)pushModifyMes {
     [self pushViewController:self.modifyVC animated:YES];
+}
+- (void)pushPasswordMes {
+    [self pushViewController:self.passwordVC animated:YES];
 }
 
 
