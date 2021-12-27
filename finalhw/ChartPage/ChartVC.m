@@ -592,6 +592,11 @@
         _classifyList.layer.shadowOpacity = 0.1;
         [_classifyList addSubview:self.showPieButton];
         [_classifyList addSubview:self.list];
+        UILabel*name=[[UILabel alloc] initWithFrame:CGRectMake(8 Wper, 2 Hper, 40 Wper, 5 Hper)];
+        name.text=@"分类统计";
+        name.font = [UIFont fontWithName:@"ChalkboardSE-Light" size:20];
+        name.textColor = [UIColor blackColor];
+        [_classifyList addSubview: name];
     }
     return _classifyList;
 }
@@ -601,7 +606,7 @@
 - (UIButton *)showPieButton {
     if (_showPieButton == nil) {
         _showPieButton = [[UIButton alloc] initWithFrame:CGRectMake(66 Wper, 2 Hper, 20 Wper, 5 Hper)];
-        _showPieButton.backgroundColor = [UIColor colorWithRed:170/250.0 green:216/255.0 blue:219/255.0 alpha:1];
+        _showPieButton.backgroundColor = [UIColor colorWithRed:255 / 255.0 green:107 / 255.0 blue:114 / 255.0 alpha:1];
         _showPieButton.layer.cornerRadius = 15;
         [_showPieButton setTitle:@"饼图" forState:UIControlStateNormal];
         [_showPieButton addTarget:self action:@selector(showPieButtonAction) forControlEvents:UIControlEventTouchDown];
@@ -619,9 +624,6 @@
 - (SubViewPieVC*)showPieVC {
     if (_showPieVC == nil) {
         _showPieVC = [[SubViewPieVC alloc] init];
-       // UITapGestureRecognizer *uiTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissPieVC)];
-        //_showPieVC.view.userInteractionEnabled = YES;
-        //[_showPieVC.view addGestureRecognizer:uiTap];
     }
     return _showPieVC;
 }

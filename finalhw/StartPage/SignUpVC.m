@@ -169,7 +169,7 @@
     return _submitButton;
 }
 -(void)submitAction {
-    [(StartNaviVC *)self.parentViewController goToMianVC];
+    [(StartNaviVC *)self.parentViewController signUpToLoginVC];
 }
 
 @end
