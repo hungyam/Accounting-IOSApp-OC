@@ -121,7 +121,6 @@
 		301A460B276255AD00F6810C /* lingshi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lingshi.png; sourceTree = "<group>"; };
 		301A460C276255AD00F6810C /* yanjiu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yanjiu.png; sourceTree = "<group>"; };
 		301A460D276255AD00F6810C /* jiezhi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jiezhi.png; sourceTree = "<group>"; };
-		301E5B1E2778D24E00368638 /* Directions.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = Directions.geojson; sourceTree = "<group>"; };
 		302A35CE274BF2A1003BAED3 /* LoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		302A35CF274BF2C0003BAED3 /* SignUpVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpVC.h; sourceTree = "<group>"; };
 		302A35D0274BF2D2003BAED3 /* LoginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
@@ -400,7 +399,6 @@
 			children = (
 				30FA7D7E275F00870075BEC6 /* DataManage.h */,
 				30FA7D7F275F00990075BEC6 /* DataManage.m */,
-				301E5B1E2778D24E00368638 /* Directions.geojson */,
 			);
 			path = DataManage;
 			sourceTree = "<group>";
