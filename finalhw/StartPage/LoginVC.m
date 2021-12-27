@@ -199,31 +199,42 @@
         if ([DataManage loadPersonalMes]) {
             [DataManage loadAllAccounts];
         }
+        [(StartNaviVC *)self.parentViewController goToMianVC];
+        [self.loginArea setAlpha:0];
+        [self.welcomeTips setAlpha:0];
+        
+        CAKeyframeAnimation *ani= [CAKeyframeAnimation animationWithKeyPath:@"position"];
+        ani.duration = 0;
+        ani.removedOnCompletion = NO;
+        ani.fillMode = kCAFillModeForwards;
+        ani.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        NSValue *value2 = [NSValue valueWithCGPoint:CGPointMake(50 Wper, 82 Hper)];
+        NSValue *value1 = [NSValue valueWithCGPoint:CGPointMake(50 Wper, 100 Hper + 28)];
+        ani.values = @[value1, value2];
+        [self.goToLogin.layer addAnimation:ani forKey:@"hide"];
+        
+        [_goToLogin addTarget:self action:@selector(goToLoginAction) forControlEvents:UIControlEventTouchDown];
+        
+        self.usernameInput.text=@"";
+        self.passwordInput.text=@"";
+    }else{
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"用户名或密码错误" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"重新输入" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:cancel];
+        [self presentViewController:alert animated:YES completion:nil];
     }
-    [(StartNaviVC *)self.parentViewController goToMianVC];
-    [self.loginArea setAlpha:0];
-    [self.welcomeTips setAlpha:0];
     
-    CAKeyframeAnimation *ani= [CAKeyframeAnimation animationWithKeyPath:@"position"];
-    ani.duration = 0;
-    ani.removedOnCompletion = NO;
-    ani.fillMode = kCAFillModeForwards;
-    ani.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    NSValue *value2 = [NSValue valueWithCGPoint:CGPointMake(50 Wper, 82 Hper)];
-    NSValue *value1 = [NSValue valueWithCGPoint:CGPointMake(50 Wper, 100 Hper + 28)];
-    ani.values = @[value1, value2];
-    [self.goToLogin.layer addAnimation:ani forKey:@"hide"];
-    
-    [_goToLogin addTarget:self action:@selector(goToLoginAction) forControlEvents:UIControlEventTouchDown];
-    
-    self.usernameInput.text=@"";
-    self.passwordInput.text=@"";
 }
 
-#pragma mark end -
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if ([string isEqualToString:@"\n"]){
-        [textField endEditing:YES];
+        if (textField == self.usernameInput) {
+            [textField resignFirstResponder];
+            [self.passwordInput becomeFirstResponder];
+        }else {
+            [self.passwordInput resignFirstResponder];
+            [self submitAction];
+        }
     }
     return YES;
 }

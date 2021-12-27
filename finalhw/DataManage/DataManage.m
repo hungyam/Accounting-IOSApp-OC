@@ -99,9 +99,10 @@ static NSString *token;
     NSURLSessionDataTask *dataTask = [delegateFreeSession
             dataTaskWithRequest:urlRequest
               completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                  NSLog(@"Login Response:%@\n", response);
                   if (error == nil) {
                       dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                      NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+                      NSLog(@"%@",text);
                       dispatch_semaphore_signal(signal);
                   }
               }];
@@ -111,7 +112,6 @@ static NSString *token;
     dispatch_semaphore_wait(signal, DISPATCH_TIME_FOREVER);
     if ([dict[@"code"] integerValue] == 200) {
         token = dict[@"token"];
-        NSLog(@"%@",token);
         flag = YES;
     }else{
         flag = NO;
@@ -178,11 +178,10 @@ static NSString *token;
     __block NSDictionary *dict;
     NSURLSessionDataTask * dataTask =[delegateFreeSession dataTaskWithRequest:urlRequest
                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                    NSLog(@"Response:%@ %@\n", response, error);
             if(error == nil) {
+                dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
                 NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-              dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-              NSLog(@"Data = %@",text);
+                NSLog(@"%@",text);
                 dispatch_semaphore_signal(signal);
             }
     }];
@@ -190,7 +189,6 @@ static NSString *token;
     
     dispatch_semaphore_wait(signal, DISPATCH_TIME_FOREVER);
     if ([dict[@"code"] intValue] == 200) {
-        NSLog(@"success");
         return YES;
     }
     return NO;
@@ -225,9 +223,10 @@ static NSString *token;
     NSURLSessionDataTask *dataTask = [delegateFreeSession
             dataTaskWithRequest:urlRequest
               completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                  NSLog(@"Login Response:%@\n", response);
                   if (error == nil) {
                       dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                      NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+                      NSLog(@"%@",text);
                       dispatch_semaphore_signal(signal);
                   }
               }];
@@ -239,7 +238,7 @@ static NSString *token;
         return NO;
     }
     userInformation =  [[PersonalMes alloc]init];
-    userInformation.username = @"hungyam";
+    userInformation.username = userInformation.username;
     userInformation.points = [dict[@"points"] intValue];
     userInformation.nickname = dict[@"nickname"];
     userInformation.userImg = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:dict[@"imgUrl"]]]];
@@ -303,11 +302,10 @@ static NSString *token;
     __block NSDictionary *dict;
     NSURLSessionDataTask * dataTask =[delegateFreeSession dataTaskWithRequest:urlRequest
                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                    NSLog(@"Response:%@ %@\n", response, error);
             if(error == nil) {
-                NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
               dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-              NSLog(@"Data = %@",text);
+                NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+                NSLog(@"%@",text);
                 dispatch_semaphore_signal(signal);
             }
     }];
@@ -373,9 +371,9 @@ static NSString *token;
     NSURLSessionDataTask *dataTask = [delegateFreeSession
             dataTaskWithRequest:urlRequest
               completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                  NSLog(@"NewAccount Response:%@\n", response);
                   if (error == nil) {
-                      NSLog(@"%@",[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+                      NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+                      NSLog(@"%@",text);
                       dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
                       dispatch_semaphore_signal(signal);
                   }
@@ -432,9 +430,10 @@ static NSString *token;
     NSURLSessionDataTask *dataTask = [delegateFreeSession
             dataTaskWithRequest:urlRequest
               completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                  NSLog(@"Accounts Response:%@\n", response);
                   if (error == nil) {
                       dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                      NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+                      NSLog(@"%@",text);
                       dispatch_semaphore_signal(signal);
                   }
               }];

@@ -38,8 +38,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    selectDateYear = 2021;
-    selectDateMonth = 1;
+    NSDate *date = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"YYYY";
+    selectDateYear = [dateFormatter stringFromDate:date].integerValue;
+    dateFormatter.dateFormat = @"MM";
+    selectDateMonth = [dateFormatter stringFromDate:date].integerValue;
     self.allAccountDataTypeDate = [DataManage getAllAccountsTypeDate];
     [self loadListData];
     self.view.backgroundColor = [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1];
