@@ -51,6 +51,8 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    self.allAccountDataTypeDate = [DataManage getAllAccountsTypeDate];
+    [self loadListData];
     [self.entryList reloadData];
 }
 
@@ -169,10 +171,6 @@
     }
     return _listArea;
 }
-
-
-
-
 
 - (UITableView *)entryList {
     if (_entryList == nil) {
@@ -326,11 +324,6 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 8 ListSubHper;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    //  goToProfile: indexPath.row
-    [(DetailNaviVC *)self.parentViewController pushAccountDetailPage:indexPath.row];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

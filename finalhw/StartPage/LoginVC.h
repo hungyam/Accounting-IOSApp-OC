@@ -7,8 +7,9 @@
 
 #import <UIKit/UIKit.h>
 #import "SignUpVC.h"
+#import "DataManage.h"
 
-@interface LoginVC : UIViewController
+@interface LoginVC : UIViewController <UITextFieldDelegate>
 
 
 @end

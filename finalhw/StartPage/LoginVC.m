@@ -21,8 +21,8 @@
 @property (nonatomic, strong) UIView *loginArea;
     @property (nonatomic, strong) UILabel *usernameLable;
     @property (nonatomic, strong) UILabel *passwordLable;
-    @property (nonatomic, strong) UITextView *usernameInput;
-    @property (nonatomic, strong) UITextView *passwordInput;
+    @property (nonatomic, strong) UITextField *usernameInput;
+    @property (nonatomic, strong) UITextField *passwordInput;
     @property (nonatomic, strong) UIButton *submitButton;
 
 @end
@@ -138,11 +138,12 @@
     return _usernameLable;
 }
 
-- (UITextView *)usernameInput {
+- (UITextField *)usernameInput {
     if (_usernameInput == nil) {
-        _usernameInput = [[UITextView alloc]initWithFrame:CGRectMake(50 LastestSubWper - 130, 23 LastestSubHper - 25, 260, 50)];
+        _usernameInput = [[UITextField alloc]initWithFrame:CGRectMake(50 LastestSubWper - 130, 23 LastestSubHper - 25, 260, 50)];
         _usernameInput.backgroundColor = [UIColor clearColor];
         CALayer *layer = [CALayer layer];
+        _usernameInput.delegate = self;
         layer.frame = CGRectMake(0, _usernameInput.frame.size.height - 1, _usernameInput.frame.size.width, 1);
         layer.backgroundColor = [UIColor whiteColor].CGColor;
         [_usernameInput.layer addSublayer:layer];
@@ -162,10 +163,11 @@
     return _passwordLable;
 }
 
-- (UITextView *)passwordInput {
+- (UITextField *)passwordInput {
     if (_passwordInput == nil) {
-        _passwordInput = [[UITextView alloc]initWithFrame:CGRectMake(50 LastestSubWper - 130, 56 LastestSubHper - 25, 260, 50)];
+        _passwordInput = [[UITextField alloc]initWithFrame:CGRectMake(50 LastestSubWper - 130, 56 LastestSubHper - 25, 260, 50)];
         _passwordInput.backgroundColor = [UIColor clearColor];
+        _passwordInput.delegate = self;
         CALayer *layer = [CALayer layer];
         layer.frame = CGRectMake(0, _passwordInput.frame.size.height - 1, _passwordInput.frame.size.width, 1);
         layer.backgroundColor = [UIColor whiteColor].CGColor;
@@ -192,11 +194,20 @@
     return _submitButton;
 }
 - (void)submitAction {
-    NSLog(@"GoToMainVC");
+    if ([DataManage loginUser:self.usernameInput.text password:self.passwordInput.text]) {
+        if ([DataManage loadPersonalMes]) {
+            [DataManage loadAllAccounts];
+        }
+    }
     [(StartNaviVC *)self.parentViewController goToMianVC];
 }
 
 #pragma mark end -
-
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if ([string isEqualToString:@"\n"]){
+        [textField endEditing:YES];
+    }
+    return YES;
+}
 
 @end

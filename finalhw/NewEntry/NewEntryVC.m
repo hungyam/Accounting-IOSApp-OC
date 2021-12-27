@@ -258,6 +258,7 @@
                          self.subArea.frame = CGRectMake(-1, 100 Hper, 100 Wper + 2, 35 Hper + 1);
                      }
                      completion:nil];
+    [self.tipsText endEditing:YES];
 }
 
 #pragma mark - SubArea Views
@@ -512,6 +513,15 @@
         self.subArea.transform = CGAffineTransformTranslate(self.subArea.transform, 0, 20 Hper);
         showKB = NO;
     }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if ([string isEqualToString:@"\n"]){
+        [textField endEditing:YES];
+        //在这里做你响应return键的代码
+    }
+
+    return YES;
 }
 
 @end

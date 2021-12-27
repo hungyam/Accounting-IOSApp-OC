@@ -10,7 +10,6 @@
 @interface DetailNaviVC ()
 
 @property (nonatomic, strong) DetailVC *detailVC;
-@property (nonatomic, strong) AccountDetailVC *accountDetailVC;
 
 @end
 
@@ -28,11 +27,5 @@
     }
     return _detailVC;
 }
-
-- (void)pushAccountDetailPage:(NSInteger)index {
-    self.accountDetailVC = [[AccountDetailVC alloc] initWithIndex:index];
-    [self pushViewController:self.accountDetailVC animated:YES];
-}
-
 
 @end

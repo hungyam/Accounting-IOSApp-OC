@@ -63,7 +63,6 @@
 		309C33E827605869004D627C /* ChartNaviVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 309C33E727605869004D627C /* ChartNaviVC.m */; };
 		30CF24842764991300C1C858 /* NewEntryNaviVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CF24832764991300C1C858 /* NewEntryNaviVC.m */; };
 		30CF24872764AD5200C1C858 /* DetailNaviVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CF24862764AD5200C1C858 /* DetailNaviVC.m */; };
-		30CF248A2764B02D00C1C858 /* AccountDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CF24892764B02D00C1C858 /* AccountDetailVC.m */; };
 		30FA7D80275F00990075BEC6 /* DataManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 30FA7D7F275F00990075BEC6 /* DataManage.m */; };
 		4B6DD1C4C26C51F412476C2F /* yes.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B6DD52DAD5F1FF01C270F94 /* yes.png */; };
 		4B6DD396E7625A72E1871F6A /* cal.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B6DD49D975A5843287D9838 /* cal.png */; };
@@ -122,6 +121,7 @@
 		301A460B276255AD00F6810C /* lingshi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lingshi.png; sourceTree = "<group>"; };
 		301A460C276255AD00F6810C /* yanjiu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yanjiu.png; sourceTree = "<group>"; };
 		301A460D276255AD00F6810C /* jiezhi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jiezhi.png; sourceTree = "<group>"; };
+		301E5B1E2778D24E00368638 /* Directions.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = Directions.geojson; sourceTree = "<group>"; };
 		302A35CE274BF2A1003BAED3 /* LoginVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		302A35CF274BF2C0003BAED3 /* SignUpVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignUpVC.h; sourceTree = "<group>"; };
 		302A35D0274BF2D2003BAED3 /* LoginVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
@@ -167,8 +167,6 @@
 		30CF24832764991300C1C858 /* NewEntryNaviVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewEntryNaviVC.m; sourceTree = "<group>"; };
 		30CF24852764AD4000C1C858 /* DetailNaviVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailNaviVC.h; sourceTree = "<group>"; };
 		30CF24862764AD5200C1C858 /* DetailNaviVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailNaviVC.m; sourceTree = "<group>"; };
-		30CF24882764B01B00C1C858 /* AccountDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccountDetailVC.h; sourceTree = "<group>"; };
-		30CF24892764B02D00C1C858 /* AccountDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AccountDetailVC.m; sourceTree = "<group>"; };
 		30FA7D7E275F00870075BEC6 /* DataManage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataManage.h; sourceTree = "<group>"; };
 		30FA7D7F275F00990075BEC6 /* DataManage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataManage.m; sourceTree = "<group>"; };
 		4B6DD49D975A5843287D9838 /* cal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cal.png; sourceTree = "<group>"; };
@@ -260,8 +258,6 @@
 				3036FC27274C8D5E00ECDF89 /* DetailVC.m */,
 				30CF24852764AD4000C1C858 /* DetailNaviVC.h */,
 				30CF24862764AD5200C1C858 /* DetailNaviVC.m */,
-				30CF24882764B01B00C1C858 /* AccountDetailVC.h */,
-				30CF24892764B02D00C1C858 /* AccountDetailVC.m */,
 			);
 			path = DetailPage;
 			sourceTree = "<group>";
@@ -404,6 +400,7 @@
 			children = (
 				30FA7D7E275F00870075BEC6 /* DataManage.h */,
 				30FA7D7F275F00990075BEC6 /* DataManage.m */,
+				301E5B1E2778D24E00368638 /* Directions.geojson */,
 			);
 			path = DataManage;
 			sourceTree = "<group>";
@@ -582,7 +579,6 @@
 				3037CB16273D137C0013EEBB /* AppDelegate.m in Sources */,
 				3036FC28274C8D5E00ECDF89 /* DetailVC.m in Sources */,
 				3036FC34274C903600ECDF89 /* NewEntryVC.m in Sources */,
-				30CF248A2764B02D00C1C858 /* AccountDetailVC.m in Sources */,
 				302A35D1274BF2D2003BAED3 /* LoginVC.m in Sources */,
 				3037CB27273D13840013EEBB /* main.m in Sources */,
 				30FA7D80275F00990075BEC6 /* DataManage.m in Sources */,
