@@ -64,6 +64,8 @@
 		30CF24842764991300C1C858 /* NewEntryNaviVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CF24832764991300C1C858 /* NewEntryNaviVC.m */; };
 		30CF24872764AD5200C1C858 /* DetailNaviVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 30CF24862764AD5200C1C858 /* DetailNaviVC.m */; };
 		30FA7D80275F00990075BEC6 /* DataManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 30FA7D7F275F00990075BEC6 /* DataManage.m */; };
+		3CBBE4AB2779F335009B6269 /* ChangePassword.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CBBE4AA2779F335009B6269 /* ChangePassword.m */; };
+		3CBBE4AD2779F3FD009B6269 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CBBE4AC2779F3FD009B6269 /* add.png */; };
 		4B6DD1C4C26C51F412476C2F /* yes.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B6DD52DAD5F1FF01C270F94 /* yes.png */; };
 		4B6DD396E7625A72E1871F6A /* cal.png in Resources */ = {isa = PBXBuildFile; fileRef = 4B6DD49D975A5843287D9838 /* cal.png */; };
 		4B6DD40FDC184E0B5C5FF116 /* SubViewPieVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4B6DDF8E9D2CB34638E59AA0 /* SubViewPieVC.m */; };
@@ -168,6 +170,9 @@
 		30CF24862764AD5200C1C858 /* DetailNaviVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailNaviVC.m; sourceTree = "<group>"; };
 		30FA7D7E275F00870075BEC6 /* DataManage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataManage.h; sourceTree = "<group>"; };
 		30FA7D7F275F00990075BEC6 /* DataManage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DataManage.m; sourceTree = "<group>"; };
+		3CBBE4A92779F326009B6269 /* ChangePassword.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangePassword.h; sourceTree = "<group>"; };
+		3CBBE4AA2779F335009B6269 /* ChangePassword.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangePassword.m; sourceTree = "<group>"; };
+		3CBBE4AC2779F3FD009B6269 /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
 		4B6DD49D975A5843287D9838 /* cal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cal.png; sourceTree = "<group>"; };
 		4B6DD52DAD5F1FF01C270F94 /* yes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yes.png; sourceTree = "<group>"; };
 		4B6DDD7786427E9EA9C9CEA8 /* SubViewPieVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubViewPieVC.h; sourceTree = "<group>"; };
@@ -203,6 +208,7 @@
 		30179570275A348800EB0002 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3CBBE4AC2779F3FD009B6269 /* add.png */,
 				302B883E275D11D900DB2EED /* detailIcon.png */,
 				302B883D275D11D900DB2EED /* settingIcon.png */,
 				302B883C275D11D900DB2EED /* userImg.png */,
@@ -324,6 +330,8 @@
 				302B8839275C858000DB2EED /* SettingRootVC.m */,
 				302B5893275DE8AC0097B7C3 /* ModifyMes.h */,
 				302B5894275DE8B70097B7C3 /* ModifyMes.m */,
+				3CBBE4A92779F326009B6269 /* ChangePassword.h */,
+				3CBBE4AA2779F335009B6269 /* ChangePassword.m */,
 			);
 			path = SetingSrc;
 			sourceTree = "<group>";
@@ -518,6 +526,7 @@
 				301A4610276255AE00F6810C /* naicha.png in Resources */,
 				302B883F275D11D900DB2EED /* userImg.png in Resources */,
 				301A462A276255AE00F6810C /* jiezhi.png in Resources */,
+				3CBBE4AD2779F3FD009B6269 /* add.png in Resources */,
 				301A4628276255AE00F6810C /* lingshi.png in Resources */,
 				301A4612276255AE00F6810C /* shejiao.png in Resources */,
 				301A4629276255AE00F6810C /* yanjiu.png in Resources */,
@@ -587,6 +596,7 @@
 				309C33E827605869004D627C /* ChartNaviVC.m in Sources */,
 				3037CB19273D137C0013EEBB /* SceneDelegate.m in Sources */,
 				3036FC2B274C8D8000ECDF89 /* ChartVC.m in Sources */,
+				3CBBE4AB2779F335009B6269 /* ChangePassword.m in Sources */,
 				4B6DD40FDC184E0B5C5FF116 /* SubViewPieVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

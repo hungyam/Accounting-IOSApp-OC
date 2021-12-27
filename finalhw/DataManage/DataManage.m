@@ -238,7 +238,7 @@ static NSString *token;
         return NO;
     }
     userInformation =  [[PersonalMes alloc]init];
-    userInformation.username = userInformation.username;
+    userInformation.username = dict[@"username"];
     userInformation.points = [dict[@"points"] intValue];
     userInformation.nickname = dict[@"nickname"];
     userInformation.userImg = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:dict[@"imgUrl"]]]];

@@ -40,7 +40,7 @@
     // Do any additional setup after loading the view.
     NSDate *date = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"YYYY";
+    dateFormatter.dateFormat = @"yyyy";
     selectDateYear = [dateFormatter stringFromDate:date].integerValue;
     dateFormatter.dateFormat = @"MM";
     selectDateMonth = [dateFormatter stringFromDate:date].integerValue;

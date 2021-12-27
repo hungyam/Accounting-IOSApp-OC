@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UILabel *rePasswordLabel;
 @property (nonatomic, strong) UITextView *rePasswordText;
 @property (nonatomic, strong) UIButton *submitButton;
+@property (nonatomic, strong) UIButton *addpicButton;
 
 @end
 
@@ -35,11 +36,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.view addSubview:self.tips];
-    [self.view addSubview:self.userImg];
+    [self.view addSubview:self.addpicButton];
     [self.view addSubview:self.nicknameLabel];
     [self.view addSubview:self.nicknameText];
     [self.view addSubview:self.usernameLabel];
     [self.view addSubview:self.usernameText];
+    [self.view addSubview:self.phoneLabel];
+    [self.view addSubview:self.phoneText];
     [self.view addSubview:self.passwordLabel];
     [self.view addSubview:self.passwordText];
     [self.view addSubview:self.rePasswordLabel];
@@ -61,11 +64,36 @@
     if (_userImg == nil) {
         _userImg = [[UIImageView alloc] initWithFrame:CGRectMake(7 Wper, 20 Hper, 28 Wper, 28 Wper)];
         _userImg.image = [UIImage imageNamed:@"userImg.png"];
-        _userImg.layer.cornerRadius = 60;
+        _userImg.layer.cornerRadius = 14 Wper;
         _userImg.layer.masksToBounds = YES;
         _userImg.backgroundColor = [UIColor orangeColor];
     }
     return _userImg;
+}
+- (UIButton *)addpicButton {
+    if (_addpicButton == nil) {
+        _addpicButton = [[UIButton alloc] initWithFrame:CGRectMake(7 Wper, 20 Hper, 28 Wper, 28 Wper)];
+        [_addpicButton setImage:[UIImage imageNamed:@"add.png"] forState:UIControlStateNormal];
+        _addpicButton.layer.cornerRadius = 14 Wper;
+        _addpicButton.layer.masksToBounds = YES;
+        _addpicButton.backgroundColor = [UIColor orangeColor];
+        [_addpicButton addTarget:self action:@selector(get_pic:) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    return _addpicButton;
+}
+
+-(void)get_pic:(UIButton *) sender{
+    UIImagePickerController *pickerCtr = [[UIImagePickerController alloc] init];
+        pickerCtr.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        pickerCtr.delegate = self;
+    [self presentViewController: pickerCtr animated:YES completion:nil];
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    UIImage *img = [info objectForKey:UIImagePickerControllerOriginalImage];
+    [_addpicButton setImage:img forState:UIControlStateNormal];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (UILabel *)nicknameLabel {
@@ -112,10 +140,31 @@
     }
     return _usernameText;
 }
+- (UILabel *)phoneLabel {
+    if (_phoneLabel == nil) {
+        _phoneLabel = [[UILabel alloc]initWithFrame:CGRectMake(8 Wper, 51 Hper, 150, 30)];
+        _phoneLabel.text = @"电话";
+        _phoneLabel.textColor = MainColor;
+    }
+    return _phoneLabel;
+}
+
+- (UITextView *)phoneText {
+    if (_phoneText == nil) {
+        _phoneText = [[UITextView alloc]initWithFrame:CGRectMake(8 Wper, 56 Hper - 15, 80 Wper, 40)];
+        _phoneText.font = [UIFont systemFontOfSize:23 weight:UIFontWeightMedium];
+        CALayer *layer = [CALayer layer];
+        layer.frame = CGRectMake(0, _phoneText.frame.size.height - 1, _phoneText.frame.size.width, 1);
+        layer.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.05].CGColor;
+        [_phoneText.layer addSublayer:layer];
+        [_phoneText setScrollEnabled:NO];
+    }
+    return _phoneText;
+}
 
 - (UILabel *)passwordLabel {
     if (_passwordLabel == nil) {
-        _passwordLabel = [[UILabel alloc]initWithFrame:CGRectMake(8 Wper, 51 Hper, 150, 30)];
+        _passwordLabel = [[UILabel alloc]initWithFrame:CGRectMake(8 Wper, 59 Hper, 150, 30)];
         _passwordLabel.text = @"密码";
         _passwordLabel.textColor = MainColor;
     }
@@ -124,7 +173,7 @@
 
 - (UITextView *)passwordText {
     if (_passwordText == nil) {
-        _passwordText = [[UITextView alloc]initWithFrame:CGRectMake(8 Wper, 56 Hper - 15, 80 Wper, 40)];
+        _passwordText = [[UITextView alloc]initWithFrame:CGRectMake(8 Wper, 64 Hper - 15, 80 Wper, 40)];
         _passwordText.font = [UIFont systemFontOfSize:23 weight:UIFontWeightMedium];
         CALayer *layer = [CALayer layer];
         layer.frame = CGRectMake(0, _passwordText.frame.size.height - 1, _passwordText.frame.size.width, 1);
@@ -137,7 +186,7 @@
 
 - (UILabel *)rePasswordLabel {
     if (_rePasswordLabel == nil) {
-        _rePasswordLabel = [[UILabel alloc]initWithFrame:CGRectMake(8 Wper, 59 Hper, 150, 30)];
+        _rePasswordLabel = [[UILabel alloc]initWithFrame:CGRectMake(8 Wper, 67 Hper, 150, 30)];
         _rePasswordLabel.text = @"确认密码";
         _rePasswordLabel.textColor = MainColor;
     }
@@ -146,7 +195,7 @@
 
 - (UITextView *)rePasswordText {
     if (_rePasswordText == nil) {
-        _rePasswordText = [[UITextView alloc]initWithFrame:CGRectMake(8 Wper, 64 Hper - 15, 80 Wper, 40)];
+        _rePasswordText = [[UITextView alloc]initWithFrame:CGRectMake(8 Wper, 72 Hper - 15, 80 Wper, 40)];
         _rePasswordText.font = [UIFont systemFontOfSize:23 weight:UIFontWeightMedium];
         CALayer *layer = [CALayer layer];
         layer.frame = CGRectMake(0, _rePasswordText.frame.size.height - 1, _rePasswordText.frame.size.width, 1);
@@ -159,7 +208,7 @@
 
 - (UIButton *)submitButton {
     if (_submitButton == nil) {
-        _submitButton = [[UIButton alloc]initWithFrame:CGRectMake(10 Wper, 80 Hper, 80 Wper, 55)];
+        _submitButton = [[UIButton alloc]initWithFrame:CGRectMake(10 Wper, 88 Hper, 80 Wper, 55)];
         _submitButton.backgroundColor = MainColor;
         _submitButton.layer.cornerRadius = 10;
         [_submitButton setTitle:@"注册" forState:UIControlStateNormal];
@@ -170,6 +219,14 @@
 }
 -(void)submitAction {
     [(StartNaviVC *)self.parentViewController signUpToLoginVC];
+    [self reset];
 }
-
+-(void)reset{
+    [_addpicButton setImage:[UIImage imageNamed:@"add.png"] forState:UIControlStateNormal];
+    self.nicknameText.text=@"";
+    self.usernameText.text=@"";
+    //self.phoneText.text=@"";
+    self.passwordText.text=@"";
+    self.rePasswordText.text=@"";
+}
 @end

@@ -16,6 +16,7 @@
 @interface SettingRootVC ()
 
 @property (nonatomic, strong) UIButton *modifyButton;
+@property (nonatomic, strong) UIButton *passwordButton;
 
 @end
 
@@ -26,6 +27,7 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = BackColor;
     [self.view addSubview:self.modifyButton];
+    [self.view addSubview:self.passwordButton];
 }
 
 - (UIButton *)modifyButton {
@@ -41,8 +43,24 @@
     }
     return _modifyButton;
 }
+- (UIButton *)passwordButton {
+    if (_passwordButton == nil) {
+        _passwordButton = [[UIButton alloc]initWithFrame:CGRectMake(5 Wper, 14 Hper+10, 90 Wper, 6 Hper)];
+        _passwordButton.backgroundColor = [UIColor whiteColor];
+        UILabel *text = [[UILabel alloc]initWithFrame:CGRectMake(90 Wper * 0.05, 0, 90 Wper * 0.3, 6 Hper)];
+        text.text = @"密码修改";
+        text.textColor = [UIColor blackColor];
+        [_passwordButton addSubview:text];
+        _passwordButton.layer.cornerRadius = 10;
+        [_passwordButton addTarget:self action:@selector(passwordButtonAction) forControlEvents:UIControlEventTouchDown];
+    }
+    return _passwordButton;
+}
 - (void)modifyButtonAction {
     [(SettingVC *)self.parentViewController pushModifyMes];
+}
+- (void)passwordButtonAction {
+    [(SettingVC *)self.parentViewController pushPasswordMes];
 }
 
 @end

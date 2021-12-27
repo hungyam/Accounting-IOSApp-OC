@@ -8,9 +8,9 @@
 #import <UIKit/UIKit.h>
 #import "SettingRootVC.h"
 #import "ModifyMes.h"
-
+#import "ChangePassword.h"
 @interface SettingVC : UINavigationController
 
 - (void)pushModifyMes;
-
+- (void)pushPasswordMes;
 @end
