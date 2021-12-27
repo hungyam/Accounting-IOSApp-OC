@@ -40,7 +40,7 @@
     // Do any additional setup after loading the view.
     NSDate *date = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"YYYY";
+    dateFormatter.dateFormat = @"yyyy";
     selectDateYear = [dateFormatter stringFromDate:date].integerValue;
     dateFormatter.dateFormat = @"MM";
     selectDateMonth = [dateFormatter stringFromDate:date].integerValue;
@@ -63,8 +63,8 @@
 - (void)loadListData {
     self.listData = [[NSMutableArray alloc] init];
     for (int i =30; i > 0; i--) {
-        if (((NSMutableArray *)self.allAccountDataTypeDate[selectDateYear-2020][selectDateMonth-1][i]).count > 0) {
-            [self.listData addObject:self.allAccountDataTypeDate[selectDateYear-2020][selectDateMonth-1][i]];
+        if (((NSMutableArray *)self.allAccountDataTypeDate[selectDateYear-2010][selectDateMonth-1][i]).count > 0) {
+            [self.listData addObject:self.allAccountDataTypeDate[selectDateYear-2010][selectDateMonth-1][i]];
         }
     }
 }
@@ -123,8 +123,8 @@
         if (selectDateMonth == 13) {
             selectDateMonth = 1;
             selectDateYear++;
-            if (selectDateYear == 2022) {
-                selectDateYear = 2021;
+            if (selectDateYear == 2031) {
+                selectDateYear = 2030;
                 selectDateMonth = 12;
                 return;
             }
@@ -134,8 +134,8 @@
         if (selectDateMonth == 0) {
             selectDateMonth = 12;
             selectDateYear--;
-            if (selectDateYear == 2019) {
-                selectDateYear = 2020;
+            if (selectDateYear == 2010) {
+                selectDateYear = 2011;
                 selectDateMonth = 1;
                 return;
             }

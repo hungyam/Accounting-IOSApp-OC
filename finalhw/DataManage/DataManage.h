@@ -9,6 +9,12 @@
 
 /// Structure of user‘s personal information
 @interface PersonalMes : NSObject
+- (instancetype)initWithNickname:(NSString *)nickname
+                         userImg:(UIImage *)userImg
+                         username:(NSString *)username
+                         points:(NSInteger )points
+                         password:(NSString *)password
+                         phone:(NSString *)phone;
 
 @property NSString *nickname;
 @property UIImage *userImg;

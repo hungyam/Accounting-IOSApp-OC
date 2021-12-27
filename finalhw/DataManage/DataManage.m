@@ -10,6 +10,20 @@
 
 @implementation PersonalMes
 
+- (instancetype)initWithNickname:(NSString *)nickname
+                         userImg:(UIImage *)userImg
+                         username:(NSString *)username
+                         points:(NSInteger)points
+                         password:(NSString *)password
+                         phone:(NSString *)phone{
+    self.nickname = nickname;
+    self.userImg = userImg;
+    self.username = username;
+    self.points = points;
+    self.password = password;
+    self.phone = phone;
+    return self;
+}
 @end
 
 @implementation IconType
@@ -469,8 +483,8 @@ static NSString *token;
 }
 
 + (NSMutableArray *)getAllAccountsTypeDate {
-    NSMutableArray *arr = [[NSMutableArray alloc] initWithCapacity:2];
-    for (int i = 0; i < 2; i++) {
+    NSMutableArray *arr = [[NSMutableArray alloc] initWithCapacity:20];
+    for (int i = 0; i < 20; i++) {
         NSMutableArray *year = [[NSMutableArray alloc] initWithCapacity:12];
         for (int j = 0; j < 12; j++) {
             NSMutableArray *month = [[NSMutableArray alloc] initWithCapacity:31];
@@ -486,7 +500,7 @@ static NSString *token;
         NSInteger year = ((AccountType *)allAccounts[i]).dateYear;
         NSInteger month = ((AccountType *)allAccounts[i]).dateMonth;
         NSInteger day = ((AccountType *)allAccounts[i]).dateDay;
-        [arr[year-2020][month-1][day-1] addObject:allAccounts[i]];
+        [arr[year-2010][month-1][day-1] addObject:allAccounts[i]];
     }
     return arr;
 }

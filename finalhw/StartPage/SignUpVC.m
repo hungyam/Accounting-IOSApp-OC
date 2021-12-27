@@ -168,8 +168,32 @@
     }
     return _submitButton;
 }
--(void)submitAction {
-    [(StartNaviVC *)self.parentViewController signUpToLoginVC];
+- (void)submitAction {
+    if ( ![self.rePasswordText.text isEqualToString:self.passwordText.text] ){
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"两次输入的密码不一致" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:cancel];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    PersonalMes* newPerson = [[PersonalMes alloc] initWithNickname:self.nicknameText.text
+                                                 userImg:NULL
+                                                 username:self.usernameText.text
+                                                 points:0
+                                                 password:self.passwordText.text
+                                                 phone:@"11111111111"];
+    if([DataManage signUpUser:newPerson]){
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"注册成功" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"去登录" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [(StartNaviVC *)self.parentViewController signUpToLoginVC];
+        }];
+        [alert addAction:cancel];
+        [self presentViewController:alert animated:YES completion:nil];
+    }else{
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"此用户名已被注册" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:cancel];
+    }
 }
 
 @end
