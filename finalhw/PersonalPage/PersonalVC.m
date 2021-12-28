@@ -58,6 +58,8 @@
     points = mes.points;
     phone=mes.phone;
     password=mes.password;
+    
+    NSLog(@"%@",password);
 }
 
 - (CAGradientLayer *)backLayer {

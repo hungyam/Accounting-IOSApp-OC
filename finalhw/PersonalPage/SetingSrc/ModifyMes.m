@@ -157,7 +157,7 @@
 
 -(void)submitAction {
     PersonalMes *modifyMes = [[PersonalMes alloc]initWithNickname:self.nicknameText.text userImg:userImg username:self.usernameText.text points:points password:password phone:self.phoneText.text];
-    NSLog(@"%@ %@ %@ %@ ",self.nicknameText.text,self.usernameText.text,password,self.phoneText.text);
+    NSLog(@"%@",password);
     Boolean suc=[DataManage modifyPersonalMes:modifyMes];
     if(suc){
         [(SettingVC *)self.parentViewController dismissPresentView];
