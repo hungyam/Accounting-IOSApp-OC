@@ -45,6 +45,7 @@
                    dateMonth:(NSInteger)dateMonth
                      dateDay:(NSInteger)dateDay
                         kind:(BOOL)inOrOut
+                       idStr:(NSString *)idStr
 {
     self.inOrOut = inOrOut;
     self.type = type;
@@ -53,6 +54,7 @@
     self.dateYear = dateYear;
     self.dateMonth = dateMonth;
     self.dateDay = dateDay;
+    self.idStr = idStr;
     return self;
 }
 
@@ -286,7 +288,9 @@ static NSString *token;
     [urlRequest setHTTPMethod:@"PUT"];
     NSString *boundary = @"wfWiEWrgEFA9A78512weF7106A";
     urlRequest.allHTTPHeaderFields = @{@"Content-Type":[NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary]};
-    
+    if (newUser.password == nil) {
+        newUser.password = userInformation.password;
+    }
     NSDictionary *dic = @{
         @"nickname": newUser.nickname,
         @"username": newUser.username,
@@ -396,7 +400,7 @@ static NSString *token;
     
     dispatch_semaphore_wait(signal, DISPATCH_TIME_FOREVER);
     if ([dict[@"code"] integerValue] == 200) {
-        [allAccounts addObject:newAccount];
+        [self loadAllAccounts];
         return YES;
     }
     return NO;
@@ -471,11 +475,50 @@ static NSString *token;
                                                       dateMonth:month
                                                         dateDay:day
                                                            kind:[self getTypeByLabel:dict[@"data"][i][@"type"]]
+                                                          idStr:dict[@"data"][i][@"id"]
         ];
         [allAccounts addObject:account];
     }
     return YES;
 }
+
++ (BOOL)removeAccount:(NSString *)idStr {
+    NSDictionary *dic = @{@"id": idStr};
+
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *delegateFreeSession = [NSURLSession sessionWithConfiguration:defaultConfigObject
+                                                                      delegate:(id)self
+                                                                 delegateQueue:[[NSOperationQueue alloc]init]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://mosad.darkyzhou.net:8888/delete?token=%@",token]];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];
+    [urlRequest setHTTPMethod:@"DELETE"];
+    [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [urlRequest setHTTPBody:[NSJSONSerialization
+            dataWithJSONObject:dic
+                       options:NSJSONWritingPrettyPrinted
+                         error:nil]];
+    __block NSDictionary *dict;
+    dispatch_semaphore_t signal = dispatch_semaphore_create(0);
+    NSURLSessionDataTask *dataTask = [delegateFreeSession
+            dataTaskWithRequest:urlRequest
+              completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                  if (error == nil) {
+                      NSString * text = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+                      NSLog(@"%@",text);
+                      dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                      dispatch_semaphore_signal(signal);
+                  }
+              }];
+    [dataTask resume];
+    
+    dispatch_semaphore_wait(signal, DISPATCH_TIME_FOREVER);
+    if ([dict[@"code"] integerValue] == 200) {
+        [self loadAllAccounts];
+        return YES;
+    }
+    return NO;
+}
+
 
 /// Return All of accounts
 + (NSMutableArray *)getAllAccounts {

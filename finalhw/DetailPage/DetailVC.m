@@ -19,6 +19,7 @@
 @interface DetailVC () {
     NSInteger selectDateYear;
     NSInteger selectDateMonth;
+    CGFloat 
 }
 
 @property (nonatomic, strong) NSMutableArray *allAccountDataTypeDate;
@@ -26,6 +27,7 @@
 
 @property (nonatomic, strong) CAGradientLayer *backLayer;
 @property (nonatomic, strong) UIView *toolArea;
+@property (nonatomic, strong) UILabel *yearLabel;
 @property (nonatomic, strong) UIButton *dateBtn;
 @property (nonatomic, strong) UIView *listArea;
 @property (nonatomic, strong) UITableView *entryList;
@@ -101,6 +103,7 @@
         _toolArea.layer.shadowOpacity = 0.3;
         _toolArea.backgroundColor = [UIColor colorWithWhite:1 alpha:0.6];
         [_toolArea addSubview:self.dateBtn];
+        [_toolArea addSubview:self.yearLabel];
         UIButton *leftBtn = [[UIButton alloc] initWithFrame:CGRectMake(20 ToolAreaSubWper, 10 ToolAreaSubHper, 10 ToolAreaSubWper, 30 ToolAreaSubHper)];
         [leftBtn setImage:[UIImage systemImageNamed:@"chevron.left.2"] forState:UIControlStateNormal];
         [leftBtn setTintColor:[UIColor grayColor]];
@@ -112,6 +115,19 @@
         [rightBtn setTintColor:[UIColor grayColor]];
         rightBtn.tag = 1;
         [rightBtn addTarget:self action:@selector(LRButtonAction:) forControlEvents:UIControlEventTouchDown];
+        
+        UILabel *inLabel = [[UILabel alloc]initWithFrame:CGRectMake(27 ToolAreaSubWper, 46 ToolAreaSubHper, 20 ToolAreaSubWper, 20 ToolAreaSubHper)];
+        inLabel.text = @"支出";
+        inLabel.textColor = [UIColor grayColor];
+        inLabel.font = [UIFont systemFontOfSize:16];
+        
+        UILabel *outLabel = [[UILabel alloc]initWithFrame:CGRectMake(27 ToolAreaSubWper, 66 ToolAreaSubHper, 20 ToolAreaSubWper, 20 ToolAreaSubHper)];
+        outLabel.text = @"收入";
+        outLabel.textColor = [UIColor grayColor];
+        outLabel.font = [UIFont systemFontOfSize:16];
+        
+        [_toolArea addSubview:inLabel];
+        [_toolArea addSubview:outLabel];
         [_toolArea addSubview:leftBtn];
         [_toolArea addSubview:rightBtn];
     }
@@ -143,13 +159,24 @@
     }
     NSArray *month = @[@"一月", @"二月", @"三月", @"四月", @"五月", @"六月", @"七月", @"八月", @"九月", @"十月", @"十一月", @"十二月"];
     [self.dateBtn setTitle:month[selectDateMonth-1] forState:UIControlStateNormal];
+    [self.yearLabel setText:[NSString stringWithFormat:@"%4ld",(long)selectDateYear]];
     [self loadListData];
     [self.entryList reloadData];
 }
 
+- (UILabel *)yearLabel {
+    if (_yearLabel == nil) {
+        _yearLabel = [[UILabel alloc]initWithFrame:CGRectMake(30 ToolAreaSubWper, 8 ToolAreaSubHper, 40 ToolAreaSubWper, 10 ToolAreaSubHper)];
+        _yearLabel.text = [NSString stringWithFormat:@"%4ld",(long)selectDateYear];
+        _yearLabel.textAlignment = NSTextAlignmentCenter;
+        _yearLabel.font = [UIFont systemFontOfSize:12];
+    }
+    return _yearLabel;
+}
+
 - (UIButton *)dateBtn {
     if (_dateBtn == nil) {
-        _dateBtn = [[UIButton alloc] initWithFrame:CGRectMake(30 ToolAreaSubWper, 10 ToolAreaSubHper, 40 ToolAreaSubWper, 30 ToolAreaSubHper)];
+        _dateBtn = [[UIButton alloc] initWithFrame:CGRectMake(30 ToolAreaSubWper, 16 ToolAreaSubHper, 40 ToolAreaSubWper, 30 ToolAreaSubHper)];
         NSArray *month = @[@"一月", @"二月", @"三月", @"四月", @"五月", @"六月", @"七月", @"八月", @"九月", @"十月", @"十一月", @"十二月"];
         [_dateBtn setTitle:month[selectDateMonth-1] forState:UIControlStateNormal];
         [_dateBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
@@ -340,6 +367,7 @@
                                                                                   title:nil
                                                                                 handler:
     ^(UIContextualAction *_Nonnull action, __kindof UIView *_Nonnull sourceView, void (^_Nonnull completionHandler)(BOOL)) {
+        [DataManage removeAccount:[(AccountType *)self.listData[indexPath.section][indexPath.row] idStr]];
         [(NSMutableArray *)self.listData[indexPath.section] removeObjectAtIndex:indexPath.row];
         [self.entryList deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
         if ([(NSMutableArray *)self.listData[indexPath.section] count] == 0) {

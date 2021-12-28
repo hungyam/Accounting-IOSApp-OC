@@ -38,6 +38,7 @@
 /// Structure of account
 @interface AccountType : NSObject
 
+@property NSString *idStr;
 @property BOOL inOrOut;
 @property NSString *type;
 @property NSString *tips;
@@ -53,7 +54,8 @@
                     dateYear:(NSInteger)dateYear
                    dateMonth:(NSInteger)dateMonth
                      dateDay:(NSInteger)dateDay
-                        kind:(BOOL)inOrOut;
+                        kind:(BOOL)inOrOut
+                       idStr:(NSString *)idStr;
 
 @end
 
@@ -67,6 +69,7 @@
 
 + (BOOL)addNewAccount:(AccountType *)newAccount;
 + (BOOL)loadAllAccounts;
++ (BOOL)removeAccount:(NSString *)idStr;
 + (NSMutableArray *)getAllAccounts;
 + (NSMutableArray *)getAllAccountsTypeDate;
 

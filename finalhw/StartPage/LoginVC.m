@@ -195,6 +195,7 @@
     return _submitButton;
 }
 - (void)submitAction {
+    [_submitButton setTitle:@"登录中" forState:UIControlStateNormal];
     if ([DataManage loginUser:self.usernameInput.text password:self.passwordInput.text]) {
         if ([DataManage loadPersonalMes]) {
             [DataManage loadAllAccounts];
@@ -223,7 +224,7 @@
         [alert addAction:cancel];
         [self presentViewController:alert animated:YES completion:nil];
     }
-    
+    [_submitButton setTitle:@"登录" forState:UIControlStateNormal];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {

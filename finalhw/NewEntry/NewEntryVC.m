@@ -219,7 +219,9 @@
                     dateYear:year
                    dateMonth:month
                      dateDay:day
-                        kind:inOrOut];
+                        kind:inOrOut
+                       idStr:nil
+        ];
         [DataManage addNewAccount:newAccount];
         [self reset];
     }
