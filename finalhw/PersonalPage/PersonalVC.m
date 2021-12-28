@@ -32,6 +32,7 @@
 @property (nonatomic, strong) UIView *dashBoard;
 @property (nonatomic, strong) UITableView *funcList;
 @property (nonatomic, strong) SettingVC *settingVC;
+@property (nonatomic, strong) UIViewController *detailVC;
 
 @end
 
@@ -223,7 +224,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {
         case 0:
-            
+            [self presentViewController:self.detailVC animated:YES completion:nil];
             break;
         case 1:
             [self presentViewController:self.settingVC animated:YES completion:nil];
@@ -253,4 +254,23 @@
     }
     return _settingVC;
 }
+
+- (UIViewController *)detailVC {
+    if (_detailVC == nil) {
+        _detailVC = [[UIViewController alloc] init];
+        _detailVC.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
+        [_detailVC.view addSubview:[[UIButton alloc]initWithFrame:CGRectMake(100, 100, 100, 100)]];
+        _detailVC.modalPresentationStyle = UIModalPresentationOverFullScreen;
+        UITapGestureRecognizer *uiTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissDetailVC)];
+        _detailVC.view.userInteractionEnabled = YES;
+        [_detailVC.view addGestureRecognizer:uiTap];
+    }
+    return _detailVC;
+}
+- (void)dismissDetailVC {
+    [self.detailVC dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+
 @end

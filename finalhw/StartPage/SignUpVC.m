@@ -26,7 +26,7 @@
 @property (nonatomic, strong) UILabel *rePasswordLabel;
 @property (nonatomic, strong) UITextView *rePasswordText;
 @property (nonatomic, strong) UIButton *submitButton;
-@property (nonatomic, strong) UIButton *addpicButton;
+@property (nonatomic, strong) UIButton *addPicButton;
 
 @end
 
@@ -36,7 +36,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.view addSubview:self.tips];
-    [self.view addSubview:self.addpicButton];
+    [self.view addSubview:self.addPicButton];
     [self.view addSubview:self.nicknameLabel];
     [self.view addSubview:self.nicknameText];
     [self.view addSubview:self.usernameLabel];
@@ -70,29 +70,29 @@
     }
     return _userImg;
 }
-- (UIButton *)addpicButton {
-    if (_addpicButton == nil) {
-        _addpicButton = [[UIButton alloc] initWithFrame:CGRectMake(7 Wper, 20 Hper, 28 Wper, 28 Wper)];
-        [_addpicButton setImage:[UIImage imageNamed:@"add.png"] forState:UIControlStateNormal];
-        _addpicButton.layer.cornerRadius = 14 Wper;
-        _addpicButton.layer.masksToBounds = YES;
-        _addpicButton.backgroundColor = [UIColor orangeColor];
-        [_addpicButton addTarget:self action:@selector(get_pic:) forControlEvents:UIControlEventTouchUpInside];
+- (UIButton *)addPicButton {
+    if (_addPicButton == nil) {
+        _addPicButton = [[UIButton alloc] initWithFrame:CGRectMake(7 Wper, 20 Hper, 28 Wper, 28 Wper)];
+        [_addPicButton setImage:[UIImage imageNamed:@"add.png"] forState:UIControlStateNormal];
+        _addPicButton.layer.cornerRadius = 14 Wper;
+        _addPicButton.layer.masksToBounds = YES;
+        _addPicButton.backgroundColor = [UIColor orangeColor];
+        [_addPicButton addTarget:self action:@selector(getPic:) forControlEvents:UIControlEventTouchUpInside];
         
     }
-    return _addpicButton;
+    return _addPicButton;
 }
 
--(void)get_pic:(UIButton *) sender{
+-(void)getPic:(UIButton *) sender{
     UIImagePickerController *pickerCtr = [[UIImagePickerController alloc] init];
-        pickerCtr.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        pickerCtr.delegate = self;
+    pickerCtr.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    pickerCtr.delegate = self;
     [self presentViewController: pickerCtr animated:YES completion:nil];
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     UIImage *img = [info objectForKey:UIImagePickerControllerOriginalImage];
-    [_addpicButton setImage:img forState:UIControlStateNormal];
+    [_addPicButton setImage:img forState:UIControlStateNormal];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -217,15 +217,40 @@
     }
     return _submitButton;
 }
--(void)submitAction {
-    [(StartNaviVC *)self.parentViewController signUpToLoginVC];
+- (void)submitAction {
+    if ( ![self.rePasswordText.text isEqualToString:self.passwordText.text] ){
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"两次输入的密码不一致" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:cancel];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    PersonalMes* newPerson = [[PersonalMes alloc] initWithNickname:self.nicknameText.text
+                                                 userImg:self.addPicButton.imageView.image
+                                                 username:self.usernameText.text
+                                                 points:0
+                                                 password:self.passwordText.text
+                                                 phone:self.phoneText.text];
+    if([DataManage signUpUser:newPerson]){
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"注册成功" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"去登录" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [(StartNaviVC *)self.parentViewController signUpToLoginVC];
+        }];
+        [alert addAction:cancel];
+        [self presentViewController:alert animated:YES completion:nil];
+    }else{
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"此用户名已被注册" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:cancel];
+    }
     [self reset];
 }
+
 -(void)reset{
-    [_addpicButton setImage:[UIImage imageNamed:@"add.png"] forState:UIControlStateNormal];
+    [_addPicButton setImage:[UIImage imageNamed:@"add.png"] forState:UIControlStateNormal];
     self.nicknameText.text=@"";
     self.usernameText.text=@"";
-    //self.phoneText.text=@"";
+    self.phoneText.text=@"";
     self.passwordText.text=@"";
     self.rePasswordText.text=@"";
 }

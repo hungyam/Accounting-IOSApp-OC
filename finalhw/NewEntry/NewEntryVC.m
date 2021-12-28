@@ -200,7 +200,7 @@
     }else {
         NSDate *date = self.datePicker.date;
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        dateFormatter.dateFormat = @"YYYY";
+        dateFormatter.dateFormat = @"yyyy";
         NSInteger year = [dateFormatter stringFromDate:date].integerValue;
         dateFormatter.dateFormat = @"MM";
         NSInteger month = [dateFormatter stringFromDate:date].integerValue;
@@ -381,7 +381,7 @@
 - (void)resetDateLabel {
     NSDate *theDate = self.datePicker.date;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"YYYY-MM-dd";
+    dateFormatter.dateFormat = @"yyyy-MM-dd";
     self.dateLabel.text = [NSString stringWithFormat:@"> %@", [dateFormatter stringFromDate:theDate]];
 }
 
