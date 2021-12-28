@@ -10,6 +10,4 @@
 
 @interface DetailVC : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-- (instancetype)initWithIndex:(NSInteger)index;
-
 @end

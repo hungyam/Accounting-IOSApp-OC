@@ -48,6 +48,23 @@
     [self.view addSubview:self.userArea];
     [self.view addSubview:self.dashBoard];
     [self.view addSubview:self.funcList];
+    UIButton *settingBtn = [[UIButton alloc]init];
+    settingBtn.titleLabel.text = @"nihao";
+    UIButton *signOutBtn = [[UIButton alloc]init];
+    
+    UIBarButtonItem *btnItemLeft = [[UIBarButtonItem alloc] initWithCustomView:settingBtn];
+    UIBarButtonItem *btnItemRight = [[UIBarButtonItem alloc] initWithCustomView:signOutBtn];
+    self.navigationItem.leftBarButtonItems = @[btnItemLeft, btnItemRight];
+}
+
+- (void)resetMes{
+    [self loadUserMes];
+    self.userImgView.image = userImg;
+    self.nicknameLabel.text = nickname;
+    self.usernameLabel.text = username;
+    self.usernameLabel.text = username;
+    self.phoneLabel.text = phone;
+    self.pointsText.text = [NSString stringWithFormat:@"%ld", (long)points];
 }
 
 - (void)loadUserMes {
@@ -58,8 +75,6 @@
     points = mes.points;
     phone=mes.phone;
     password=mes.password;
-    
-    NSLog(@"%@",password);
 }
 
 - (CAGradientLayer *)backLayer {

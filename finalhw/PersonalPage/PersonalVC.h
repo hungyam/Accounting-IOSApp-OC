@@ -12,5 +12,6 @@
 
 @interface PersonalVC : UIViewController <UITableViewDelegate, UITableViewDataSource>
 - (void)loadUserMes;
+- (void)resetMes;
 
 @end

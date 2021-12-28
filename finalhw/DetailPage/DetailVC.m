@@ -411,6 +411,9 @@
             [self.listData removeObjectAtIndex:indexPath.section];
             [self.entryList deleteSections:[[NSIndexSet alloc] initWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
+        [self loadListData];
+        self.inTotalLabel.text = [NSString stringWithFormat:@"%.2f",inTotal];
+        self.outTotalLabel.text = [NSString stringWithFormat:@"%.2f",outTotal];
         completionHandler(YES);
     }];
     deleteRowAction.image = [UIImage systemImageNamed:@"trash"];

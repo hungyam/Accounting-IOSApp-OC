@@ -160,6 +160,7 @@
     NSLog(@"%@",password);
     Boolean suc=[DataManage modifyPersonalMes:modifyMes];
     if(suc){
+        [(PersonalVC *)self.parentViewController.parentViewController resetMes];
         [(SettingVC *)self.parentViewController dismissPresentView];
     }
     else{
