@@ -128,6 +128,9 @@ static NSString *token;
     dispatch_semaphore_wait(signal, DISPATCH_TIME_FOREVER);
     if ([dict[@"code"] integerValue] == 200) {
         token = dict[@"token"];
+        userInformation =  [[PersonalMes alloc]init];
+        userInformation.username = username;
+        userInformation.password = password;
         flag = YES;
     }else{
         flag = NO;
@@ -253,12 +256,9 @@ static NSString *token;
     if ([dict[@"code"] intValue] == 401) {
         return NO;
     }
-    userInformation =  [[PersonalMes alloc]init];
-    userInformation.username = dict[@"username"];
     userInformation.points = [dict[@"points"] intValue];
     userInformation.nickname = dict[@"nickname"];
     userInformation.userImg = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:dict[@"imgUrl"]]]];
-    userInformation.password = nil;
     userInformation.phone = dict[@"phone"];
     return YES;
 }

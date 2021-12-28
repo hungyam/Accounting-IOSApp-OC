@@ -19,7 +19,8 @@
 @interface DetailVC () {
     NSInteger selectDateYear;
     NSInteger selectDateMonth;
-    CGFloat 
+    CGFloat inTotal;
+    CGFloat outTotal;
 }
 
 @property (nonatomic, strong) NSMutableArray *allAccountDataTypeDate;
@@ -32,6 +33,8 @@
 @property (nonatomic, strong) UIView *listArea;
 @property (nonatomic, strong) UITableView *entryList;
 
+@property (nonatomic, strong) UILabel *inTotalLabel;
+@property (nonatomic, strong) UILabel *outTotalLabel;
 
 @end
 
@@ -50,7 +53,6 @@
     [self loadListData];
     self.view.backgroundColor = [UIColor colorWithRed:248/255.0 green:248/255.0 blue:248/255.0 alpha:1];
     [self.view.layer addSublayer:self.backLayer];
-//    [self.view addSubview:self.lastestArea];
     [self.view addSubview:self.listArea];
     [self.view addSubview:self.toolArea];
     [self.navigationController setNavigationBarHidden:YES animated:nil];
@@ -60,13 +62,24 @@
     self.allAccountDataTypeDate = [DataManage getAllAccountsTypeDate];
     [self loadListData];
     [self.entryList reloadData];
+    self.inTotalLabel.text = [NSString stringWithFormat:@"%.2f",inTotal];
+    self.outTotalLabel.text = [NSString stringWithFormat:@"%.2f",outTotal];
 }
 
 - (void)loadListData {
+    inTotal = 0;
+    outTotal = 0;
     self.listData = [[NSMutableArray alloc] init];
-    for (int i =30; i > 0; i--) {
+    for (int i = 30; i > 0; i--) {
         if (((NSMutableArray *)self.allAccountDataTypeDate[selectDateYear-2010][selectDateMonth-1][i]).count > 0) {
             [self.listData addObject:self.allAccountDataTypeDate[selectDateYear-2010][selectDateMonth-1][i]];
+            for (int j = 0; j < ((NSMutableArray *)self.allAccountDataTypeDate[selectDateYear-2010][selectDateMonth-1][i]).count; j++) {
+                if ([(AccountType *)self.allAccountDataTypeDate[selectDateYear-2010][selectDateMonth-1][i][j] inOrOut]) {
+                    inTotal += [(AccountType *)self.allAccountDataTypeDate[selectDateYear-2010][selectDateMonth-1][i][j] amount];
+                }else {
+                    outTotal += [(AccountType *)self.allAccountDataTypeDate[selectDateYear-2010][selectDateMonth-1][i][j] amount];
+                }
+            }
         }
     }
 }
@@ -126,6 +139,8 @@
         outLabel.textColor = [UIColor grayColor];
         outLabel.font = [UIFont systemFontOfSize:16];
         
+        [_toolArea addSubview:self.inTotalLabel];
+        [_toolArea addSubview:self.outTotalLabel];
         [_toolArea addSubview:inLabel];
         [_toolArea addSubview:outLabel];
         [_toolArea addSubview:leftBtn];
@@ -161,6 +176,8 @@
     [self.dateBtn setTitle:month[selectDateMonth-1] forState:UIControlStateNormal];
     [self.yearLabel setText:[NSString stringWithFormat:@"%4ld",(long)selectDateYear]];
     [self loadListData];
+    self.inTotalLabel.text = [NSString stringWithFormat:@"%.2f",inTotal];
+    self.outTotalLabel.text = [NSString stringWithFormat:@"%.2f",outTotal];
     [self.entryList reloadData];
 }
 
@@ -183,6 +200,26 @@
         _dateBtn.titleLabel.font = [UIFont systemFontOfSize:27 weight:UIFontWeightBold];
     }
     return _dateBtn;
+}
+
+- (UILabel *)inTotalLabel {
+    if (_inTotalLabel == nil) {
+        _inTotalLabel = [[UILabel alloc]initWithFrame:CGRectMake(60 ToolAreaSubWper, 46 ToolAreaSubHper, 20 ToolAreaSubWper, 20 ToolAreaSubHper)];
+        _inTotalLabel.text = [NSString stringWithFormat:@"%.2f",inTotal];
+        _inTotalLabel.textColor = [UIColor grayColor];
+        _inTotalLabel.font = [UIFont systemFontOfSize:16];
+    }
+    return _inTotalLabel;
+}
+
+- (UILabel *)outTotalLabel {
+    if (_outTotalLabel == nil) {
+        _outTotalLabel = [[UILabel alloc]initWithFrame:CGRectMake(60 ToolAreaSubWper, 66 ToolAreaSubHper, 20 ToolAreaSubWper, 20 ToolAreaSubHper)];
+        _outTotalLabel.text = [NSString stringWithFormat:@"%.2f",outTotal];
+        _outTotalLabel.textColor = [UIColor grayColor];
+        _outTotalLabel.font = [UIFont systemFontOfSize:16];
+    }
+    return _outTotalLabel;
 }
 
 - (UIView *)listArea {
