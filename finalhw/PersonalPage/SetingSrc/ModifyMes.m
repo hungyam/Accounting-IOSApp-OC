@@ -59,7 +59,7 @@
         _addpicButton.layer.masksToBounds = YES;
         _addpicButton.backgroundColor = [UIColor orangeColor];
         [_addpicButton setImage:userImg forState:UIControlStateNormal];
-        [_addpicButton addTarget:self action:@selector(get_pic:) forControlEvents:UIControlEventTouchUpInside];
+        [_addpicButton addTarget:self action:@selector(getPic:) forControlEvents:UIControlEventTouchUpInside];
         
     }
     return _addpicButton;
