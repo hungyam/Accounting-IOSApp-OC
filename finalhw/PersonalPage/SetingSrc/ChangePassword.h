@@ -12,6 +12,7 @@
 #endif /* ChangePassword_h */
 #import <UIKit/UIKit.h>
 
+#import "DataManage.h"
 @interface ChangePassword : UIViewController
 
 
