@@ -11,6 +11,6 @@
 
 
 @interface PersonalVC : UIViewController <UITableViewDelegate, UITableViewDataSource>
-
+- (void)loadUserMes;
 
 @end

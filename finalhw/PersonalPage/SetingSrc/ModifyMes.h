@@ -9,6 +9,6 @@
 
 #import "DataManage.h"
 @interface ModifyMes : UIViewController
-
-
+- (void)loadUserMes;
+- (void)reset;
 @end

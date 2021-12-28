@@ -7,6 +7,7 @@
 
 #import "ModifyMes.h"
 #import "PersonalVC.h"
+#import "SettingVC.h"
 #define BackColor [UIColor colorWithRed:242/255.0 green:242/255.0 blue:247/255.0 alpha:1]
 #define MainColor [UIColor colorWithRed:244/255.0 green:92/255.0 blue:99/255.0 alpha:1]
 #define Wper *self.view.bounds.size.width/100
@@ -17,15 +18,14 @@
     UIImage *userImg;
     NSString *username;
     NSString *phone;
+    NSInteger points;
+    NSString *password;
+    
 }
 
-@property (nonatomic, strong) UILabel *nicknameLabel;
 @property (nonatomic, strong) UITextView *nicknameText;
-@property (nonatomic, strong) UILabel *usernameLabel;
 @property (nonatomic, strong) UITextView *usernameText;
-@property (nonatomic, strong) UILabel *phoneLabel;
 @property (nonatomic, strong) UITextView *phoneText;
-@property (nonatomic, strong) UIButton *submitButton;
 @property (nonatomic, strong) UIButton *addpicButton;
 
 @end
@@ -36,12 +36,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadUserMes];
+    [self reset];
     self.view.backgroundColor = BackColor;
     self.navigationController.navigationBar.tintColor = MainColor;
     [self.view addSubview: self.addpicButton];
     [self.view addSubview: self.nicknameText];
     [self.view addSubview: self.usernameText];
     [self.view addSubview: self.phoneText];
+    
+    UIButton *btn = [[UIButton alloc]init];
+    [btn setTitle:@"完成" forState:UIControlStateNormal];
+    [btn setTitleColor:MainColor forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(submitAction) forControlEvents:UIControlEventTouchDown];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
+    self.navigationItem.rightBarButtonItems = @[item];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [self loadUserMes];
+    [self reset];
 }
 
 - (void)loadUserMes {
@@ -49,7 +62,25 @@
     nickname = mes.nickname;
     userImg = mes.userImg;
     username = mes.username;
+    points = mes.points;
     phone=mes.phone;
+    password=mes.password;
+}
+
+-(void)reset{
+    
+    self.phoneText.text=phone;
+    [self.addpicButton setImage:userImg forState:UIControlStateNormal];
+    self.nicknameText.text=nickname;
+    self.usernameText.text=username;
+    [self.addpicButton setImage:userImg forState:UIControlStateNormal];
+    self.phoneText.text=phone;
+    self.nicknameText.text=nickname;
+    self.usernameText.text=username;
+    [self.addpicButton setImage:userImg forState:UIControlStateNormal];
+    self.phoneText.text=phone;
+    self.nicknameText.text=nickname;
+    self.usernameText.text=username;
 }
 
 - (UIButton *)addpicButton {
@@ -58,35 +89,23 @@
         _addpicButton.layer.cornerRadius = 14 Wper;
         _addpicButton.layer.masksToBounds = YES;
         _addpicButton.backgroundColor = [UIColor orangeColor];
-        [_addpicButton setImage:userImg forState:UIControlStateNormal];
         [_addpicButton addTarget:self action:@selector(getPic:) forControlEvents:UIControlEventTouchUpInside];
-        
     }
     return _addpicButton;
 }
-
--(void)get_pic:(UIButton *) sender{
+-(void)getPic:(UIButton *) sender{
     UIImagePickerController *pickerCtr = [[UIImagePickerController alloc] init];
-        pickerCtr.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        pickerCtr.delegate = self;
+    pickerCtr.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    pickerCtr.delegate = self;
     [self presentViewController: pickerCtr animated:YES completion:nil];
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    UIImage *img = [info objectForKey:UIImagePickerControllerOriginalImage];
-    userImg=img;
+    userImg=[info objectForKey:UIImagePickerControllerOriginalImage];
     [_addpicButton setImage:userImg forState:UIControlStateNormal];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (UILabel *)nicknameLabel {
-    if (_nicknameLabel == nil) {
-        _nicknameLabel = [[UILabel alloc]initWithFrame:CGRectMake(8 Wper, 35 Hper, 150, 30)];
-        _nicknameLabel.text = @"昵称";
-        _nicknameLabel.textColor = MainColor;
-    }
-    return _nicknameLabel;
-}
 
 - (UITextView *)nicknameText {
     if (_nicknameText == nil) {
@@ -99,19 +118,11 @@
         _nicknameText.backgroundColor = [UIColor clearColor];
         [_nicknameText.layer addSublayer:layer];
         [_nicknameText setScrollEnabled:NO];
-        _nicknameText.text=nickname;
     }
     return _nicknameText;
 }
 
-- (UILabel *)usernameLabel {
-    if (_usernameLabel == nil) {
-        _usernameLabel = [[UILabel alloc]initWithFrame:CGRectMake(8 Wper, 43 Hper, 150, 30)];
-        _usernameLabel.text = @"用户名";
-        _usernameLabel.textColor = MainColor;
-    }
-    return _usernameLabel;
-}
+
 
 - (UITextView *)usernameText {
     if (_usernameText == nil) {
@@ -124,7 +135,6 @@
         _usernameText.backgroundColor = [UIColor clearColor];
         [_usernameText.layer addSublayer:layer];
         [_usernameText setScrollEnabled:NO];
-        _usernameText.text=username;
     }
     return _usernameText;
 }
@@ -141,29 +151,25 @@
         _phoneText.backgroundColor = [UIColor clearColor];
         [_phoneText.layer addSublayer:layer];
         [_phoneText setScrollEnabled:NO];
-        _phoneText.text=phone;
     }
     return _phoneText;
 }
 
-- (UIButton *)submitButton {
-    if (_submitButton == nil) {
-        _submitButton = [[UIButton alloc]initWithFrame:CGRectMake(10 Wper, 80 Hper, 80 Wper, 55)];
-        _submitButton.backgroundColor = MainColor;
-        _submitButton.layer.cornerRadius = 10;
-        [_submitButton setTitle:@"注册" forState:UIControlStateNormal];
-        [_submitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_submitButton addTarget:self action:@selector(submitAction) forControlEvents:UIControlEventTouchDown];
-    }
-    return _submitButton;
-}
 -(void)submitAction {
-    [self reset];
-}
--(void)reset{
-    [_addpicButton setImage:[UIImage imageNamed:@"add.png"] forState:UIControlStateNormal];
-    self.nicknameText.text=@"";
-    self.usernameText.text=@"";
-    //self.phoneText.text=@"";
+    PersonalMes *modifyMes = [[PersonalMes alloc]initWithNickname:self.nicknameText.text userImg:userImg username:self.usernameText.text points:points password:password phone:self.phoneText.text];
+    NSLog(@"%@ %@ %@ %@ ",self.nicknameText.text,self.usernameText.text,password,self.phoneText.text);
+    Boolean suc=[DataManage modifyPersonalMes:modifyMes];
+    if(suc){
+        [(SettingVC *)self.parentViewController dismissPresentView];
+    }
+    else{
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"修改失败-用户名已被使用" preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:cancel];
+        [self presentViewController:alert animated:YES completion:nil];
+        
+    }
+    
+    
 }
 @end

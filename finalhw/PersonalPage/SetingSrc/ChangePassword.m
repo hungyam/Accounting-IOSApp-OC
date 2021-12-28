@@ -90,4 +90,12 @@
     }
     return _newPasswordText;
 }
+
+-(Boolean)judge{
+    [self loadUserMes];
+    if(password==self.passwordText.text){
+        return YES;
+    }
+    return NO;
+}
 @end

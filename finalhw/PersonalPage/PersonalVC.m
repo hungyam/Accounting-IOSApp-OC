@@ -27,6 +27,7 @@
     @property (nonatomic, strong) UIImageView *userImgView;
     @property (nonatomic, strong) UILabel *nicknameLabel;
     @property (nonatomic, strong) UILabel *usernameLabel;
+    @property (nonatomic, strong) UILabel *phoneLabel;
     @property (nonatomic, strong) UILabel *pointsLabel;
     @property (nonatomic, strong) UILabel *pointsText;
 @property (nonatomic, strong) UIView *dashBoard;
@@ -90,6 +91,7 @@
         [_userArea addSubview:self.userImgView];
         [_userArea addSubview:self.nicknameLabel];
         [_userArea addSubview:self.usernameLabel];
+        [_userArea addSubview:self.phoneLabel];
         [_userArea addSubview:self.pointsLabel];
         [_userArea addSubview:self.pointsText];
     }
@@ -127,6 +129,16 @@
     return _usernameLabel;
 }
 
+- (UILabel *)phoneLabel {
+    if (_phoneLabel == nil) {
+        _phoneLabel = [[UILabel alloc]initWithFrame:CGRectMake(40 LastestSubWper, 45 LastestSubHper, 50 LastestSubWper, 15 LastestSubHper)];
+        _phoneLabel.text = phone;
+        _phoneLabel.textColor = [UIColor grayColor];
+        _phoneLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightThin];
+    }
+    return _phoneLabel;
+}
+
 -(UILabel *)pointsLabel {
     if (_pointsLabel == nil) {
         _pointsLabel = [[UILabel alloc]initWithFrame:CGRectMake(35 LastestSubWper, 71 LastestSubHper, 30 LastestSubWper, 12 LastestSubHper)];
@@ -137,6 +149,7 @@
     }
     return _pointsLabel;
 }
+
 
 - (UILabel *)pointsText {
     if (_pointsText == nil) {
@@ -165,7 +178,7 @@
 
 - (UITableView *)funcList {
     if (_funcList == nil) {
-        _funcList = [[UITableView alloc]initWithFrame:CGRectMake(5 Wper, 65 Hper, 90 Wper, 21 Hper)];
+        _funcList = [[UITableView alloc]initWithFrame:CGRectMake(5 Wper, 65 Hper, 90 Wper, 14 Hper)];
         _funcList.backgroundColor = [UIColor whiteColor];
         _funcList.layer.cornerRadius = 10;
         _funcList.layer.shadowColor = [UIColor grayColor].CGColor;
@@ -186,7 +199,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return 2;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell * cell = [[UITableViewCell alloc]initWithFrame:CGRectMake(0, 0, 90 Wper, 7 Hper)];
@@ -199,11 +212,6 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     switch (indexPath.row) {
         case 0:
-            img.image = [UIImage imageNamed:@"detailIcon.png"];
-            label.text = @"个人资料";
-            cell.separatorInset = UIEdgeInsetsMake(0, 2 Wper + 7 Hper, 0, 0);
-            break;
-        case 1:
             img.image = [UIImage imageNamed:@"settingIcon.png"];
             label.text = @"设置";
             cell.separatorInset = UIEdgeInsetsMake(0, 2 Wper + 7 Hper, 0, 0);
@@ -224,9 +232,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {
         case 0:
-            [self presentViewController:self.detailVC animated:YES completion:nil];
-            break;
-        case 1:
             [self presentViewController:self.settingVC animated:YES completion:nil];
             break;
         default:
