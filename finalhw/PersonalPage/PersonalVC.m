@@ -56,15 +56,19 @@
     UIBarButtonItem *btnItemRight = [[UIBarButtonItem alloc] initWithCustomView:signOutBtn];
     self.navigationItem.leftBarButtonItems = @[btnItemLeft, btnItemRight];
 }
-
 - (void)resetMes{
     [self loadUserMes];
+    NSLog(@"aaa");
     self.userImgView.image = userImg;
     self.nicknameLabel.text = nickname;
     self.usernameLabel.text = username;
     self.usernameLabel.text = username;
     self.phoneLabel.text = phone;
     self.pointsText.text = [NSString stringWithFormat:@"%ld", (long)points];
+
+}
+- (void)test{
+    NSLog(@"aaa0");
 }
 
 - (void)loadUserMes {

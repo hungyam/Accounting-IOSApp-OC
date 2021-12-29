@@ -10,7 +10,8 @@
 #import "ModifyMes.h"
 #import "ChangePassword.h"
 @interface SettingVC : UINavigationController
-- (void)dismissPresentView ;
 - (void)pushModifyMes;
 - (void)pushPasswordMes;
+-(void)resetpre;
+-(void)poptosettingview;
 @end

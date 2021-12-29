@@ -6,6 +6,7 @@
 //
 
 #import "SettingVC.h"
+#import "PersonalVC.h"
 #define MainColor [UIColor colorWithRed:244/255.0 green:92/255.0 blue:99/255.0 alpha:1]
 
 @interface SettingVC ()
@@ -54,6 +55,7 @@
 }
 
 - (void)dismissPresentView {
+    [(PersonalVC *)self.parentViewController resetMes];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -62,6 +64,16 @@
 }
 - (void)pushPasswordMes {
     [self pushViewController:self.passwordVC animated:YES];
+}
+
+-(void)poptosettingview{
+    [self popToRootViewControllerAnimated:YES];
+}
+
+-(void)resetpre{
+    [(PersonalVC *)self.parentViewController test];
+    [(PersonalVC *)self.parentViewController resetMes];
+    NSLog(@"%@",[DataManage getPersonalMes].nickname );
 }
 
 

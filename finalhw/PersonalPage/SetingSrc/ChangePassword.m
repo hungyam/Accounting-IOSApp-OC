@@ -14,9 +14,7 @@
 #define Wper *self.view.bounds.size.width/100
 #define Hper *self.view.bounds.size.height/100
 
-@interface ChangePassword (){
-    NSString *password;
-}
+@interface ChangePassword ()
 
 @property (nonatomic, strong) UILabel *passwordLabel;
 @property (nonatomic, strong) UITextView *passwordText;
@@ -36,11 +34,17 @@
     [self.view addSubview:self.passwordText];
     [self.view addSubview:self.newPasswordLabel];
     [self.view addSubview:self.newPasswordText];
+    
+    UIButton *btn = [[UIButton alloc]init];
+    [btn setTitle:@"完成" forState:UIControlStateNormal];
+    [btn setTitleColor:MainColor forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(submitAction) forControlEvents:UIControlEventTouchDown];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithCustomView:btn];
+    self.navigationItem.rightBarButtonItems = @[item];
 }
-
-- (void)loadUserMes {
-    PersonalMes *mes = [DataManage getPersonalMes];
-    password = mes.password;
+-(void)viewWillAppear:(BOOL)animated{
+    self.passwordText.text=@"";
+    self.newPasswordText.text=@"";
 }
 
 - (UILabel *)passwordLabel {
@@ -92,10 +96,30 @@
 }
 
 -(Boolean)judge{
-    [self loadUserMes];
-    if(password==self.passwordText.text){
+    if([DataManage loginUser:[DataManage getPersonalMes].username password:self.passwordText.text]){
         return YES;
     }
     return NO;
+}
+
+-(void)submitAction {
+    PersonalMes *modifyMes = [[PersonalMes alloc]initWithNickname:[DataManage getPersonalMes].nickname userImg:[DataManage getPersonalMes].userImg username:[DataManage getPersonalMes].username points:[DataManage getPersonalMes].points password:self.newPasswordText.text phone:[DataManage getPersonalMes].phone];
+    if(![self judge]){
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"原密码错误" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:nil];
+            [alert addAction:cancel];
+            [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    Boolean suc=[DataManage modifyPersonalMes:modifyMes];
+    if(suc){
+        [(SettingVC *)self.parentViewController poptosettingview];
+    }
+    else{
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"保存失败" preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:cancel];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 @end

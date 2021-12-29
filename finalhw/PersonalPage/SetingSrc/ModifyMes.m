@@ -6,7 +6,6 @@
 //
 
 #import "ModifyMes.h"
-#import "PersonalVC.h"
 #import "SettingVC.h"
 #define BackColor [UIColor colorWithRed:242/255.0 green:242/255.0 blue:247/255.0 alpha:1]
 #define MainColor [UIColor colorWithRed:244/255.0 green:92/255.0 blue:99/255.0 alpha:1]
@@ -157,20 +156,16 @@
 
 -(void)submitAction {
     PersonalMes *modifyMes = [[PersonalMes alloc]initWithNickname:self.nicknameText.text userImg:userImg username:self.usernameText.text points:points password:password phone:self.phoneText.text];
-    NSLog(@"%@",password);
     Boolean suc=[DataManage modifyPersonalMes:modifyMes];
     if(suc){
-        [(PersonalVC *)self.parentViewController.parentViewController resetMes];
-        [(SettingVC *)self.parentViewController dismissPresentView];
+        [(SettingVC *)self.parentViewController resetpre];
+        [(SettingVC *)self.parentViewController poptosettingview];
     }
     else{
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"修改失败-用户名已被使用" preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:nil];
         [alert addAction:cancel];
         [self presentViewController:alert animated:YES completion:nil];
-        
     }
-    
-    
 }
 @end
